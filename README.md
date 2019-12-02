@@ -68,7 +68,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 =======
-# MMF
+# manage-my-finances
 A customized app that will improve the management of my husband's finances
 
 This app is still "in progress".
