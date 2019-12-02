@@ -1,0 +1,12 @@
+form {
+  margin: 2rem 2rem 2rem 2rem;
+}
+
+label, input {
+  display: block;
+  margin: 1rem;
+}
+
+label {
+    margin-bottom: 20px;
+}
