@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import moment from "moment";
 import CurrencyFormat from "react-currency-format";
 import AccountDataService from "../../api/AccountDataService.js";
-import AuthenticationService from "../authentication/AuthenticationService";
+import AuthenticationService from "../../components/authentication/AuthenticationService.js";
 import "./Accounts.css";
-import Cube from "../Cube";
+import Cube from "./Cube";
 
 class AccountsBalanceList extends Component {
   constructor(props) {

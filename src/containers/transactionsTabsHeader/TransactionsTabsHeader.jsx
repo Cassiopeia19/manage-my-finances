@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classnames from "classnames";
-import "./TransactionsHeader.css";
+import "./TransactionsTabsHeader.css";
 import {
   TabContent,
   TabPane,
@@ -10,10 +10,10 @@ import {
   Row,
   Col
 } from "reactstrap";
-import TransactionsList from "../ui/transactions/TransactionsList.jsx";
-import AddTransaction from "../ui/transactions/AddTransaction.jsx";
-import UpdateDeleteTransactions from "../ui/transactions/UpdateDeleteTransactions.jsx";
-import Archive from "../ui/transactions/Archive.jsx";
+import TransactionsList from "../../ui/transactions/transactionsList/TransactionsList.jsx";
+import AddTransaction from "../../ui/transactions/AddTransaction.jsx";
+import UpdateDeleteTransactions from "../../ui/transactions/UpdateDeleteTransactions.jsx";
+import Archive from "../../ui/transactions/Archive.jsx";
 
 const TransactionsHeader = props => {
   const [activeTab, setActiveTab] = useState("transactionsList");

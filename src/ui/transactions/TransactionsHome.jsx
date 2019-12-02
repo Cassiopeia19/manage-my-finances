@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import TransactionsHeader from "../../containers/TransactionsHeader";
+import TransactionsTabsHeader from "../../containers/transactionsTabsHeader/TransactionsTabsHeader.jsx";
 import "./Transactions.css";
 
 class TransactionsHome extends Component {
   render() {
     return (
       <div id="backgroundImage">
-        <TransactionsHeader />
+        <TransactionsTabsHeader />
       </div>
     );
   }
