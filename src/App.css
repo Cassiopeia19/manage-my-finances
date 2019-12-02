@@ -1,3 +1,15 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #0b2c0b;
+}
+
+.bg-custom {
+  background: #134c13;
+}
+
 .App {
   text-align: center;
 }
@@ -11,8 +23,30 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  position: fixed;
 }
 
-.App-link {
-  color: #09d3ac;
+/* @import url('https://fonts.googleapis.com-/css?family=Montserrat:400,700|Open+Sans&display=swap');
+
+:root {
+  --primaryColor: #5fb7ea;
+  --primaryRGBA: rgba(0,0,0,0.3);
+  --mainGrey: #fafafa;
+  --darkGrey: #5f5e5e;
+  --mainWhite: #fff;
+  --mainBlack: #222;
+  --mainTransition: all 0.3s ease-in-out;
+  --mainSpacing: 0.3rem;
 }
+
+.text-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  letter-spacing: var(--mainSpacing);
+  text-transform: capitalize;
+}
+
+.text-main {
+  color: var(--primaryColor);
+}
+ */

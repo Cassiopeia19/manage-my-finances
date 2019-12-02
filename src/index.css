@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.login {
+background-image: url('./assets/images//beliz.png');
+background-size: contain;
+height: 680px;
+padding: 10px;
+}
+
+.bg2-custom {
+   background: #0f3c0f;
+    color: #ecfaec;
+    padding: 20px;
+}
+
+.welcome {
+  color: white;
+  background-color: black;
+}
