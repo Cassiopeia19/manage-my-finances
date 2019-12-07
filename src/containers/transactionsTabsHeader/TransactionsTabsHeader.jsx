@@ -11,7 +11,7 @@ import {
   Col
 } from "reactstrap";
 import TransactionsList from "../../ui/transactions/transactionsList/TransactionsList.jsx";
-import AddTransaction from "../../ui/transactions/AddTransaction.jsx";
+import AddTransaction from "../../ui/transactions/addTransaction/AddTransaction.jsx";
 import UpdateDeleteTransactions from "../../ui/transactions/UpdateDeleteTransactions.jsx";
 import Archive from "../../ui/transactions/Archive.jsx";
 

@@ -11,7 +11,7 @@ import Accounts from "../../ui/accounts/Accounts.jsx";
 import Vacations from "../../ui/vacations/Vacations.jsx";
 import TransactionsHome from "../../ui/transactions/TransactionsHome";
 import TransactionsList from "../../ui/transactions/transactionsList/TransactionsList.jsx";
-import AddTransaction from "../../ui/transactions/AddTransaction";
+import AddTransaction from "../../ui/transactions/addTransaction/AddTransaction";
 import UpdateDeleteTransactions from "../../ui/transactions/UpdateDeleteTransactions";
 import Reports from "../../ui/reports/Reports.jsx";
 import Login from "../../ui/login/Login.jsx";

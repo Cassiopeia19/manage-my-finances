@@ -6,7 +6,7 @@ class Form extends Component {
   state = {
     firstName: "",
     lastName: "",
-    people: []
+    reportInfo: []
   };
 
   handleChange = event => {
