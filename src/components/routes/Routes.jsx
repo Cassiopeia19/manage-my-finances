@@ -15,6 +15,7 @@ import AddTransaction from "../../ui/transactions/addTransaction/AddTransaction"
 import UpdateDeleteTransactions from "../../ui/transactions/UpdateDeleteTransactions";
 import Reports from "../../ui/reports/Reports.jsx";
 import Login from "../../ui/login/Login.jsx";
+import BudgetCalculator from '../../ui/budgetCalculator/BudgetCalculator';
 
 class Routes extends Component {
   render() {
@@ -37,6 +38,10 @@ class Routes extends Component {
               <AuthenticatedRoute
                 path="/accounts"
                 component={AccountsBalanceList}
+              />
+              <AuthenticatedRoute
+                path="/budget-calculator"
+                component={BudgetCalculator}
               />
               <AuthenticatedRoute
                 path="/transactions-home"

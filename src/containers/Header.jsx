@@ -15,7 +15,7 @@ class Header extends Component {
         {/* not sure of how to get the black dot left of the logo to disappear?? */}
         <nav
           className="navbar navbar-expand-md navbar-dark bg-custom"
-          style={{ fontSize: "22px" }}
+          style={{ fontSize: "24px" }}
         >
           <div>
             {isUserLoggedIn && (
@@ -31,6 +31,13 @@ class Header extends Component {
               <li>
                 <Link className="nav-link" to="/accounts">
                   Accounts
+                </Link>
+              </li>
+            )}
+            {isUserLoggedIn && (
+              <li>
+                <Link className="nav-link" to="/budget-calculator">
+                  Budget Calculator
                 </Link>
               </li>
             )}

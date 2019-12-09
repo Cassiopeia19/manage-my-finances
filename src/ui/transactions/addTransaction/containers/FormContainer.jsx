@@ -1,11 +1,11 @@
 /* eslint-disable no-lone-blocks */
 
-import React, {Component, useState} from 'react';   
-import TextArea from '../components/TextArea';  
-import Select from '../components/Select';
-import Button from '../components/Button'
+import React, { Component } from "react";
+import TextArea from "../components/formContainer/TextArea";
+import Select from "../components/formContainer/Select";
+import Button from "../components/formContainer/Button";
 import CurrencyInput from "react-currency-input";
-import DatePicker from "react-datepicker"
+import { Form } from "react-bootstrap";
 
 export default class FormContainer extends Component {
                  constructor(props) {
@@ -53,9 +53,9 @@ export default class FormContainer extends Component {
                      ]
                    };
 
-                  //  this.handleTransactionDate = this.handleTransactionDate.bind(
-                  //    this
-                  //  );
+                   this.handleTransactionDate = this.handleTransactionDate.bind(
+                     this
+                   );
                    this.handleAccountName = this.handleAccountName.bind(this);
                    this.handleTransactionType = this.handleTransactionType.bind(
                      this
@@ -66,22 +66,32 @@ export default class FormContainer extends Component {
                    this.handleWithdrawalCategory = this.handleWithdrawalCategory.bind(
                      this
                    );
-                  //  this.handleTransactionAmount = this.handleTransactionAmount.bind(
-                  //    this
-                  //  );
+                   this.handleTransactionAmount = this.handleTransactionAmount.bind(
+                     this
+                   );
                    this.handleInput = this.handleInput.bind(this);
                    this.handleTextArea = this.handleTextArea.bind(this);
 
                    this.handleFormSubmit = this.handleFormSubmit.bind(this);
                    this.handleClearForm = this.handleClearForm.bind(this);
-                   this.handleChange = this.handleChange.bind(this);
+                  // this.handleChange = this.handleChange.bind(this);
                  }
 
-                 handleChange = date => {
-                   this.setState({
-                     transactionDate: date
-                   });
-                 };
+                 // handleChange = date => {
+                 //   this.setState({
+                 //     transactionDate: date
+                 //   });
+                 // };
+
+                 handleTransactionDate(e) {
+                   let value = e.target.value;
+                   this.setState(
+                     prevState => ({
+                       newUser: { ...prevState.newUser, transactionDate: value }
+                     }),
+                     () => console.log(this.state.newUser)
+                   );
+                 }
 
                  handleAccountName(e) {
                    let value = e.target.value;
@@ -121,6 +131,16 @@ export default class FormContainer extends Component {
                          ...prevState.newUser,
                          withdrawalCategory: value
                        }
+                     }),
+                     () => console.log(this.state.newUser)
+                   );
+                 }
+
+                 handleTransactionAmount(e) {
+                   let value = e.target.value;
+                   this.setState(
+                     prevState => ({
+                       newUser: { ...prevState.newUser, transactionAmount: value }
                      }),
                      () => console.log(this.state.newUser)
                    );
@@ -188,110 +208,102 @@ export default class FormContainer extends Component {
 
                  render() {
                    return (
-                     <form
-                       onSubmit={this.handleFormSubmit}
-                       className="container-fluid"
-                     >
-                       <div form-group>
-                         Transaction Date
-                         {() => {
-                           const [
-                             transactionDate,
-                             setTransactionDate
-                           ] = useState(new Date());
-                           return (
-                             <DatePicker
-                               selected={transactionDate}
-                               onChange={date => setTransactionDate(date)}
-                               monthsShown={2}
-                             />
-                           );
-                         }}
-                       </div>{" "}
-                       <Select
-                         title={"Account"}
-                         name={"accountName"}
-                         options={this.state.accountNameOptions}
-                         value={this.state.newUser.accountName}
-                         placeholder={"select an account"}
-                         handleChange={this.handleInput}
-                       />{" "}
-                       {/*Transaction type*/}
-                       <Select
-                         title={"Type"}
-                         name={"transactionType"}
-                         options={this.state.transactionTypeOptions}
-                         value={this.state.newUser.transactionType}
-                         placeholder={"select type of transaction"}
-                         handleChange={this.handleInput}
-                       />{" "}
-                       {/*Deposit category*/}
-                       <Select
-                         title={"Deposit Category"}
-                         name={"depositCategory"}
-                         options={this.state.depositCategoryOptions}
-                         value={this.state.newUser.depositCategory}
-                         placeholder={"select deposit category"}
-                         handleChange={this.handleInput}
-                       />{" "}
-                       {/*Withdrawal category*/}
-                       <Select
-                         title={"Withdrawal Category"}
-                         name={"withdrawalCategory"}
-                         options={this.state.withdrawalCategoryOptions}
-                         value={this.state.newUser.withdrawalCategory}
-                         placeholder={"select withdrawal category"}
-                         handleChange={this.handleInput}
-                       />{" "}
-                       {/*Transaction Amount*/}
-                       <label>
-                         Amount
-                         <CurrencyInput
-                           prefix="$ "
-                           decimalSeparator="."
-                           thousandSeparator=","
-                           name={"transactionAmount"}
-                           value={this.state.newUser.transactionAmount}
+                         <form
+                         onSubmit={this.handleFormSubmit}
+                         className="container-fluid p-5 my-3 border bg-dark text-white"
+                         style={{ textAlign: "left", fontSize: "22px"}}
+                       >
+                         <Form.Group controlid="transactionDate">
+                           <Form.Label>Transaction Date</Form.Label>
+                           <Form.Control
+                             type="date"
+                             name="transactionDate"
+                             required
+                             placeholder="transactionDate"
+                             handleChange={this.handleInput}
+                           />
+                         </Form.Group>{" "}
+                         <Select
+                           title={"Account"}
+                           name={"accountName"}
+                           options={this.state.accountNameOptions}
+                           value={this.state.newUser.accountName}
+                           placeholder={"select an account"}
                            handleChange={this.handleInput}
                          />{" "}
-                       </label>
-                       {/* Notes */}
-                       <TextArea
-                         title={"Notes"}
-                         rows={5}
-                         value={this.state.newUser.notes}
-                         name={"notes"}
-                         handleChange={
-                           this.handleTextArea && this.state.newUser.notes
-                         }
-                         placeholder={"enter any transaction notes here"}
-                       />{" "}
-                       <Button
-                         className="btn btn-success"
-                         action={this.handleFormSubmit}
-                         type={"primary"}
-                         title={"submit"}
-                         style={{
-                           margin: "10px 10px 10px 10px",
-                           backgroundColor: "forestgreen"
-                         }}
-                       />{" "}
-                       {/*Submit */}
-                       <Button
-                         className="btn btn-warning"
-                         action={this.handleClearForm}
-                         type={"secondary"}
-                         title={"reset form"}
-                         style={{
-                           margin: "10px 10px 10px 10px",
-                           backgroundColor: "#ffce42",
-                           color: "black"
-                         }}
-                       />{" "}
-                       {/* Clear the form */}
-                     </form>
+                         {/*Transaction type*/}
+                         <Select
+                           title={"Type"}
+                           name={"transactionType"}
+                           options={this.state.transactionTypeOptions}
+                           value={this.state.newUser.transactionType}
+                           placeholder={"select type of transaction"}
+                           handleChange={this.handleInput}
+                         />{" "}
+                         {/*Deposit category*/}
+                         <Select
+                           title={"Deposit Category"}
+                           name={"depositCategory"}
+                           options={this.state.depositCategoryOptions}
+                           value={this.state.newUser.depositCategory}
+                           placeholder={"select deposit category"}
+                           handleChange={this.handleInput}
+                         />{" "}
+                         {/*Withdrawal category*/}
+                         <Select
+                           title={"Withdrawal Category"}
+                           name={"withdrawalCategory"}
+                           options={this.state.withdrawalCategoryOptions}
+                           value={this.state.newUser.withdrawalCategory}
+                           placeholder={"select withdrawal category"}
+                           handleChange={this.handleInput}
+                         />{" "}
+                         {/*Transaction Amount*/}
+                         <label>
+                           Amount
+                           <CurrencyInput
+                             prefix="$ "
+                             thousandSeparator=","
+                             decimalSeparator="."
+                             name={"transactionAmount"}
+                             value={this.state.newUser.transactionAmount}
+                             handleChange={this.handleInput}
+                           />{" "}
+                         </label>
+                         {/* Notes */}
+                         <TextArea
+                           title={"Notes"}
+                           rows={5}
+                           value={this.state.newUser.notes}
+                           name={"notes"}
+                           // handleChange={this.handleTextArea}
+                           handleChange={this.handleInput}
+                           placeholder={"enter any transaction notes here"}
+                         />{" "}
+                         {/*Submit */}
+                         <Button
+                           className="btn btn-success"
+                           action={this.handleFormSubmit}
+                           type={"primary"}
+                           title={"submit"}
+                           style={{
+                             margin: "10px 10px 10px 10px",
+                             backgroundColor: "forestgreen"
+                           }}
+                         />{" "}
+                         {/* Clear the form */}
+                         <Button
+                           className="btn btn-warning"
+                           action={this.handleClearForm}
+                           type={"secondary"}
+                           title={"reset form"}
+                           style={{
+                             margin: "10px 10px 10px 10px",
+                             backgroundColor: "#ffce42",
+                             color: "black"
+                           }}
+                         />{" "}
+                       </form>
                    );
                  }
                }
-               
-

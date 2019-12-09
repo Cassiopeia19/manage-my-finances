@@ -1,24 +1,28 @@
 import React, { Component } from "react";
 import { render } from "react-dom"
 import FormContainer from "./containers/FormContainer";
+import Alien from "../../../components/alien/Alien"
+import { Container } from "reactstrap";
 
 const styles= {
   fontFamily: "sans-serif",
-  textAlign: "center"
-  
+  textAlign: "center",  
 };
 
 class AddTransaction extends Component {
   render() {
     return (
       <>
-      <section className="col-md-6" {...styles} >
-        <h3>Add Transaction Form</h3>
-        <FormContainer />
-      </section>
-      <aside>
-      review of transaction prior to submission
-      </aside>
+        <div className="form-center">
+          <div className="form-group">
+            <Container fluid>
+              <Alien />
+            </Container>
+            <div className="col-md-6" {...styles}>
+              <FormContainer />
+            </div>
+          </div>
+        </div>
       </>
     );
   }

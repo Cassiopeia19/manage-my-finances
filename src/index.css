@@ -29,3 +29,14 @@ padding: 10px;
   color: white;
   background-color: black;
 }
+
+.alien {
+  background: #31ca31; 
+  background: linear-gradient(to right, #31ca31, #0082c8, #0082c8, #31ca31);
+}
+
+.budgetCalculator {
+  background: grey;
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
