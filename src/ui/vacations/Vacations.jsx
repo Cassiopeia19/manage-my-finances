@@ -1,6 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Gallery, GalleryImage } from "react-gesture-gallery";
+/* eslint-disable jsx-a11y/alt-text */
+import React, { Component } from "react";
+import Slideshow from "./Slideshow";
+import './Vacations.css';
 
 import g1 from "../../assets/images/G0060068 (1).png";
 import g2 from "../../assets/images/GOPR0007.png";
@@ -27,67 +28,31 @@ import g22 from "../../assets/images/GOPR0587 (1).png";
 import g23 from "../../assets/images/GOPR0588.png";
 import g24 from "../../assets/images/GOPR0603.png";
 
-const photos = [
-  g1,
-  g2,
-  g3,
-  g4,
-  g5,
-  g6,
-  g7,
-  g8,
-  g9,
-  g10,
-  g11,
-  g12,
-  g13,
-  g14,
-  g15,
-  g16,
-  g17,
-  g18,
-  g19,
-  g20,
-  g21,
-  g22,
-  g23,
-  g24
+
+const s = {
+  container: "screenW screenH dGray col",
+  header: "flex1 fCenter fSize2",
+  main: "flex8 white",
+  footer: "flex1 fCenter"
+};
+
+const slides = [
+  g1, g2, g3, g4, g5, g6, g7, g8, g9,
+  g10, g11, g12, g13, g14, g15, g16, g17,
+  g18, g19, g20, g21, g22, g23, g24
 ];
 
-function Vacations() {
-  const [index, setIndex] = React.useState(0);
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      if (index === 23) {
-        setIndex(0);
-      } else {
-        setIndex(prev => prev + 1);
-      }
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [index]);
-
-  return (
-    <Gallery
-      style={{
-        background: "black",
-        height: "100vh",
-        width: "100vw"
-      }}
-      index={index}
-      onRequestChange={i => {
-        setIndex(i);
-      }}
-    >
-      {photos.map(image => (
-        <GalleryImage objectFit="contain" key={image} src={image} />
-      ))}
-    </Gallery>
-  );
+class Vacations extends Component {
+  render() {
+    return (
+      <div className={s.container}>
+        <div className={s.header}></div>
+        <div className={s.main}>
+          <Slideshow slides={slides} />
+        </div>
+      </div>
+    );
+  }
 }
-
-const rootElement = document.getElementById("root");
-ReactDOM.render(<Vacations />, rootElement);
 
 export default Vacations;

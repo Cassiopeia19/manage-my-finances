@@ -95,7 +95,9 @@ class AccountsBalanceList extends Component {
                       prefix={"$"}
                     />
                   </td>
-                  <td>{moment(account.asOfDate).format("MMM DD, YYYY")}</td>
+                  <td>{moment(account.asOfDate)
+                      .utcOffset("+0100")
+                      .format("MMM-DD-YYYY")}</td>
                   <td>{account.done.toString}</td>
 
                   <td>

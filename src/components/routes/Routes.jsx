@@ -8,7 +8,7 @@ import Footer from "../../containers/Footer.jsx";
 import Logout from "../../ui/Logout.jsx";
 import Welcome from "../welcome/Welcome.jsx";
 import Accounts from "../../ui/accounts/Accounts.jsx";
-import Vacations from "../../ui/vacations/Vacations.jsx";
+import Vacations from "../../ui/vacations/Vacations"
 import TransactionsHome from "../../ui/transactions/TransactionsHome";
 import TransactionsList from "../../ui/transactions/transactionsList/TransactionsList.jsx";
 import AddTransaction from "../../ui/transactions/addTransaction/AddTransaction";
