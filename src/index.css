@@ -30,13 +30,9 @@ padding: 10px;
   background-color: black;
 }
 
-.alien {
-  background: #31ca31; 
-  background: linear-gradient(to right, #31ca31, #0082c8, #0082c8, #31ca31);
-}
-
 .budgetCalculator {
-  background: grey;
+  background: #228b22;
   color: white;
   font-family: "Roboto", sans-serif;
 }
+

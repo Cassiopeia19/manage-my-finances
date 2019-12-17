@@ -19,49 +19,63 @@ const depositCategoryOptions = [
 
 const withdrawalCategoryOptions = [
   "bank fees",
-  "cable",
+  "cable/internet",
   "cellphone",
   "car insurance",
   "car maintenance",
   "car payment",
+  "car parts",
+  "car repairs",
+  "car washes",
   "Cathy",
+  "church donations",
   "electric",
   "entertainment",
+  "Erin & Dulany",
   "garbage",
   "gas bill",
   "gasoline",
   "groceries",
+  "home owners insurance",
+  "home maintenance",
+  "home repairs",
+  "Janice",
+  "Jennie",
+  "Jessica",
+  "medical bills",
   "misc",
   "mortgage",
   "pest control",
   "personal property taxes",
   "property taxes",
+  "student loans",
   "water/sewer"
 ];
 
-export default class FormContainer extends Component {
+export default class TransactionsFormContainer extends Component {
   state = {
     amount: 0
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
+    //event.target.reset(); will reset the form upon submitting, but it wipes out most of the data within the object
     console.log("Submitting The Form...");
 
-    const formData = Object.fromEntries(
+    const transactionformData = Object.fromEntries(
       [...event.target.elements].map(element => [
         element["name"],
         element["value"]
       ])
     );
-    console.log("Form Contents", { formData });
+    console.log("Form Contents", { transactionformData });
 
     //   ***** what do i need to do with the code below to have it post to the database?? *****
     // ******* also, the submitted form needs to update both the transactions list AND the accounts balance list ******
     // ******also, the submitted form needs to update the list of transactions within update/delete tab
     fetch("https://example.com", {
       method: "POST",
-      body: JSON.stringify(formData),
+      body: JSON.stringify(transactionformData),
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -95,7 +109,7 @@ export default class FormContainer extends Component {
         onSubmit={this.handleFormSubmit}
         onReset={this.handleFormReset}
         className="container-fluid p-5 my-3 border bg-dark text-white"
-        style={{ textAlign: "left", fontSize: "22px" }}
+        style={{ textAlign: "left", fontSize: "22px", margin: "370px" }}
       >
         <Form.Group controlid="transactionDate">
           <Form.Label>Transaction Date</Form.Label>
@@ -137,7 +151,7 @@ export default class FormContainer extends Component {
         )}
         {/*Transaction Amount*/}
         <label>
-          Amount
+          Amount  
           <CurrencyInput
             prefix="$ "
             decimalSeparator="."
@@ -154,6 +168,7 @@ export default class FormContainer extends Component {
           name={"notes"}
           placeholder={"enter any transaction notes here"}
         />{" "}
+        {/*Submit */}
         <Button
           className="btn btn-success"
           type="submit"
@@ -164,7 +179,7 @@ export default class FormContainer extends Component {
             backgroundColor: "forestgreen"
           }}
         />{" "}
-        {/*Submit */}
+        {/* Clear the form */}
         <Button
           className="btn btn-warning"
           type="reset"
@@ -176,7 +191,6 @@ export default class FormContainer extends Component {
             color: "black"
           }}
         />{" "}
-        {/* Clear the form */}
       </form>
     );
   }

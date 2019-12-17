@@ -20,33 +20,7 @@
   padding-bottom: 2rem;
   border-radius: 2px;
 }
-/* .form-center {
-  display: flex;
-  padding: 0 1rem;
-} */
-/* .form-group {
-  padding: 1rem 0.75rem;
-  flex: 0 0 50%;
-} */
-/* .label {
-  display: block;
-  color: var(--mainGrey);
-  font-size: 1rem;
-  text-transform: capitalize;
-} */
 
-/* .form-control {
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid var(--mainGrey);
-  border-radius: 0;
-  outline: none;
-  height: 3rem;
-  width: 100%;
-  font-size: 16px;
-  margin: 0 0 8px 0;
-  padding: 0;
-} */
 .btn {
   text-decoration: none;
   color: var(--mainWhite);
@@ -105,13 +79,12 @@
   margin-right: 2rem;
   text-transform: capitalize;
   color: black;
+  font-size: 1.2rem;
 }
 .amount {
   font-weight: 300;
-  font-size: 1rem;
-  color: var(--mainWhite);
-  background-color: var(--primaryColor);
-  border-radius: 2px;
+  font-size: 1.2rem;
+  color: var(--primaryColor);
   padding: 1px 3px;
 }
 .clear-btn,
@@ -128,13 +101,6 @@
 .edit-btn {
   color: var(--mainGreen);
 }
-/* .total {
-  font-weight: 300;
-  color: var(--mainWhite);
-  background-color: var(--primaryColor);
-  border-radius: 2px;
-  padding: 2px 5px;
-} */
 #alert {
   padding: 0.75rem 1.25rem;
   color: var(--mainWhite);
@@ -143,7 +109,6 @@
   width: 90%;
   margin: 2rem auto 0 auto;
   border-radius: 2px;
-  text-transform: capitalize;
 }
 #alert-danger {
   background: var(--mainRed);

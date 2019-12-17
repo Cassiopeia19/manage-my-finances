@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AuthenticatedRoute from "../authentication/AuthenticatedRoute.jsx";
 import AccountsBalanceList from "../../ui/accounts/AccountsBalanceList.jsx";
 import Error from "../../containers/Error.jsx";
-import Header from "../../containers/Header.jsx";
+import Header from "../../containers/header/Header";
 import Footer from "../../containers/Footer.jsx";
 import Logout from "../../ui/Logout.jsx";
 import Welcome from "../welcome/Welcome.jsx";

@@ -5,7 +5,6 @@ import ExpenseForm from "./components/ExpenseForm";
 import Alert from "./components/Alert";
 import uuid from "uuid/v4";
 
-
 const initialExpenses = localStorage.getItem("expenses")
   ? JSON.parse(localStorage.getItem("expenses"))
   : [];
@@ -121,8 +120,9 @@ function App() {
         <h1 style={{textAlign: "center", textTransform: "capitalize", margin: "2rem 0",
                     color: "white", letterSpacing: "5px"}}>
           total spending :{" "}
-          <span style={{fontWeight: "300", color: "white", backgroundColor: "#f15025",
-                        borderRadius: "2px", padding: "2px 5px"}}>
+          <span style={{fontWeight: "300", color: "white",backgroundColor: "#bb310c", 
+                        borderStyle: "outset", borderColor: "#bb310c", borderWidth: "5px", 
+                        padding: "2px 5px"}}>
             $
             {expenses.reduce((acc, curr) => {
               return (acc += parseInt(curr.amount));

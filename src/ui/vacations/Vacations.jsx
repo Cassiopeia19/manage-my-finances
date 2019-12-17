@@ -46,9 +46,10 @@ class Vacations extends Component {
   render() {
     return (
       <div className={s.container}>
-        <div className={s.header}></div>
+        <div className={s.header} />
         <div className={s.main}>
           <Slideshow slides={slides} />
+          <div className={s.footer} />
         </div>
       </div>
     );

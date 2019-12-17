@@ -1,26 +1,25 @@
 import axios from "axios";
-import { JPA_API_URL } from "../Constants"
 
 class AccountDataService {
-    retrieveAllAccounts(name) {
-        return axios.get(`${JPA_API_URL}/users/${name}/accounts`);
-    }
+  retrieveAllAccounts(name) {
+    return axios.get(`http://localhost:8080/users/${name}/accounts`);
+  }
 
-    retrieveAccount(name, accountId) {
-        return axios.get(`${JPA_API_URL}/users/${name}/accounts/${accountId}`);
-    }
+  retrieveAccount(name, accountId) {
+    return axios.get(`http://localhost:8080/users/${name}/accounts/${accountId}`);
+  }
 
-    deleteAccount(name, accountId) {
-        return axios.delete(`${JPA_API_URL}/users/${name}/accounts/${accountId}`);
-    }
+  deleteAccount(name, accountId) {
+    return axios.delete(`http://localhost:8080/users/${name}/accounts/${accountId}`);
+  }
 
-    updateAccount(name, id, account) {
-        return axios.put(`${JPA_API_URL}/users/${name}/accounts/${id}`, account);
-    }
+  updateAccount(name, accountId, account) {
+    return axios.put(`http://localhost:8080/users/${name}/accounts/${accountId}`, account);
+  }
 
-    createAccount(name, account) {
-        return axios.post(`${JPA_API_URL}/users/${name}/accounts/`, account);
-    }
+  createAccount(name, account) {
+    return axios.post(`http://localhost:8080/users/${name}/accounts/`, account);
+  }
 }
 
 export default new AccountDataService();

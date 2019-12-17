@@ -1,78 +1,17 @@
-/* eslint-disable react/jsx-no-undef */
 import React, { Component } from "react";
-import "./Reports.css";
+import { render } from "react-dom";
+import ReportsFormContainer from "./containers/ReportsFormContainer";
 
-class Form extends Component {
-  state = {
-    firstName: "",
-    lastName: "",
-    reportInfo: []
-  };
-
-  handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    const firstName = this.state.firstName;
-    const lastName = this.state.lastName;
-    console.log(firstName, lastName);
-    if (firstName.length > 0 && lastName.length > 0) {
-      const person = `${firstName} ${lastName} `;
-      this.setState({
-        people: [...this.state.people, person],
-        firstName: "",
-        lastName: ""
-      });
-    }
-  };
-
+class Reports extends Component {
   render() {
     return (
-      <section>
-        <article>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Report Type
-              <input
-                type="text"
-                name="reportType"
-                value={this.state.reportType}
-                onChange={this.handleChange}
-              />
-            </label>
-            <br />
-            <label>
-              Last Name
-              <input
-                type="text"
-                name="lastName"
-                value={this.state.lastName}
-                onChange={this.handleChange}
-              />
-            </label>
-            <br />
-            <button type="submit">submit</button>
-          </form>
-        </article>
-        <article>
-          <h1>people</h1>
-          <div>{this.state.people}</div>
-        </article>
-      </section>
+      <div className="col-md-6">
+        <ReportsFormContainer />
+      </div>
     );
   }
 }
 
-class Reports extends Component {
-  render() {
-    return <Form />;
-  }
-}
+render(<Reports />, document.getElementById("root"));
 
-export default Reports;
-
-
+export default Reports
