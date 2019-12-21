@@ -66,7 +66,6 @@ class AccountCheckbox extends Component {
       <div className="container">
         <div className="row mt-5">
           <div className="col-sm-12">
-            <form onSubmit={this.handleFormSubmit}>
               <h2>Account(s)</h2>
               {this.createCheckboxes()}
 
@@ -86,7 +85,6 @@ class AccountCheckbox extends Component {
                   Deselect All
                 </button>
               </div>
-            </form>
           </div>
         </div>
       </div>

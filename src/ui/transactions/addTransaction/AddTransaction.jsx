@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom"
-import FormContainer from "./containers/TransactionsFormContainer";
+import TransactionsFormContainer from "./containers/TransactionsFormContainer";
 
 const styles= {
   fontFamily: "sans-serif",
@@ -14,7 +14,7 @@ class AddTransaction extends Component {
         <div className="form-center">
           <div className="form-group">
             <div className="col-md-6" {...styles}>
-              <FormContainer />
+              <TransactionsFormContainer />
             </div>
           </div>
         </div>

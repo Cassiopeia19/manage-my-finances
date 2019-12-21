@@ -109,7 +109,7 @@ export default class TransactionsFormContainer extends Component {
         onSubmit={this.handleFormSubmit}
         onReset={this.handleFormReset}
         className="container-fluid p-5 my-3 border bg-dark text-white"
-        style={{ textAlign: "left", fontSize: "22px", margin: "370px" }}
+        style={{ textalign: "left", fontSize: "22px", margin: "370px" }}
       >
         <Form.Group controlid="transactionDate">
           <Form.Label>Transaction Date</Form.Label>

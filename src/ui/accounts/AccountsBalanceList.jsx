@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import moment from "moment";
 import CurrencyFormat from "react-currency-format";
-import AccountDataService from "../../api/AccountDataService.js";
+import AccountDataService from "../../api/AccountDataService";
 import AuthenticationService from "../../components/authentication/AuthenticationService.js";
-import "./Accounts.css";
-import Cube from "./Cube";
+import "./Accounts.css"
+import Cube from "./Cube.jsx";
+
 
 class AccountsBalanceList extends Component {
   constructor(props) {
@@ -47,9 +48,7 @@ class AccountsBalanceList extends Component {
   deleteAccountClicked(accountId) {
     let username = AuthenticationService.getLoggedInUserName();
     AccountDataService.deleteAccount(username, accountId).then(response => {
-      this.setState({
-        message: `Deletion of account ${accountId} was successful`
-      });
+      this.setState({ message: `Delete of account ${accountId} was successful` });
       this.refreshAccounts();
     });
   }
@@ -59,7 +58,7 @@ class AccountsBalanceList extends Component {
   }
 
   updateAccountClicked(accountId) {
-    console.log("update" + accountId);
+    console.log("update " + accountId);
     this.props.history.push(`/accounts/${accountId}`);
   }
 
@@ -67,7 +66,8 @@ class AccountsBalanceList extends Component {
     console.log("render");
     return (
       <>
-        <Cube />
+      <Cube />
+      <div>
         <h1>Accounts and their Current Balances</h1>
         {this.state.message && (
           <div class="alert alert-success">{this.state.message}</div>
@@ -88,26 +88,21 @@ class AccountsBalanceList extends Component {
                 <tr key={account.accountId}>
                   <td>{account.accountName}</td>
                   <td>
-                    <CurrencyFormat
-                      value={account.balance.toFixed(2)}
-                      displayType={"text"}
-                      thousandSeparator={true}
-                      prefix={"$"}
+                    <CurrencyFormat 
+                    value={account.balance.toFixed(2)} 
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    prefix={"$"}
                     />
-                  </td>
-                  <td>
-                    {moment(account.asOfDate)
-                      .utcOffset("+0100")
+                    </td>
+                  <td>{moment(account.asOfDate)
+                       .utcOffset('+0100')
                       .format("MMM-DD-YYYY")}
-                  </td>
-                  <td>{account.done.toString}</td>
-
+                      </td>
                   <td>
                     <button
                       className="btn btn-success"
-                      onClick={() =>
-                        this.updateAccountClicked(account.accountId)
-                      }
+                      onClick={() => this.updateAccountClicked(account.accountId)}
                     >
                       Update
                     </button>
@@ -115,9 +110,7 @@ class AccountsBalanceList extends Component {
                   <td>
                     <button
                       className="btn btn-warning"
-                      onClick={() =>
-                        this.deleteAccountClicked(account.accountId)
-                      }
+                      onClick={() => this.deleteAccountClicked(account.accountId)}
                     >
                       Delete
                     </button>
@@ -127,16 +120,16 @@ class AccountsBalanceList extends Component {
             </tbody>
           </table>
           <div className="row">
-            <button
-              className="btn btn-success"
-              onClick={this.addAccountClicked}
-            >
+            <button className="btn btn-success" onClick={this.addAccountClicked}>
               Add
             </button>
           </div>
         </div>
+      </div>
       </>
     );
   }
 }
-export default AccountsBalanceList;
+
+export default AccountsBalanceList
+;

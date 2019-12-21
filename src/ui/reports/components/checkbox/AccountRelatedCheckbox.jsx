@@ -3,7 +3,7 @@ import Checkbox from "./Checkbox";
 
 const OPTIONS = ["bank fees","interest earned", "rewards"];
 
-class AccountCheckbox extends Component {
+class AccountRelatedCheckbox extends Component {
   state = {
     checkboxes: OPTIONS.reduce(
       (options, option) => ({
@@ -66,7 +66,6 @@ class AccountCheckbox extends Component {
       <div className="container">
         <div className="row mt-5">
           <div className="col-sm-12">
-            <form onSubmit={this.handleFormSubmit}>
               <h2>Account-Related</h2>
               {this.createCheckboxes()}
 
@@ -86,7 +85,6 @@ class AccountCheckbox extends Component {
                   Deselect All
                 </button>
               </div>
-            </form>
           </div>
         </div>
       </div>
@@ -94,4 +92,4 @@ class AccountCheckbox extends Component {
   }
 }
 
-export default AccountCheckbox;
+export default AccountRelatedCheckbox;

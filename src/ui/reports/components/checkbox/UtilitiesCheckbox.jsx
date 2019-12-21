@@ -72,10 +72,8 @@ class UtilitiesCheckbox extends Component {
       <div className="container">
         <div className="row mt-5">
           <div className="col-sm-12">
-            <form onSubmit={this.handleFormSubmit}>
               <h2>Utilities</h2>
               {this.createCheckboxes()}
-
               <div className="form-group mt-2">
                 <button
                   type="button"
@@ -92,7 +90,6 @@ class UtilitiesCheckbox extends Component {
                   Deselect All
                 </button>
               </div>
-            </form>
           </div>
         </div>
       </div>
