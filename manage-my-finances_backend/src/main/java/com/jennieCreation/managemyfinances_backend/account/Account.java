@@ -1,10 +1,9 @@
 package com.jennieCreation.managemyfinances_backend.account;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 public class Account {

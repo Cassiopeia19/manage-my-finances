@@ -1,9 +1,10 @@
 package com.jennieCreation.managemyfinances_backend.account;
 
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 @Service
 public class AccountHardcodedService {
