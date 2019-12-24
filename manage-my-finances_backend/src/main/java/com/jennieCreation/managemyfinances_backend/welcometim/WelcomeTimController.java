@@ -22,7 +22,7 @@ public class WelcomeTimController {
 			
 		//welcome-tim/path-variable
 		@GetMapping(path = "/welcome-tim/path-variable/{name}")
-		public WelcomeTimBean welcomeTimPathVariable(@PathVariable String name) {
-			return new WelcomeTimBean(String.format("Welcome back %s", name, " !"));
-			}
+		public WelcomeTimBean WelcomeTimPathVariable(@PathVariable String name) {
+			return new WelcomeTimBean(String.format("Welcome, %s", name));
 		}
+	}
