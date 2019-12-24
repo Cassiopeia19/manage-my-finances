@@ -1,10 +1,10 @@
-package com.jennieCreation.managemyfinances_backend.welcometim;
+package com.jennieCreation.managemyfinances_backend.basic.auth;
 
-public class WelcomeTimBean {
+public class AuthenticationBean {
 
 	private String message;
 
-	public WelcomeTimBean(String message) {
+	public AuthenticationBean(String message) {
 		this.message = message;
 	}
 
