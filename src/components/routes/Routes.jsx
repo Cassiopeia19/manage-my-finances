@@ -20,8 +20,6 @@ import BudgetCalculator from '../../ui/budgetCalculator/BudgetCalculator';
 class Routes extends Component {
   render() {
     return (
-      //look into if the className of AccountComponent is actually needed
-      //<div className="AccountComponent">
       <div>
         <Router>
           <>

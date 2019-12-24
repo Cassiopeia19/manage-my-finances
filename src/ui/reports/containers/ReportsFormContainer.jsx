@@ -14,26 +14,34 @@ import moment from 'moment'
 
 export default class ReportsFormContainer extends Component {
                  state = {
-                   amount: 0
+                   amount: 0,
+                   beginningDate: moment(),
+                   endDate: moment(),
+                   reportTimeframe: null
                  };
 
+                 populateEndingDate = () => {
+                   let endDate = null;
 
-                 populateEndingDate = event => {
-                   console.log(event.target.value);
-                   let endDate = {};
+                   if (this.state.reportTimeframe === "monthly") {
+                     console.log("first if comparison");
 
-                   if (event.target.value.reportTimeframe === "monthly") {
-                     endDate.date = moment()
-                       .add(30, "days")
-                       .calendar(event.target.value.begDate);
+                     endDate = moment(this.state.beginningDate).add(1, "months");
                    } else {
-                     moment()
-                       .add(365, "days")
-                       .calendar(event.target.value.begDate);
+                     endDate = moment(this.state.beginningDate).add(1, "years");
                    }
+                   console.log(endDate); // '01/22/2020`
                    this.setState({ endDate });
                    return endDate;
                  };
+
+                 handleBeginningDateChange = event => {
+                   this.setState({ beginningDate: event.target.value }, () => this.populateEndingDate());
+                   
+                 };
+
+                 handleReportTimeframeChange = event => {
+                   this.setState({ reportTimeframe: event.target.value }, () => this.populateEndingDate());                 };
 
                  render() {
                    return (
@@ -59,17 +67,24 @@ export default class ReportsFormContainer extends Component {
                            padding: "20px 10px"
                          }}
                        >
-                         <ReportTimeframe />
+                         <ReportTimeframe
+                           onChange={this.handleReportTimeframeChange}
+                         />
                          <Form.Group controlid="begDate">
                            <Form.Label>Beginning</Form.Label>
                            <Form.Control
                              type="date"
                              name="begDate"
                              required
-                             onChange={this.populateEndingDate}
+                             onChange={this.handleBeginningDateChange}
                            />
                            <Form.Label>Ending</Form.Label>
-                           <Form.Control type="date" name="endDate" disabled />
+                           <Form.Control
+                             type="date"
+                             name="endDate"
+                             disabled
+                             value={this.state.endDate.format("YYYY-MM-DD")}
+                           />
                          </Form.Group>{" "}
                          <CarCheckbox />
                          <FamilyCheckbox />

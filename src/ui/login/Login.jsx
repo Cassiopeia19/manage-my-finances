@@ -12,7 +12,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      username: "",
+      username: "Tim",
       password: "",
       hasLoginFailed: false,
       showSuccessMessage: false
@@ -28,17 +28,17 @@ class Login extends Component {
   }
   loginClicked() {
     //Tim,1234
-    if (this.state.username === "Tim" && this.state.password === "1234") {
-      AuthenticationService.registerSuccessfulLogin(
-        this.state.username,
-        this.state.password
-      );
-      this.props.history.push(`/welcome/${this.state.username}`);
-    } else {
-      this.setState({ showSuccessMessage: false });
-      this.setState({ hasLoginFailed: true });
+    AuthenticationService
+        .executeBasicAuthenticationService(this.state.username, this.state.password)
+        .then(() => {
+            AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
+            this.props.history.push(`/welcome/${this.state.username}`)
+        }).catch( () =>{
+            this.setState({showSuccessMessage:false})
+            this.setState({hasLoginFailed:true})
+        })
     }
-  }
+
 
   resetForm = () => {
     this.setState({ username: "" });

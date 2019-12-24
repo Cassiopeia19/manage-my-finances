@@ -67,7 +67,7 @@ function StyledRadio(props: RadioProps) {
   );
 }
 
-export default function CustomizedRadios() {
+export default function CustomizedRadios(props: any) {
   return (
     <FormControl component="fieldset">
       <FormLabel style={{color:"white", fontSize:"28px"}} 
@@ -76,6 +76,7 @@ export default function CustomizedRadios() {
        //defaultValue="monthly"
         aria-label="reportTimeframe"
         name="customized-radios"
+        {...props}
       >
         <FormControlLabel
           value="monthly"

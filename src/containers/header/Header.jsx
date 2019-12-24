@@ -20,11 +20,11 @@ class Header extends Component {
         >
           <div>
             {isUserLoggedIn && (
-              <li>
+              <div>
                 <Link className="navbar-brand" to="/welcome/Tim">
                   <img src={logo} alt="manage my finances logo" />
                 </Link>
-              </li>
+              </div>
             )}
           </div>
           <ul className="navbar-nav">

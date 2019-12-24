@@ -10,18 +10,10 @@ class WelcomeTimService {
   }
 
   executeWelcomeTimPathVariableService(name) {
-    let username = "Tim";
-    let password = "1234";
-
-    let basicAuthHeader = "Basic " + window.btoa(username + ":" + password)
 
     return axios.get(
-      `http://localhost:8080/welcome-tim/path-variable/{name}/${name}`,
-      {
-        headers: {
-          authorization: basicAuthHeader
-        }
-      }
+      `http://localhost:8080/welcome-tim/path-variable/{name}/${name}`
+     
     );
     }
 }
