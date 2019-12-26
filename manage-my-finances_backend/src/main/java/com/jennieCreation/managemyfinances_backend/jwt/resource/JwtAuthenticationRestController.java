@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jennieCreation.managemyfinances_backend.jwt.JwtTokenUtil;
 import com.jennieCreation.managemyfinances_backend.jwt.JwtUserDetails;
 
+
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
 public class JwtAuthenticationRestController {
