@@ -35,7 +35,7 @@ public class AccountHardcodedService {
 		return account;
 	}
 
-	public Account deleteByAccountId(Long accountId) {
+	public Account deleteByAccountId(long accountId) {
 		Account account = findByAccountId(accountId);
 
 		if (account == null)
@@ -47,7 +47,7 @@ public class AccountHardcodedService {
 		return null;
 	}
 
-	public Account findByAccountId(Long accountId) {
+	public Account findByAccountId(long accountId) {
 		for (Account account : accounts) {
 			if (account.getAccountId() == accountId) {
 				return account;
