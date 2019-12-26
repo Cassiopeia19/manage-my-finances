@@ -1,14 +1,14 @@
 insert into account(account_id,account_name,as_of_date,balance)
-values(1001,'Ally',sysdate(),8000);
+values(1001,'Ally',sysdate(),1000);
 
 insert into account(account_id,account_name,as_of_date,balance)
-values(1002,'BOA',sysdate(),4500);
+values(1002,'BOA',sysdate(),2000);
 
 insert into account(account_id,account_name,as_of_date,balance)
-values(1003,'Cash',sysdate(),220);
+values(1003,'Cash',sysdate(),3000);
 
 insert into account(account_id,account_name,as_of_date,balance)
-values(1004,'RCU',sysdate(),500);
+values(1004,'RCU',sysdate(),4000);
 
 insert into account(account_id,account_name,as_of_date,balance)
-values(1005,'VCU',sysdate(),574);
+values(1005,'VCU',sysdate(),5000);
