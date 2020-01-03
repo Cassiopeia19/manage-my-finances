@@ -68,6 +68,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 =======
+
+
+
 # manage-my-finances
 A customized app that will improve the management of my husband's finances
 
@@ -77,6 +80,11 @@ All rights reserved ©2019 manage-my-finances.net.
 All photos included within this app are available for reuse.
 
 All rights reserved ©2019 jennieCreation.
+
+Several Udemy courses were utilized to assist me in the creation of this app. Here is the list of those courses:
+1) Go Java Full Stack with Spring Boot and React (an in28minutes course)
+2) React Tutorial and Projects Course
+3) Learn AWS - Deploy Java Spring Boot to AWS Elastic Beanstalk (an in28minutes course)
 
 Content (within quotations defining what each dependency has to offer my app) explaining the dependencies added via Spring Initializer 
 was cited directly from their website:  https://start.spring.io/.
@@ -140,6 +148,8 @@ Java (backend) was initialized via Spring Initializer with Spring Boot snapshot.
 
 Once created, it was then imported into Eclipse IDE.
 
-This app reads/writes to a H2 database--one that is SQL-based.
+This app currently reads/writes to a H2 database; mySQL is desired in the near future.
+
+
 
 
