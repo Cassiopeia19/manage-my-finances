@@ -29,6 +29,8 @@ was cited directly from their website:  https://start.spring.io/.
 4 **Authentication** for the login, where other tabs besides 'login' are not available.  Even if someone were to know what the url for a certain tab, they would be directed to the login.
 6) A reports form that allows the user to choose what he would like to have included within the report, which will produce a report with the option to print. {in progress}
 
+
+### JAVA backend runs on localhost:8181
 **The backend makes use of the following (those that are not listed within the dependencies added during app creation):**
 
 a) various annotations
