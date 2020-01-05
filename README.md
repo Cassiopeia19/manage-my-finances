@@ -17,29 +17,18 @@ was cited directly from their website:  https://start.spring.io/.
 
 ### This app incorporates many features:
 
-**React.js (frontend)** was created via windows terminal via npm create-react-app. It was then opened in Visual Studio Code. It came with several "dependencies", plus I have added some additional ones. More than likely, additional ones might be added along the way during the creation of this app. Here are just a few:
-1) axios
-2) express
-3) formik
-4) modules
-5) moment
-6) node
-7) react
-8) react-currency-format
-9) react-dom
-10) react-router-dom
-11) react-scripts
-12) react-scroll
-
-For "scripts", I had modified the "start" to be "set PORT=4200 && react-scripts start".
-This app also utilizes eslingConfig, and uses browser Chrome (primarily) for output of PORT=4200.
-
-**The frontend makes use of the following:**
-1) JSON
-2) Bootstrap 4.1.0
-3) Created-by-me api's to handle the account data services.
-4) various methods & hooks
-5 Authentication for the login, where other tabs besides 'login' are not available.  Even if someone were to know what the url for a certain tab, they would be directed to the login.
+**React.js (frontend)**  runs on localhost:4200
+**The frontend includes the following:**
+1) Bootstrap 4.1.0 for the formatting of the header & footer
+2) A ## welcome ## for the user who likes space & the like.
+3) A table of accounts & their current balances (**this will be autopopulated in the future**)
+3) A budget calculator that will assist the user in budgeting his expenses vs income.
+4) A transaction section that will allow the user to:
+   a. enter a new transaction
+   b. toggle recent transactions (past 30 days) or all transactions
+   c. click on a transaction card to view the notes & have access to updating or deleting the transaction
+5) API to handle the account data services (and soon the transactions & reports)
+4 Authentication for the login, where other tabs besides 'login' are not available.  Even if someone were to know what the url for a certain tab, they would be directed to the login.
 6) HOAs (aka 'higher order components) such as: BrowserRouter(as Router), Route, Switch, Component, AuthenticatedRoute, CurrencyFormat, Redirect, Formik, Form, Field, ErrorMessage, App, AccountApp,and Link.
 7) The title of the app, which appears once the app has been launched, was entered into the index.html within the public folder.
 
