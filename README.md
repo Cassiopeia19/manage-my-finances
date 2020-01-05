@@ -26,8 +26,8 @@ was cited directly from their website:  https://start.spring.io/.
    b. toggle recent transactions (past 30 days) or all transactions {in progress}
    c. click on a transaction card to view the notes & have access to updating or deleting the transaction {in progress}
 5) **API** to handle the account data services {transactions & reports services in progress}
-4 **Authentication** for the login, where other tabs besides 'login' are not available.  Even if someone were to know what the url for a certain tab, they would be directed to the login.
-6) A reports form that allows the user to choose what he would like to have included within the report, which will produce a report with the option to print. {in progress}
+6) **Authentication** for the login, where other tabs besides 'login' are not available.  Even if someone were to know what the url for a certain tab, they would be directed to the login.
+7) A reports form that allows the user to choose what he would like to have included within the report, which will produce a report with the option to print. {in progress}
 
 
 ### JAVA backend runs on localhost:8181
