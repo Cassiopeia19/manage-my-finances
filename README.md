@@ -35,7 +35,7 @@ was cited directly from their website:  https://start.spring.io/.
 
 a) various annotations
 
-b) JWT(aka JSON web token; resource for assistance: https://jwt.io/) to secure access to RESTLET CLIENT. This began by adding this dependency within the pox.xml file:
+b) JWT(aka JSON web token; resource for assistance: https://jwt.io/) to secure access to TALEND API. This began by adding this dependency within the pox.xml file:
             
                 <dependency>
                       <groupId>org.springframework.boot</groupId>
