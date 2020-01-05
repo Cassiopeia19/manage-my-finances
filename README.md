@@ -15,22 +15,19 @@ Several Udemy courses were utilized to assist me in the creation of this app. He
 Content (within quotations defining what each dependency has to offer my app) explaining the dependencies added via Spring Initializer 
 was cited directly from their website:  https://start.spring.io/.
 
-### This app incorporates many features:
-
-**React.js (frontend)**  runs on localhost:4200
+### React.js (frontend) runs on localhost:4200
 **The frontend includes the following:**
-1) Bootstrap 4.1.0 for the formatting of the header & footer
-2) A ## welcome ## for the user who likes space & the like.
-3) A table of accounts & their current balances (**this will be autopopulated in the future**)
-3) A budget calculator that will assist the user in budgeting his expenses vs income.
-4) A transaction section that will allow the user to:
+1) Bootstrap 4.1.0 formatting of the header & footer
+2) A **welcome** for the user who likes space & the like.
+3) A table of **accounts & their current balances** {autopopulation is "in progress"}
+3) A **budget calculator** that will assist the user in budgeting his expenses.
+4) A **transactions** section that will allow the user to:
    a. enter a new transaction
-   b. toggle recent transactions (past 30 days) or all transactions
-   c. click on a transaction card to view the notes & have access to updating or deleting the transaction
-5) API to handle the account data services (and soon the transactions & reports)
-4 Authentication for the login, where other tabs besides 'login' are not available.  Even if someone were to know what the url for a certain tab, they would be directed to the login.
-6) HOAs (aka 'higher order components) such as: BrowserRouter(as Router), Route, Switch, Component, AuthenticatedRoute, CurrencyFormat, Redirect, Formik, Form, Field, ErrorMessage, App, AccountApp,and Link.
-7) The title of the app, which appears once the app has been launched, was entered into the index.html within the public folder.
+   b. toggle recent transactions (past 30 days) or all transactions {in progress}
+   c. click on a transaction card to view the notes & have access to updating or deleting the transaction {in progress}
+5) **API** to handle the account data services {transactions & reports services in progress}
+4 **Authentication** for the login, where other tabs besides 'login' are not available.  Even if someone were to know what the url for a certain tab, they would be directed to the login.
+6) A reports form that allows the user to choose what he would like to have included within the report, which will produce a report with the option to print. {in progress}
 
 **The backend makes use of the following (those that are not listed within the dependencies added during app creation):**
 
@@ -43,13 +40,15 @@ b) JWT(aka JSON web token; resource for assistance: https://jwt.io/) to secure a
                       <artifactId>spring-boot-starter-security</artifactId>
                     </dependency>
  
-This dependency generates a login once a user types in any url that relates to this app. Without the username & password to access localhost:8080 for this app's-related content, no one can actually access any of this app's content. This is also known as 'form-based authentication' by Spring security.
+This dependency generates a login once a user types in any url that relates to this app. Without the username & password to access localhost:8181 for this app's-related content, no one can actually access any of this app's content. This is also known as 'form-based authentication' by Spring security.
 
 c) JPA
 
 d) Hibernate
 
 e) Spring Boot
+
+f) Beans
 
 Java (backend) was initialized via Spring Initializer with Spring Boot snapshot. Metadata: group(package) is com.jennieCreation.manage_my_finances; the artifact(class name) is manage_my_finances. The dependencies added were:
 
@@ -61,7 +60,6 @@ Java (backend) was initialized via Spring Initializer with Spring Boot snapshot.
 
 4) H2 Database. . .the description of which states, "Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes, as well as browser-based console application".
 
-Once created, it was then imported into Eclipse IDE.
 
 This app currently reads/writes to a H2 database; mySQL is desired in the near future.
 
