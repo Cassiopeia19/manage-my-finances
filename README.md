@@ -3,9 +3,9 @@ A customized app that will improve the management of my husband's finances
 
 This app is still "in progress".
 
-All rights reserved ©2019 manage-my-finances.net.   
+All rights reserved ©2019-2020 ManageMyFinances & manage-my-finances.net.   
 
-All rights reserved ©2019 jennieCreation.
+All rights reserved ©2019-2020 jennieCreation.
 
 Several Udemy courses were utilized to assist me in the creation of this app. Here is the list of those courses:
 1) Go Java Full Stack with Spring Boot and React (an in28minutes course)
@@ -30,7 +30,7 @@ was cited directly from their website:  https://start.spring.io/.
 7) A **reports form** that allows the user to choose what he would like to have included within the report, which will produce a report with the option to print. {in progress}
 
 
-### JAVA backend runs on localhost:8181
+### JAVA backend runs on localhost:8080
 **The backend makes use of the following (those that are not listed within the dependencies added during app creation):**
 
 a) various annotations
