@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { Component } from "react";
 import Slideshow from "./Slideshow";
-import './Vacations.css';
+import "./Vacations.css";
 
 import g1 from "../../assets/images/G0060068 (1).png";
 import g2 from "../../assets/images/GOPR0007.png";
@@ -28,7 +28,6 @@ import g22 from "../../assets/images/GOPR0587 (1).png";
 import g23 from "../../assets/images/GOPR0588.png";
 import g24 from "../../assets/images/GOPR0603.png";
 
-
 const s = {
   container: "screenW screenH dGray col",
   header: "flex1 fCenter fSize2",
@@ -37,9 +36,30 @@ const s = {
 };
 
 const slides = [
-  g1, g2, g3, g4, g5, g6, g7, g8, g9,
-  g10, g11, g12, g13, g14, g15, g16, g17,
-  g18, g19, g20, g21, g22, g23, g24
+  g1,
+  g2,
+  g3,
+  g4,
+  g5,
+  g6,
+  g7,
+  g8,
+  g9,
+  g10,
+  g11,
+  g12,
+  g13,
+  g14,
+  g15,
+  g16,
+  g17,
+  g18,
+  g19,
+  g20,
+  g21,
+  g22,
+  g23,
+  g24
 ];
 
 class Vacations extends Component {

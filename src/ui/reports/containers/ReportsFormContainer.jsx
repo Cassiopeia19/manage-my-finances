@@ -107,7 +107,7 @@ export default class ReportsFormContainer extends Component {
                            className="btn btn-success"
                            type="submit"
                            theme={"primary"}
-                           title={"submit"}
+                           title={"run report"}
                            style={{
                              margin: "10px 10px 10px 10px",
                              backgroundColor: "forestgreen"

@@ -16,6 +16,7 @@ import UpdateDeleteTransactions from "../../ui/transactions/UpdateDeleteTransact
 import Reports from "../../ui/reports/Reports.jsx";
 import Login from "../../ui/login/Login.jsx";
 import BudgetCalculator from '../../ui/budgetCalculator/BudgetCalculator';
+import ForgotPassword from '../../ui/login/forgotPassword/ForgotPassword';
 
 class Routes extends Component {
   render() {
@@ -27,6 +28,7 @@ class Routes extends Component {
             <Switch>
               <Route path="/" exact component={Login} />
               <Route path="/login" component={Login} />
+              <Route path="/forgotpassword" component={ForgotPassword} />
 
               <AuthenticatedRoute path="/welcome/:name" component={Welcome} />
               <AuthenticatedRoute

@@ -36,3 +36,11 @@ padding: 10px;
   font-family: "Roboto", sans-serif;
 }
 
+.bg3-custom {
+  background-color: black;
+  color: white;
+  background-size: contain;
+  height: 680px;
+  padding: 10px;
+}
+

@@ -89,8 +89,6 @@ export default class TransactionsFormContainer extends Component {
   };
 
   handleFormReset = event => {
-    // all unmanaged inputs will already be reset, so we only need to reset
-    // the managed inputs here.
     this.setState({ amount: 0 });
   };
 
@@ -151,15 +149,15 @@ export default class TransactionsFormContainer extends Component {
         )}
         {/*Transaction Amount*/}
         <label>
-          Amount  
-          <CurrencyInput
-            prefix="$ "
-            decimalSeparator="."
-            thousandSeparator=","
-            name={"transactionAmount"}
-            onChangeEvent={this.handleAmountChange}
-            value={this.state.amount}
-          />{" "}
+        Amount  
+        <CurrencyInput
+          prefix="$ "
+          decimalSeparator="."
+          thousandSeparator=","
+          name={"transactionAmount"}
+          onChangeEvent={this.handleAmountChange}
+          value={this.state.amount}
+        />{" "}
         </label>
         {/* Notes */}
         <TextArea

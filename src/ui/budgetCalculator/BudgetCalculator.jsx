@@ -8,7 +8,7 @@ import uuid from "uuid/v4";
 const initialExpenses = localStorage.getItem("expenses")
   ? JSON.parse(localStorage.getItem("expenses"))
   : [];
-function App() {
+function BudgetCalculator() {
   // ************* state values *******************
   // all expenses, add expense
   const [expenses, setExpenses] = useState(initialExpenses);
@@ -99,8 +99,17 @@ function App() {
       {alert.show && <Alert type={alert.type} text={alert.text} />}
       <Alert />
       <div className="budgetCalculator" id="bugetCalculator">
-        <h1 style={{textAlign: "center", textTransform: "capitalize", margin: "2rem 0",
-                    color: "white", letterSpacing: "5px"}}>budget calculator</h1>
+        <h1
+          style={{
+            textAlign: "center",
+            textTransform: "capitalize",
+            margin: "2rem 0",
+            color: "white",
+            letterSpacing: "5px"
+          }}
+        >
+          budget calculator
+        </h1>
         <main className="Budget">
           <ExpenseForm
             charge={charge}
@@ -117,12 +126,27 @@ function App() {
             clearItems={clearItems}
           />
         </main>
-        <h1 style={{textAlign: "center", textTransform: "capitalize", margin: "2rem 0",
-                    color: "white", letterSpacing: "5px"}}>
+        <h1
+          style={{
+            textAlign: "center",
+            textTransform: "capitalize",
+            margin: "2rem 0",
+            color: "white",
+            letterSpacing: "5px"
+          }}
+        >
           total spending :{" "}
-          <span style={{fontWeight: "300", color: "white",backgroundColor: "#bb310c", 
-                        borderStyle: "outset", borderColor: "#bb310c", borderWidth: "5px", 
-                        padding: "2px 5px"}}>
+          <span
+            style={{
+              fontWeight: "300",
+              color: "white",
+              backgroundColor: "#bb310c",
+              borderStyle: "outset",
+              borderColor: "#bb310c",
+              borderWidth: "5px",
+              padding: "2px 5px"
+            }}
+          >
             $
             {expenses.reduce((acc, curr) => {
               return (acc += parseInt(curr.amount));
@@ -133,5 +157,4 @@ function App() {
     </>
   );
 }
-
-export default App;
+export default BudgetCalculator;

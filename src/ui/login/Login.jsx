@@ -6,13 +6,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReloadPage from "../../components/ReloadPage.js";
 import { withRouter } from "react-router";
 import "./Login.css";
+// import {
+//   LinkButtons,
+//   forgotButton,
+// } from "./forgotPassword/components";
 
 class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: "Tim",
+      username: "",
       password: "",
       hasLoginFailed: false,
       showSuccessMessage: false
@@ -38,24 +42,34 @@ class Login extends Component {
     //         this.setState({hasLoginFailed:true})
     //     })
 
-     AuthenticationService.executeJwtAuthenticationService(
-       this.state.username,
-       this.state.password
-     )
-       .then(response => {
-         AuthenticationService.registerSuccessfulLoginForJwt(
-           this.state.username,
-           response.data.token
-         );
-         this.props.history.push(`/welcome/${this.state.username}`);
-       })
-       .catch(() => {
-         this.setState({ showSuccessMessage: false });
-         this.setState({ hasLoginFailed: true });
-       });
+  //   AuthenticationService.executeJwtAuthenticationService(
+  //     this.state.username,
+  //     this.state.password
+  //   )
+  //     .then(response => {
+  //       AuthenticationService.registerSuccessfulLoginForJwt(
+  //         this.state.username,
+  //         response.data.token
+  //       );
+  //       this.props.history.push(`/welcome/${this.state.username}`);
+  //     })
+  //     .catch(() => {
+  //       this.setState({ showSuccessMessage: false });
+  //       this.setState({ hasLoginFailed: true });
+  //     });
+  // }
+
+  if(this.state.username==='Tim' && this.state.password==='1234'){
+            AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
+            this.props.history.push(`/welcome/${this.state.username}`)
+            //this.setState({showSuccessMessage:true})
+            //this.setState({hasLoginFailed:false})
+        }
+        else {
+            this.setState({showSuccessMessage:false})
+            this.setState({hasLoginFailed:true})
+        }
     }
-
-
   resetForm = () => {
     this.setState({ username: "" });
     this.setState({ password: "" });
@@ -105,6 +119,12 @@ class Login extends Component {
               >
                 Reset
               </button>
+              {/* <br></br>
+              <LinkButtons
+                buttonStyle={forgotButton}
+                buttonText="Forgot Password?"
+                link="/forgotPassword"
+              /> */}
             </div>
           </div>
         </div>
