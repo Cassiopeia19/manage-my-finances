@@ -27,6 +27,7 @@
     "font-awesome": "^4.7.0",
     "formik": "^1.5.8",
     "inline-style-prefix-all": "^2.0.2",
+    "latest-version": "^5.1.0",
     "lodash.throttle": "^4.1.1",
     "mathjs": "^6.4.0",
     "mdbreact": "^4.24.0",
