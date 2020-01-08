@@ -15,7 +15,7 @@ Several Udemy courses were utilized to assist me in the creation of this app. He
 Content (within quotations defining what each dependency has to offer my app) explaining the dependencies added via Spring Initializer 
 was cited directly from their website:  https://start.spring.io/.
 
-### React.js (frontend) runs on localhost:5000 or http://192.168.56.1:5000/
+### React.js (frontend) runs on localhost:5000 or http://192.168.56.1:5000/, but soon on https://git.heroku.com/managemyfinances-frontend.git
 **The frontend includes the following:**
 1) Bootstrap 4.1.0 formatting of the header & footer
 2) A **welcome** for the user who likes space & the like.
@@ -30,7 +30,7 @@ was cited directly from their website:  https://start.spring.io/.
 7) A **reports form** that allows the user to choose what he would like to have included within the report, which will produce a report with the option to print. {in progress}
 
 
-### JAVA backend runs on https://managemyfinances.herokuapp.com/
+### JAVA backend runs on localhost: 8080, but soon on https://managemyfinances.herokuapp.com/
 **The backend makes use of the following:**
 
 a) various annotations
