@@ -82,7 +82,7 @@ class Login extends Component {
           <h1>Sign-in</h1>
           <div className="container">
             {this.state.hasLoginFailed && (
-              <div className="alert alert-warning">Invalid Credentials</div>
+              <div className="alert alert-danger">Invalid Credentials</div>
             )}
             {this.state.showSuccessMessage && <div>Login Sucessful</div>}
             <div>
