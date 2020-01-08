@@ -31,7 +31,7 @@ was cited directly from their website:  https://start.spring.io/.
 
 
 ### JAVA backend runs on localhost:8080
-**The backend makes use of the following (those that are not listed within the dependencies added during app creation):**
+**The backend makes use of the following:**
 
 a) various annotations
 
