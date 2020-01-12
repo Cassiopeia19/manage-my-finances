@@ -30,7 +30,7 @@ export default class ReportsFormContainer extends Component {
                    } else {
                      endDate = moment(this.state.beginningDate).add(1, "years");
                    }
-                   console.log(endDate); // '01/22/2020`
+                   console.log(endDate); 
                    this.setState({ endDate });
                    return endDate;
                  };
@@ -53,7 +53,7 @@ export default class ReportsFormContainer extends Component {
                          textAlign: "left",
                          fontSize: "22px",
                          margin: "275px",
-                         height: "1825px",
+                         height: "2025px",
                          width: "875px"
                        }}
                      >
@@ -70,6 +70,7 @@ export default class ReportsFormContainer extends Component {
                          <ReportTimeframe
                            onChange={this.handleReportTimeframeChange}
                          />
+                          {/* is it because of 'controlid' that the begDate field is mandatory prior to reset form?  */}
                          <Form.Group controlid="begDate">
                            <Form.Label>Beginning</Form.Label>
                            <Form.Control

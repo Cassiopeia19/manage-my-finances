@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import TransactionsTabsHeader from "../../containers/transactionsTabsHeader/TransactionsTabsHeader.jsx";
-import "./Transactions.css";
+import TransactionsTabsHeader from "../transactionsTabsHeader/TransactionsTabsHeader.jsx";
+import "./TransactionsHome.css";
 
 class TransactionsHome extends Component {
   render() {

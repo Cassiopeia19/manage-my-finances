@@ -9,10 +9,10 @@ import Logout from "../../ui/Logout.jsx";
 import Welcome from "../welcome/Welcome.jsx";
 import Accounts from "../../ui/accounts/Accounts.jsx";
 import Vacations from "../../ui/vacations/Vacations"
-import TransactionsHome from "../../ui/transactions/TransactionsHome";
+import TransactionsHome from "../../ui/transactions/transactionsHome/TransactionsHome";
 import TransactionsList from "../../ui/transactions/transactionsList/TransactionsList.jsx";
 import AddTransaction from "../../ui/transactions/addTransaction/AddTransaction";
-import UpdateDeleteTransactions from "../../ui/transactions/UpdateDeleteTransactions";
+import Archive from "../../ui/transactions/Archive"
 import Reports from "../../ui/reports/Reports.jsx";
 import Login from "../../ui/login/Login.jsx";
 import BudgetCalculator from '../../ui/budgetCalculator/BudgetCalculator';
@@ -56,8 +56,8 @@ class Routes extends Component {
                 component={AddTransaction}
               />
               <AuthenticatedRoute
-                path="/update-delete-transactions"
-                component={UpdateDeleteTransactions}
+                path="/archive"
+                component={Archive}
               />
               <AuthenticatedRoute path="/reports" component={Reports} />
               <AuthenticatedRoute path="/vacations" component={Vacations} />

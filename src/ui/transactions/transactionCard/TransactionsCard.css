@@ -1,0 +1,14 @@
+.clear-btn,
+.edit-btn,
+.notes-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-icon {
+  margin-left: 0.75rem;
+  font-size: 1.2rem;
+}

@@ -36,11 +36,16 @@ padding: 10px;
   font-family: "Roboto", sans-serif;
 }
 
-.bg3-custom {
+.toggleButton {
+  max-width: 1200px;
+    margin: 200 auto;
+    padding-top: 15px;
+}
+
+ .bg3-custom {
   background-color: black;
   color: white;
   background-size: contain;
   height: 680px;
   padding: 10px;
-}
-
+} 

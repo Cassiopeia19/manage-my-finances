@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@appbaseio/reactivesearch": "^3.2.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "@fortawesome/react-fontawesome": "^0.1.8",
@@ -12,6 +13,7 @@
     "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",
     "@openfonts/princess-sofia_latin": "^1.44.0",
+    "@progress/kendo-react-buttons": "^3.9.0",
     "@trendmicro/react-buttons": "^1.3.1",
     "@types/node": "^12.12.24",
     "animated-scroll-to": "^2.0.3",

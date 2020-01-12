@@ -1,13 +1,49 @@
-#th {
-    padding: 10px;
-    font-size: 20px;
-    width: 50px;
-}
-
-#button {
-    background-color: forestgreen;
+/* .button1 {
+    background-color: forestgreen !important;
     color: white;
 }
-#td {
-    white-space: unset;
+
+.button2 {
+    background-color: #EAC342 !important;
+    color: black !important;
+}
+
+.button3 {
+    background-color: red !important;
+    color: black !important;
+} */
+
+/* .card2{
+margin: 30px auto;
+float: none;
+margin-bottom: 5px;
+padding: 2em;
+height: 14em;
+width: 2em;
+background-color: white !important;
+font-family: "Cambria", "Hoefler Text", "Liberation Serif", "Times", "Times New Roman", "serif";
+color: black;
+font-size: 16px;
+border-radius: 25% 25% 25% 25%;
+box-shadow: 2px 2px 10px 2px black;
+
+} */
+
+.clear-btn,
+.edit-btn,
+.notes-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-icon {
+  margin-left: 0.75rem;
+  font-size: 1.2rem;
+}
+
+.notes-btn {
+    color: royalblue;
 }

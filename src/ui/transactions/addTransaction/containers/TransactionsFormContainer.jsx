@@ -1,9 +1,9 @@
 /* eslint-disable no-lone-blocks */
 
 import React, { Component } from "react";
-import TextArea from "../components/formContainer/TextArea";
-import Select from "../components/formContainer/Select";
-import Button from "../components/formContainer/Button";
+import TextArea from "../components/TextArea";
+import Select from "../components/Select";
+import Button from "../components/Button";
 import CurrencyInput from "react-currency-input";
 import { Form } from "react-bootstrap";
 

@@ -5,7 +5,7 @@ class Footer extends Component {
     return (
       <footer className="footer">
         <span className="text-muted">
-          All Rights Reserved &copy; 2019 manage-my-finances.net
+          All Rights Reserved &copy; 2019-2020 Manage My Finances
         </span>
       </footer>
     );
