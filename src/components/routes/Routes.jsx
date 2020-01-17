@@ -12,7 +12,6 @@ import Vacations from "../../ui/vacations/Vacations"
 import TransactionsHome from "../../ui/transactions/transactionsHome/TransactionsHome";
 import TransactionsList from "../../ui/transactions/transactionsList/TransactionsList.jsx";
 import AddTransaction from "../../ui/transactions/addTransaction/AddTransaction";
-import Archive from "../../ui/transactions/Archive"
 import Reports from "../../ui/reports/Reports.jsx";
 import Login from "../../ui/login/Login.jsx";
 import BudgetCalculator from '../../ui/budgetCalculator/BudgetCalculator';
@@ -54,10 +53,6 @@ class Routes extends Component {
               <AuthenticatedRoute
                 path="/add-transaction"
                 component={AddTransaction}
-              />
-              <AuthenticatedRoute
-                path="/archive"
-                component={Archive}
               />
               <AuthenticatedRoute path="/reports" component={Reports} />
               <AuthenticatedRoute path="/vacations" component={Vacations} />

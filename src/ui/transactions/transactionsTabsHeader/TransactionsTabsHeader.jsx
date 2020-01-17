@@ -1,17 +1,12 @@
+/* eslint-disable eqeqeq */
 import React from "react";
 import classnames from "classnames";
 import "./TransactionsTabsHeader.css";
-import {
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink
-} from "reactstrap";
-import TransactionsList from "../../transactions/transactionsList/TransactionsList";
+import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
+import TransactionsLayout from "../transactionCard/TransactionsLayout";
 import AddTransaction from "../../transactions/addTransaction/AddTransaction";
 
-export default class Example extends React.Component {
+export default class TransactionsTabsHeader extends React.Component {
   constructor(props) {
     super(props);
 
@@ -55,7 +50,7 @@ export default class Example extends React.Component {
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
-            {this.state.activeTab == 1 ? <TransactionsList /> : null}
+            {this.state.activeTab == 1 ? <TransactionsLayout /> : null}
           </TabPane>
           <TabPane tabId="2">
             {this.state.activeTab == 2 ? <AddTransaction /> : null}

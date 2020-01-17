@@ -13,7 +13,6 @@ class Header extends Component {
 
     return (
       <header className="header">
-        {/* not sure of how to get the black dot left of the logo to disappear?? */}
         <nav
           className="navbar navbar-expand-md navbar-dark bg-custom sticky-nav"
           style={{ fontSize: "24px" }}
