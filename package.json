@@ -2,6 +2,7 @@
   "name": "manage-my-finances_frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/Cassiopeia19/manage-my-finances.git",
   "dependencies": {
     "@appbaseio/reactivesearch": "^3.2.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
@@ -27,7 +28,9 @@
     "crypto": "^1.0.1",
     "final-form": "^4.18.6",
     "font-awesome": "^4.7.0",
+    "form-serialize": "^0.7.2",
     "formik": "^1.5.8",
+    "gh-pages": "^2.2.0",
     "inline-style-prefix-all": "^2.0.2",
     "latest-version": "^5.1.0",
     "lodash.throttle": "^4.1.1",
@@ -56,7 +59,9 @@
     "start": "set PORT=5000 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,6 +1,6 @@
 body {
   font-weight: 900;
-  font-size: 36px;
+  font-size: 24px !important;
   font-family: system-ui, -apple-system, sans-serif;
   letter-spacing: -1px;
   padding: 0 0 2rem 2rem;

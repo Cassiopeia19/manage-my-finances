@@ -1,49 +1,13 @@
-.row {
-	display: flex;
-	flex-direction: row;
-	width: 100%;
+#toggle1 {
+	background-color: forestgreen;
+	color: black;
+	font-size: 20px;
+	font-weight: bold;
 }
 
-.col {
-    flex: 1;
-	padding: 15px;
+#toggle2 {
+	background-color: rgb(2, 61, 2);
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
 }
-
-.row > .col:first-child {
-    max-width: 200px;
-}
-
-.row > .col:last-child {
-	background: #014421;
-}
-
-.flex {
-	display: flex;
-}
-
-.wrap {
-	flex-wrap: wrap;
-}
-
-.column {
-	flex-direction: column;
-}
-
-.align-center {
-	align-items: center;
-}
-
-.justify-center {
-	justify-content: center;
-}
-
-.justify-space-between {
-	justify-content: space-between;
-}
-
-.text-center {
-    text-align: center;
-}
-
-
-

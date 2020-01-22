@@ -1,11 +1,12 @@
 import React from "react";
 
-const CarCheckbox = ({ label, isSelected, onCheckboxChange }) => (
+const Checkbox = ({ name, label, isSelected, onCheckboxChange, ...rest }) => (
   <div className="form-check">
     <label>
       <input
+        {...rest} //prop forwarding
         type="checkbox"
-        name={label}
+        name={name || label}
         checked={isSelected}
         onChange={onCheckboxChange}
         className="form-check-input"
@@ -15,4 +16,4 @@ const CarCheckbox = ({ label, isSelected, onCheckboxChange }) => (
   </div>
 );
 
-export default CarCheckbox;
+export default Checkbox;

@@ -38,17 +38,16 @@ class FamilyCheckbox extends Component {
 
   deselectAll = () => this.selectAllCheckboxes(false);
 
-  handleCheckboxChange = changeEvent => {
-    const { name } = changeEvent.target;
+  handleCheckboxChange = option => {
+    // const { name } = changeEvent.target;
 
     this.setState(prevState => ({
       checkboxes: {
         ...prevState.checkboxes,
-        [name]: !prevState.checkboxes[name]
+        [option]: !prevState.checkboxes[option]
       }
     }));
   };
-
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
 
@@ -61,9 +60,12 @@ class FamilyCheckbox extends Component {
 
   createCheckbox = option => (
     <Checkbox
+      name="Accounts[]"
       label={option}
+      value={option}
       isSelected={this.state.checkboxes[option]}
-      onCheckboxChange={this.handleCheckboxChange}
+      onCheckboxChange={() => this.handleCheckboxChange(option)}
+      //onCheckboxChange={this.handleCheckboxChange}
       key={option}
     />
   );
@@ -75,24 +77,24 @@ class FamilyCheckbox extends Component {
       <div className="container">
         <div className="row mt-5">
           <div className="col-sm-12">
-              <h2>Family</h2>
-              {this.createCheckboxes()}
-              <div className="form-group mt-2">
-                <button
-                  type="button"
-                  className="btn btn-outline-warning"
-                  onClick={this.selectAll}
-                >
-                  Select All
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-outline-danger"
-                  onClick={this.deselectAll}
-                >
-                  Deselect All
-                </button>
-              </div>
+            <h2>Family</h2>
+            {this.createCheckboxes()}
+            <div className="form-group mt-2">
+              <button
+                type="button"
+                className="btn btn-outline-warning"
+                onClick={this.selectAll}
+              >
+                Select All
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline-danger"
+                onClick={this.deselectAll}
+              >
+                Deselect All
+              </button>
+            </div>
           </div>
         </div>
       </div>

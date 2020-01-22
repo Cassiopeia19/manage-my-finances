@@ -9,7 +9,7 @@ function TransactionsList(props) {
       transactionId: 1,
       accountName: "Ally",
       type: "deposit",
-      transactionDate: "Jan 01, 2020",
+      transactionDate: "Dec 01, 2019",
       category: "interest earned",
       amount: "$220.00",
       notes: "Year-end interest earned. Ally yields 20% annual interest."
@@ -27,7 +27,7 @@ function TransactionsList(props) {
       transactionId: 3,
       accountName: "Cash",
       type: "deposit",
-      transactionDate: "Jan 05, 2020",
+      transactionDate: "Dec 05, 2019",
       category: "Janice",
       amount: "$350.00",
       notes: "Car insurance & rent."
@@ -53,7 +53,7 @@ function TransactionsList(props) {
   ];
 
   return (
-    <CardColumns>
+    <CardColumns style={{padding: "20px"}}>
       {transactions.map(transaction => (
         <TransactionCard transaction={transaction} />
       ))}
