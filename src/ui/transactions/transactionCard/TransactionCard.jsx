@@ -57,7 +57,7 @@ export default function TransactionCard(props) {
           <button
             className="edit-btn btn-icon"
             aria-label="edit button"
-            // onClick={() => handleEdit()}
+          //  onClick={() => handleEdit()}
           >
             <MdEdit />
           </button>
@@ -69,7 +69,9 @@ export default function TransactionCard(props) {
             <MdDelete
               onClick={() => {
                 if (
-                  window.confirm("Are you sure you wish to delete this transaction?")
+                  window.confirm(
+                    "Are you sure you wish to delete this transaction?"
+                  )
                 )
                   this.onCancel(transaction);
               }}

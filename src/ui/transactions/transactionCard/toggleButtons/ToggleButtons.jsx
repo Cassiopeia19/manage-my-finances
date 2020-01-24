@@ -7,7 +7,7 @@ import "./ToggleButtons.css";
 class ToggleButtons extends Component {
 
   thirtyDays() {
-    console.log("30 days of transactions")
+    console.log("the past 30 days of transactions")
     // event.Date.today()
     //   .add(-30)
     //   .days();

@@ -16,6 +16,7 @@ import Reports from "../../ui/reports/Reports.jsx";
 import Login from "../../ui/login/Login.jsx";
 import BudgetCalculator from '../../ui/budgetCalculator/BudgetCalculator';
 import ForgotPassword from '../../ui/login/forgotPassword/ForgotPassword';
+import NewUser from '../welcome/newUser/NewUser'
 
 class Routes extends Component {
   render() {
@@ -30,6 +31,7 @@ class Routes extends Component {
               <Route path="/forgotpassword" component={ForgotPassword} />
 
               <AuthenticatedRoute path="/welcome/:name" component={Welcome} />
+              <AuthenticatedRoute path="/new-user" component={NewUser} />
               <AuthenticatedRoute
                 path="/accounts/:accountId"
                 component={Accounts}
