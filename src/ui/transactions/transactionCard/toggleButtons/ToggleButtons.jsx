@@ -5,9 +5,9 @@ import React, { Component } from "react";
 import "./ToggleButtons.css";
 
 class ToggleButtons extends Component {
-
-  thirtyDays() {
-    console.log("the past 30 days of transactions")
+  
+ thirtyDays() {
+    console.log("30 days of transactions")
     // event.Date.today()
     //   .add(-30)
     //   .days();
