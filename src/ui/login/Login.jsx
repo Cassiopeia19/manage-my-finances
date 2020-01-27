@@ -33,7 +33,7 @@ class Login extends Component {
   }
   loginClicked() {
     //Tim,1234
-  // AuthenticationService
+    // AuthenticationService
     //     .executeBasicAuthenticationService(this.state.username, this.state.password)
     //     .then(() => {
     //         AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
@@ -79,12 +79,12 @@ class Login extends Component {
     this.setState({ password: "" });
   };
 
-  onKeyPrese => {
+  onKeyPress = e => {
     if (e.which === 13) {
       this.loginClicked();
     }
   };
-
+  
   render() {
     return (
       <>
@@ -115,7 +115,7 @@ class Login extends Component {
                   placeholder="password"
                   value={this.state.password}
                   onChange={this.handleChange}
-                  onKeyPress={this.onKeyPress }
+                  onKeyPress={this.onKeyPress}
                 />
               </div>
               <br></br>
@@ -147,5 +147,4 @@ class Login extends Component {
     );
   }
 }
-
 export default withRouter(Login);
