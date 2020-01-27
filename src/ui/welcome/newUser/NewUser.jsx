@@ -1,5 +1,5 @@
 import React from "react";
-import reactDOM from "react-dom";
+import ReactDOM from "react-dom";
 import "./NewUser.scss"
 
 class NewUser extends React.Component {
@@ -57,6 +57,8 @@ class NewUser extends React.Component {
 
   openPopup(e) {
     console.log("popup open");
+    window.alert ("New user has been added successfully");
+    
   }
 
   submitRegister(e) {
@@ -99,68 +101,68 @@ class NewUser extends React.Component {
     }
 
     return (
-        <div className="box-container">
-      <div className="inner-container">
-        <div className="header">Add new user</div>
-        <div className="box">
-          <div className="input-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              className="register-input"
-              placeholder="Username"
-              onChange={this.onUsernameChange.bind(this)}
-            />
-            <small className="danger-error">
-              {usernameErr ? usernameErr : ""}
-            </small>
+      <div className="box-container">
+        <div className="inner-container">
+          <div className="header">Add new user</div>
+          <div className="box">
+            <div className="input-group">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                name="username"
+                className="register-input"
+                placeholder="Username"
+                onChange={this.onUsernameChange.bind(this)}
+              />
+              <small className="danger-error">
+                {usernameErr ? usernameErr : ""}
+              </small>
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                className="register-input"
+                placeholder="Password"
+                onChange={this.onPasswordChange.bind(this)}
+              />
+              <small className="danger-error">
+                {passwordErr ? passwordErr : ""}
+              </small>
+
+              {this.state.password && (
+                <div className="password-state">
+                  <div
+                    className={"pwd pwd-weak " + (pwdWeak ? "show" : "")}
+                  ></div>
+                  <div
+                    className={"pwd pwd-medium " + (pwdMedium ? "show" : "")}
+                  ></div>
+                  <div
+                    className={"pwd pwd-strong " + (pwdStrong ? "show" : "")}
+                  ></div>
+                </div>
+              )}
+            </div>
+            
+            <button
+              type="button"
+              className="register-btn"
+              onHover={this.openPopup.bind(this)}
+              onClick={
+                this.openPopup.bind(this) && this.submitRegister.bind(this)}
+            >
+              Submit
+            </button>
           </div>
-
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              className="register-input"
-              placeholder="Password"
-              onChange={this.onPasswordChange.bind(this)}
-            />
-            <small className="danger-error">
-              {passwordErr ? passwordErr : ""}
-            </small>
-
-            {this.state.password && (
-              <div className="password-state">
-                <div
-                  className={"pwd pwd-weak " + (pwdWeak ? "show" : "")}
-                ></div>
-                <div
-                  className={"pwd pwd-medium " + (pwdMedium ? "show" : "")}
-                ></div>
-                <div
-                  className={"pwd pwd-strong " + (pwdStrong ? "show" : "")}
-                ></div>
-              </div>
-            )}
-          </div>
-
-          <button
-            type="button"
-            className="register-btn"
-            onHover={this.openPopup.bind(this)}
-            onClick={this.openPopup.bind(this) && 
-                this.submitRegister.bind(this)}
-          >
-            Submit
-          </button>
         </div>
-      </div>
       </div>
     );
   }
 }
 
-reactDOM.render(<NewUser />, document.getElementById("root"));
+ReactDOM.render(<NewUser />, document.getElementById("root"));
 
 export default NewUser
