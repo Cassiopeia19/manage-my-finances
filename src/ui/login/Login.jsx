@@ -31,6 +31,11 @@ class Login extends Component {
       [event.target.name]: event.target.value
     });
   }
+  
+  componentDidMount() {
+  window.scrollTo(0, 0)
+}
+  
   loginClicked() {
     //Tim,1234
     // AuthenticationService
