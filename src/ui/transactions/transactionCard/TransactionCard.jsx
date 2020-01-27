@@ -43,9 +43,17 @@ export default function TransactionCard(props) {
 
   const { transaction } = props;
 
- 
+  function on() {
+    document.getElementById("overlay").style.display = "block";
+  };
+
+function off() {
+  document.getElementById("overlay").style.display = "none";
+};
+
   return (
     <>
+      <div id="overlay" onClick={() => off()} />
       <Card className={classes.card}>
         <CardHeader tag="h3">{transaction.accountName}</CardHeader>
         <CardTitle>{transaction.type}</CardTitle>
@@ -55,12 +63,13 @@ export default function TransactionCard(props) {
 
         <CardActions disableSpacing>
           <button
-            className="edit-btn btn-icon"
+            className="edit-btn btn-icon text"
             aria-label="edit button"
-            // onClick={() => handleEdit()}
+            onClick={() => on()}
           >
             <MdEdit />
           </button>
+
           <button
             className="clear-btn btn-icon"
             aria-label="delete button"
@@ -69,7 +78,9 @@ export default function TransactionCard(props) {
             <MdDelete
               onClick={() => {
                 if (
-                  window.confirm("Are you sure you wish to delete this transaction?")
+                  window.confirm(
+                    "Are you sure you wish to delete this transaction?"
+                  )
                 )
                   this.onCancel(transaction);
               }}
@@ -87,6 +98,7 @@ export default function TransactionCard(props) {
             <ExpandMoreIcon />
           </IconButton>
         </CardActions>
+
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Notes:</Typography>

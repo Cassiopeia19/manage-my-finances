@@ -6,7 +6,7 @@ import Error from "../../containers/Error.jsx";
 import Header from "../../containers/header/Header";
 import Footer from "../../containers/Footer.jsx";
 import Logout from "../../ui/Logout.jsx";
-import Welcome from "../welcome/Welcome.jsx";
+import Welcome from "../../ui/welcome/Welcome";
 import Accounts from "../../ui/accounts/Accounts.jsx";
 import Vacations from "../../ui/vacations/Vacations"
 import TransactionsHome from "../../ui/transactions/transactionsHome/TransactionsHome";
@@ -16,6 +16,7 @@ import Reports from "../../ui/reports/Reports.jsx";
 import Login from "../../ui/login/Login.jsx";
 import BudgetCalculator from '../../ui/budgetCalculator/BudgetCalculator';
 import ForgotPassword from '../../ui/login/forgotPassword/ForgotPassword';
+import NewUser from '../../ui/welcome/newUser/NewUser'
 
 class Routes extends Component {
   render() {
@@ -30,6 +31,7 @@ class Routes extends Component {
               <Route path="/forgotpassword" component={ForgotPassword} />
 
               <AuthenticatedRoute path="/welcome/:name" component={Welcome} />
+              <AuthenticatedRoute path="/new-user" component={NewUser} />
               <AuthenticatedRoute
                 path="/accounts/:accountId"
                 component={Accounts}

@@ -11,6 +11,7 @@ import UtilitiesCheckbox from "../components/checkbox/UtilitiesCheckbox"
 import Misc from "../components/checkbox/MiscCheckbox"
 import AccountRelated from "../components/checkbox/AccountRelatedCheckbox"
 import moment from 'moment'
+import FormSerialize from "form-serialize";
 
 export default class ReportsFormContainer extends Component {
                  state = {
@@ -26,23 +27,65 @@ export default class ReportsFormContainer extends Component {
                    if (this.state.reportTimeframe === "monthly") {
                      console.log("first if comparison");
 
-                     endDate = moment(this.state.beginningDate).add(1, "months");
+                     endDate = moment(this.state.beginningDate).add(
+                       1,
+                       "months"
+                     );
                    } else {
                      endDate = moment(this.state.beginningDate).add(1, "years");
                    }
-                   console.log(endDate); 
+                   console.log(endDate);
                    this.setState({ endDate });
                    return endDate;
                  };
 
                  handleBeginningDateChange = event => {
-                   this.setState({ beginningDate: event.target.value }, () => this.populateEndingDate());
-                   
+                   this.setState({ beginningDate: event.target.value }, () =>
+                     this.populateEndingDate()
+                   );
                  };
 
                  handleReportTimeframeChange = event => {
-                   this.setState({ reportTimeframe: event.target.value }, () => this.populateEndingDate());                 };
+                   this.setState({ reportTimeframe: event.target.value }, () =>
+                     this.populateEndingDate()
+                   );
+                 };
 
+                 handleFormSubmit = event => {
+                   event.preventDefault();
+                   //event.target.reset(); will reset the form upon submitting, but it wipes out most of the data within the object
+                   console.log("Submitting The Form...");
+
+                   
+
+                  //  const transactionformData = Object.fromEntries(
+                    //[...event.target.elements].map(element => [
+                  //      element["name"],
+                  //      element["value"]
+                  //    ])
+                  //  );
+                  const formData = FormSerialize( event.target, { hash: true });
+                   console.log("Form Contents", { formData });
+
+                   //   ***** what do i need to do with the code below to have it post to the database?? *****
+                   // ******* also, the submitted form needs to update both the transactions list AND the accounts balance list ******
+                   // ******also, the submitted form needs to update the list of transactions within update/delete tab
+                   fetch("https://example.com", {
+                     method: "POST",
+                     body: JSON.stringify(formData),
+                     headers: {
+                       Accept: "application/json",
+                       "Content-Type": "application/json"
+                     }
+                   }).then(response => {
+                     console.log("The remote resource has responded with", {
+                       response
+                     });
+                     response.json().then(data => {
+                       console.log("Successful" + data);
+                     });
+                   });
+                 };
                  render() {
                    return (
                      <form
@@ -70,7 +113,7 @@ export default class ReportsFormContainer extends Component {
                          <ReportTimeframe
                            onChange={this.handleReportTimeframeChange}
                          />
-                          {/* is it because of 'controlid' that the begDate field is mandatory prior to reset form?  */}
+                         {/* is it because of 'controlid' that the begDate field is mandatory prior to reset form?  */}
                          <Form.Group controlid="begDate">
                            <Form.Label>Beginning</Form.Label>
                            <Form.Control

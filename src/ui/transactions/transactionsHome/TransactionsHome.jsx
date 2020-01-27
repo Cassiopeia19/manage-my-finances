@@ -5,7 +5,7 @@ import "./TransactionsHome.css";
 class TransactionsHome extends Component {
   render() {
     return (
-      <div id="backgroundImage">
+     <div id="backgroundImage"> 
         <TransactionsTabsHeader />
       </div>
     );
