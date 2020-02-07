@@ -63,7 +63,7 @@ Java (backend) was initialized via Spring Initializer with Spring Boot snapshot.
 4) H2 Database. . .the description of which states, "Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes, as well as browser-based console application".
 
 
-This app currently reads/writes to a H2 database; mySQL is desired in the near future.
+This app currently reads/writes to a H2 database; mySQL conversion is underway.
 
 
 
