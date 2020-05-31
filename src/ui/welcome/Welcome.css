@@ -1,0 +1,90 @@
+/* spaceship */
+
+@keyframes starsMove {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+#stars-back {
+  background-image:url('https://s.cdpn.io/28963/space-back2.jpg');
+  overflow:hidden;
+  /* The background-image is 800px 
+  The width needs to be one half of the original width
+  in order for a 200% position of the background-image to match the
+  starting position. */
+  width: 400px;
+  height: 600px;
+  position:relative;
+  animation: starsMove 30s linear infinite;
+  margin: 0 auto;
+}
+
+#stars-front {
+  background-image:url('https://s.cdpn.io/28963/space-front.png');
+  overflow:hidden;
+  width: 400px;
+  height: 600px;
+  position:relative;
+  animation: starsMove 15s linear infinite;
+}
+
+  
+@keyframes planet {
+    0% {  }
+    100% {  
+        /* ends off to the left of the containing element */
+        left: -80px; 
+        /* rotate  */
+        transform:  rotate(-600deg);
+    }
+}
+
+#planet {
+  width: 80px;
+  height: 80px;
+  position:absolute;
+  opacity: 0.98;
+  z-index: 2;
+  background: url(https://s.cdpn.io/28963/pluto.png);
+  top: 50px;
+  left: 400px;
+  animation:  planet 25s ease-in 1s infinite;
+  }
+
+#planet2 {
+  width: 50px;
+  height: 50px;
+  position:absolute;
+  opacity: 0.98;
+  background: url(https://s.cdpn.io/28963/pluto3.png);
+  top: 500px;
+  left: 600px;
+  animation:  planet 22s ease-in 0 infinite;
+  z-index: 2;
+  }
+
+@keyframes spaceship {
+  50%  { transform: translateY(4px) translateX(3px); }
+}
+
+#spaceship {        
+  width:350px;
+  height:120px;
+  background-image:url('https://s.cdpn.io/28963/spaceship.png');
+  position:absolute;
+  left: 30px;
+  top: 275px;
+  opacity: 0.98;
+  z-index: 3;
+  animation: spaceship 2s linear infinite; 
+}
+
+.sound { margin: 0 auto; width: 100px; padding: 10px; }
+
+#img {
+  height: 50px;
+  width: 50px;
+}
+
+    
+ 

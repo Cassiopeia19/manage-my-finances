@@ -1,0 +1,49 @@
+body {
+  font-weight: 900;
+  font-size: 24px !important;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: -1px;
+  padding: 0 0 2rem 2rem;
+}
+
+h5 {
+  margin-bottom: 3.5rem;
+  color: black;
+}
+
+#transactionsList {
+  background-color: #d5d294;
+  color: #454545;
+  border-top-left-radius: 25%;
+  border-top-right-radius: 25%;
+}
+#transactionsList:hover {
+
+  background-color: #d5d294;
+  color: black;
+}
+
+#addTransaction {
+  background-color:#c1d3af;
+  color: #454545;
+  border-top-left-radius: 25%;
+  border-top-right-radius: 25%;
+}
+#addTransaction:hover {
+  
+  background-color: #c1d3af;
+  color: black;
+}
+
+/* .archive {
+  background-color: #a8d3ca;
+  color: #454545;
+  border-top-left-radius: 25%;
+  border-top-right-radius: 25%;
+}
+.archive:hover { 
+  background-color: #a8d3ca;
+  color: black;
+} */
+
+
