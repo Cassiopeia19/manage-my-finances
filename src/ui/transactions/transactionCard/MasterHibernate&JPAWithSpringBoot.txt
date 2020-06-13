@@ -1,0 +1,230 @@
+Master Hibernate & JPA with Spring Boot in 100 steps
+
+GitHub repo:  https://github.com/in28minutes/jpa-with-hibernate
+
+start.spring.io
+
+***Ctrl Shift O handles imports
+***Ctrl & click (i.e. Column in @Column will show you the interface/class for that)
+***Ctrl F:  find: make sure you type in the exact that you want & mark it case sensitive to replace all within a file
+***Alt Shift S to quickly get to generate getters & setters
+***if you select the body of a method, right click, refactor, extract method, you can extract that 
+	//method/create a new method with a method call in the old method
+
+
+
+section2/step12 provides a link to a troubleshooting guide if facing a Java9 or a ClassNotFoundException
+
+to run in debug mode:
+in application.properties:  logging.level.org.springframework=DEBUG
+
+debug in Eclipse:
+1) set breakpoint(s)
+2) F5 to step into
+3) step return or continue
+4) F6 to step over
+5) F8 to complete the execution
+
+To setup a table in H2 database in Eclipse:
+1) create a new file in src/main resources called 'data.sql'
+		example of what could be in it:
+		create table person
+		(
+		id integer not null,
+		name varchar(255) not null,
+		location varchar(255),
+		birth_date timestamp,
+		primary key(id)
+		);
+2) running the app should show the newly-created table in H2 database
+
+To populate data in the database:
+1) run a query:
+		INSERT INTO PERSON
+		(ID,NAME,LOCATION,BIRTH_DATE)
+		VALUES(10001, 'Jennie', 'Lake Saint Louis', sysdate();
+2) SELECT * FROM PERSON to see the row added
+3) all of the info added this way will disappear upon restart of the application
+4) to have the data stick, do the same in data.sql file in Eclipse
+
+
+examples of sql queries (queries from database tables):
+SELECT * FROM COURSE
+Where name like '%100 Steps'
+
+SELECT * FROM COURSE
+Where id = 10001
+
+//a join
+SELECT * FROM STUDENT,PASSPORT
+WHERE STUDENT.PASSPORT_ID=PASSPORT.ID
+
+SELECT * FROM REVIEW,COURSE
+WHERE COURSE.ID=REVIEW.COURSE_ID
+
+SELECT * FROM
+STUDENT_COURSE,STUDENT,COURSE
+WHERE
+STUDENT_COURSE.STUDENT_ID=STUDENT.ID AND
+STUDENT_COURSE.COURSE_ID=COURSE.ID
+
+SELECT * FROM PART_TIME_EMPLOYEE, EMPLOYEE
+WHERE PART_TIME_EMPLOYEE.ID = EMPLOYEE.ID
+
+SELECT * FROM FULL_TIME_EMPLOYEE, EMPLOYEE
+WHERE FULL_TIME_EMPLOYEE.ID = EMPLOYEE.ID
+
+SELECT * FROM COURSE 
+WHERE COURSE.ID NOT IN
+(SELECT COURSE_ID FROM STUDENT_COURSE)
+
+JPQL--stands for Java Persistence Query Language 
+(JPQL queries from entities, which are Java classes with @Entity. 
+	these are converted into SQL queries talking to the tables)
+examples of JPQL queries:
+Select c from Course c
+
+
+Annotations provided by hibernate & JPA (whenever you use JPA, you can 
+		easily shift from hibernate to any other jpa persistence provider 
+		***whenever you use a hibernate-specific feature, you're tied to hibernate) :
+
+@Table --used to define the name of the table
+@Column --used to define the name of a column
+@UpdateTimestamp --hibernate annotation
+@CreationTimestamp --hibernate annotation
+@NamedQuery
+@NamedQueries
+
+Native Queries are used whenever you have a feature that is not supported by 
+		JPA or when you have to do a mass update
+
+entities and relationships in demo:  course, student, passport, review
+****many to one => default is eager fetching; one to many => default is lazy fetching***
+
+****all mapping *ToMany (@ManyToMany and @OneToMany) are LAZY by default
+	many-to-many
+1) a course can have multiple students
+2) a student can have multiple courses
+3) a join table would be created:  course_student, with pk/fk's of:  student_id & course_id
+	a) instead of making both sides @ManyToMany, which creates two tables, I would need to 
+			make one the owning side of the relationship ***see course entity***   
+			***see student entity for customization of join
+
+****all mapping *ToOne (@ManyToOne and @OneToOne) are EAGER by default
+	many-to-one
+2) a course can have multiple reviews, but a single review can only be associated 
+		with one course; a course could also have no reviews (0...n)
+	1. review table would have an id, a rating, a description, & a course_id to 
+			associate the reviews to the specific course
+	
+	one-to-one
+3) a student can have one passport & one passport is associated with one student
+	a) to connect the student to the passport, you can do this in one of two ways:
+		1. you can create a column called passport_id within the student table 
+				(passport_id would be the foreign key--the id of another table)
+				& populating that data from the passport table
+		2. or you can create a column called student_id within the passport table 
+				& populating that data from the student table
+	***see student table and student repository in eclipse to see how the relationship is created***
+		3. either the passport or the student needs to be the owning side of the relationship
+			(either the student should have the passport_id, or the passport should have the student_id; 
+			not both. put in 'mappedBy' in passport(the non-owning side of the relationship)
+			to make student the owning side of the relationship
+			
+a few ways of mapping inheritance classes & when to use each:
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+		**if you're concerned about performance, then use SINGLE_TABLE
+
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+		**not really good table design b/c there will be repeating columns
+@Inheritance(strategy=InheritanceType.JOINED)
+		**if you're concerned about  data integrity & data quality matters alot for you, then use JOINED
+@MappedSuperclass
+		**not really good table design b/c there will be repeating columns
+		
+		
+Transaction Management:
+ACID:
+1) Atomicity-->the basic thing that any transaction management wants to achieve.
+	either the transaction should be completely successful, or all of the changes that 
+	are done by the transaction should be reverted back
+2) Consistency-->every transaction should leave a system in a consistent state
+	example of a consistent state:  when a transaction happens between two accounts in the same bank, 
+	it should leave the accounts in a consistent state whether the transaction succeeds(new balances 
+	reflected in both accounts) or the transaction fails (only one account reflects a change, 
+	thus reverting back to original state)
+3) Isolation (dirty read, non-repeatable read, phantom read(step#60)); 4 isolation levels(step #61): 
+	read uncommitted, read committed--the one mostly used b/c it gives you enough guarantees about 
+	the quality of data & also ensures that the performance of the system is good, repeatable read,
+	serializable--poor performance b/c only one transaction can run at a time)-->there are multiple 
+	levels of isolation present. one transaction which is happening affects another transaction 
+	running in parallel. for example, one transaction is updating an account's value & it's in-between 
+	a transaction, will another transaction be able to see the updated value? that's what isolation will determine.
+4) Durability-->means once a transaction is successful/completed execution: even if the system crashes, the 
+	data should be persistent in the end state even if there were failures during the transaction. if the 
+	transaction is successful, then the end result should be permanent
+
+implementing transactional management:
+
+@Transaction-> import 'Transactional' (javax.transaction) -> for if you're working with a single database
+this one is used more frequently: 
+ import 'Transactional' (org.springframework.tra...) 
+	-> for if you're working with multiple databases and/or a mq
+@Transactional(isolation=...)
+
+in application.properties:
+spring.jpa.properties.hibernate.connection.isolation=2
+javasqlconnection shows the values for all of the different levels
+
+to add in spring data REST:
+	go to pom.xml file & add in:  
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+add @RepositoryRestResource(path="courses") to CourseSpringDataRepository interface/class
+add @JsonIgnore to ignore a specific field (i.e. name of student being repeated in an infinite loop) 
+	from being returned in course entity
+if you'd like to exclude the reviews, you could add @JsonIgnore on that one as well
+	***REST is not recommended for production***
+	
+CACHING
+first level caching is data that is specific to a single transaaction
+second level caching is for data that is common across multiple users
+
+for second level caching, add this to the pom.xml file:
+<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-ehcache</artifactId>
+		</dependency>
+application.properties:
+# Second Level Cache - Ehcache
+
+#1. enable second level cache
+spring.jpa.properties.hibernate.cache.use_second_level_cache=true
+
+#2. specify the caching framework - EhCache
+spring.jpa.properties.hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
+
+#3. Only cache what I tell to cache.
+spring.jpa.properties.javax.persistence.sharedCache.mode=ENABLE_SELECTIVE
+
+logging.level.net.sf.ehcache=debug
+
+#4. What data to cache?
+
+add @Cacheable above public class Course {
+
+L2C puts -> it has put one value inside the level two cache
+L2C hits -> i'm looking at the cache & getting the data
+L2C misses -> if something is not present in the 2nd level cache. when this happens, eh cache 
+		puts that data into the cache (L2C puts)
+		
+**make use of an in-memory database (i.e. h2) for junit testing, while real-world code would be talking to a real database
+	the advantage to using h2 is that your tests are repeatable & are not dependent upon the data in the database (you would have
+	your own data in a data.sql file in your src/test/resources folder)
+	try to use 'assertEquals' in your tests to check at least one value
+
+
+

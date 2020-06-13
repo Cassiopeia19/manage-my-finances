@@ -6,19 +6,16 @@ class AccountDataService {
     return axios.get(`${JPA_API_URL}/users/${name}/accounts`);
   }
 
-  retrieveAccount(name, accountId) {
-    return axios.get(`${JPA_API_URL}/users/${name}/accounts/${accountId}`);
+  retrieveAccount(name, id) {
+    return axios.get(`${JPA_API_URL}/users/${name}/accounts/${id}`);
   }
 
-  deleteAccount(name, accountId) {
-    return axios.delete(`${JPA_API_URL}/users/${name}/accounts/${accountId}`);
+  deleteAccount(name, id) {
+    return axios.delete(`${JPA_API_URL}/users/${name}/accounts/${id}`);
   }
 
-  updateAccount(name, accountId, account) {
-    return axios.put(
-      `${JPA_API_URL}/users/${name}/accounts/${accountId}`,
-      account
-    );
+  updateAccount(name, id, account) {
+    return axios.put(`${JPA_API_URL}/users/${name}/accounts/${id}`, account);
   }
 
   createAccount(name, account) {
@@ -27,3 +24,4 @@ class AccountDataService {
 }
 
 export default new AccountDataService();
+

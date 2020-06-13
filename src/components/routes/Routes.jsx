@@ -8,7 +8,7 @@ import Footer from "../../containers/Footer.jsx";
 import Logout from "../../ui/Logout.jsx";
 import Welcome from "../../ui/welcome/Welcome";
 import Accounts from "../../ui/accounts/Accounts.jsx";
-import Vacations from "../../ui/vacations/Vacations"
+import Carousel from "../../ui/vacations/Carousel"
 import TransactionsHome from "../../ui/transactions/transactionsHome/TransactionsHome";
 import TransactionsList from "../../ui/transactions/transactionsList/TransactionsList.jsx";
 import AddTransaction from "../../ui/transactions/addTransaction/AddTransaction";
@@ -57,7 +57,7 @@ class Routes extends Component {
               />
               <AuthenticatedRoute path="/reports" component={Reports} />
               <AuthenticatedRoute path="/report pdf" component={ReportPDF} />
-              <AuthenticatedRoute path="/vacations" component={Vacations} />
+              <AuthenticatedRoute path="/vacations" component={Carousel} />
               <AuthenticatedRoute path="/logout" component={Logout} />
               <Route component={Error} />
             </Switch>

@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import moment from "moment-timezone";
+import moment from "moment";
 import CurrencyFormat from "react-currency-format";
 import AccountDataService from "../../api/AccountDataService";
 import AuthenticationService from "../../components/authentication/AuthenticationService.js";
-import "./Accounts.css"
+import "./Accounts.css";
 import Cube from "./Cube.jsx";
-
 
 class AccountsBalanceList extends Component {
   constructor(props) {
@@ -13,7 +12,7 @@ class AccountsBalanceList extends Component {
     super(props);
     this.state = {
       accounts: [],
-      message: null
+      message: null,
     };
     this.deleteAccountClicked = this.deleteAccountClicked.bind(this);
     this.updateAccountClicked = this.updateAccountClicked.bind(this);
@@ -40,15 +39,17 @@ class AccountsBalanceList extends Component {
 
   refreshAccounts() {
     let username = AuthenticationService.getLoggedInUserName();
-    AccountDataService.retrieveAllAccounts(username).then(response => {
+    AccountDataService.retrieveAllAccounts(username).then((response) => {
       this.setState({ accounts: response.data });
     });
   }
 
-  deleteAccountClicked(accountId) {
+  deleteAccountClicked(id) {
     let username = AuthenticationService.getLoggedInUserName();
-    AccountDataService.deleteAccount(username, accountId).then(response => {
-      this.setState({ message: `Deletion of account ${accountId} was successful` });
+    AccountDataService.deleteAccount(username, id).then((response) => {
+      this.setState({
+        message: `Deletion of account ${id} was successful`,
+      });
       this.refreshAccounts();
     });
   }
@@ -57,9 +58,9 @@ class AccountsBalanceList extends Component {
     this.props.history.push(`/accounts/-1`);
   }
 
-  updateAccountClicked(accountId) {
-    console.log("update " + accountId);
-    this.props.history.push(`/accounts/${accountId}`);
+  updateAccountClicked(id) {
+    console.log("update " + id);
+    this.props.history.push(`/accounts/${id}`);
   }
 
   render() {
@@ -85,7 +86,7 @@ class AccountsBalanceList extends Component {
               </thead>
               <tbody>
                 {this.state.accounts.map((account) => (
-                  <tr key={account.accountId}>
+                  <tr key={account.id}>
                     <td>{account.accountName}</td>
                     <td>
                       <CurrencyFormat
@@ -98,16 +99,14 @@ class AccountsBalanceList extends Component {
                       />
                     </td>
                     <td>
-                      {moment(account.asOfDate)
-                      .tz('America/Chicago')
-                        // .utcOffset("-600")
+                      {moment.utc(account.asOfDate)
                         .format("MMM-DD-YYYY")}
                     </td>
                     <td>
                       <button
                         className="btn btn-success"
                         onClick={() =>
-                          this.updateAccountClicked(account.accountId)
+                          this.updateAccountClicked(account.id)
                         }
                       >
                         Update
@@ -117,7 +116,7 @@ class AccountsBalanceList extends Component {
                       <button
                         className="btn btn-warning"
                         onClick={() =>
-                          this.deleteAccountClicked(account.accountId)
+                          this.deleteAccountClicked(account.id)
                         }
                       >
                         Delete

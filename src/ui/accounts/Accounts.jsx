@@ -8,26 +8,26 @@ class Accounts extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      accountId: this.props.match.params.accountId,
+      id: this.props.match.params.id,
       accountName: "",
       deposits: "",
-      asOfDate: moment(new Date()).format("YYYY-MM-DD"),
+      asOfDate: moment.utc(new Date()).format("YYYY-MM-DD"),
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.validate = this.validate.bind(this);
   }
 
   componentDidMount() {
-    if (this.state.accountId === -1) {
+    if (this.state.id === -1) {
       return;
     }
     let username = AuthenticationService.getLoggedInUserName();
-    AccountDataService.retrieveAccount(username, this.state.accountId).then(
+    AccountDataService.retrieveAccount(username, this.state.id).then(
       (response) =>
         this.setState({
           accountName: response.data.accountName,
           deposits: response.data.deposits,
-          asOfDate: moment(response.data.asOfDate).format("YYYY-MM-DD")
+          asOfDate: moment.utc(response.data.asOfDate).format("YYYY-MM-DD"),
         })
     );
   }
@@ -56,20 +56,20 @@ class Accounts extends Component {
     let username = AuthenticationService.getLoggedInUserName();
 
     let account = {
-      accountId: this.state.accountId,
+      id: this.state.id,
       accountName: values.accountName,
       deposits: values.deposits,
       asOfDate: values.asOfDate,
     };
 
-    if (this.state.accountId === -1) {
+    if (this.state.id === -1) {
       AccountDataService.createAccount(username, account).then(() =>
         this.props.history.push("/accounts")
       );
     } else {
       AccountDataService.updateAccount(
         username,
-        this.state.accountId,
+        this.state.id,
         account
       ).then(() => this.props.history.push("/accounts"));
     }
