@@ -1,6 +1,7 @@
 ### manage-my-finances
 A customized app that will improve the management of my husband's finances.
-The authorized login is: username: Tim, password: 1234
+
+The authorized login is: username: Tim, password: 1234.
 
 This app is still "in progress".
 
