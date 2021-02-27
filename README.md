@@ -1,11 +1,12 @@
 ### manage-my-finances
-A customized app that will improve the management of my husband's finances
+A customized app that will improve the management of my husband's finances.
+The authorized login is: username: Tim, password: 1234
 
 This app is still "in progress".
 
-All rights reserved ©2019-2020 ManageMyFinances
+All rights reserved ©2021 ManageMyFinances
 
-All rights reserved ©2019-2020 jennieCreation.
+All rights reserved ©2021 jennieCreation.
 
 Several Udemy courses were utilized to assist me in the creation of this app. Here is the list of those courses:
 1) Go Java Full Stack with Spring Boot and React (an in28minutes course)
@@ -29,6 +30,9 @@ was cited directly from their website:  https://start.spring.io/.
 6) **Authentication** for the login, where other tabs besides 'login' are not available.  Even if someone were to know what the url for a certain tab, they would be directed to the login.
 7) A **reports form** that allows the user to choose what he would like to have included within the report, which will produce a report with the option to print. {in progress}
 
+
+### NODE backend runs on localhost: 3000
+This backend was created just for the add a user functionality.
 
 ### JAVA backend runs on localhost: 8080
 **The backend makes use of the following:**
