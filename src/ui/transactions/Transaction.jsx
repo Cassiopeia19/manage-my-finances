@@ -2,10 +2,10 @@ import React from "react";
 
 export default function Transaction(props) {
  
-  const { transactions } = props;
+  const { accounts,transactions } = props;
   return (
     <div className="record-container">
-      <div>{transactions.accountName}</div>
+      <div>{accounts.accountName}</div>
       <div>{transactions.transactionType}</div>
       <div>{transactions.transactionDate}</div>
       <div>{transactions.depositCategory}</div>

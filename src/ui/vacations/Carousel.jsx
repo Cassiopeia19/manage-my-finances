@@ -31,7 +31,7 @@ import g24 from "../../assets/images/GOPR0603.png";
 export default function Carousel() {
 
   return (
-    <div class="carousel-wrapper">
+    <div className="carousel-wrapper">
       <AliceCarousel
         autoPlayInterval={2000}
         autoPlayDirection="ltr"

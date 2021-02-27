@@ -15,10 +15,13 @@ import AddTransaction from "../../ui/transactions/addTransaction/AddTransaction"
 import Reports from "../../ui/reports/Reports.jsx";
 import Login from "../../ui/login/Login.jsx";
 import BudgetCalculator from '../../ui/budgetCalculator/BudgetCalculator';
-import ForgotPassword from '../../ui/login/forgotPassword/ForgotPassword';
 import ReportPDF from '../../ui/reports/components/ReportPDF/ReportPDF';
+import AddNewUser from '../../ui/addNewUser/AddNewUser'
 
 class Routes extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div>
@@ -28,9 +31,9 @@ class Routes extends Component {
             <Switch>
               <Route path="/" exact component={Login} />
               <Route path="/login" component={Login} />
-              <Route path="/forgotpassword" component={ForgotPassword} />
 
               <AuthenticatedRoute path="/welcome/:name" component={Welcome} />
+              <AuthenticatedRoute path="/register" component={AddNewUser} />
               <AuthenticatedRoute
                 path="/accounts/:accountId"
                 component={Accounts}

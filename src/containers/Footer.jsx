@@ -5,7 +5,11 @@ class Footer extends Component {
     return (
       <footer className="footer">
         <span className="text-muted">
-          All Rights Reserved &copy; 2019-2020 Manage My Finances
+          <center>
+            {" "}
+            All Rights Reserved &copy; {new Date().getFullYear()} Manage My
+            Finances
+          </center>
         </span>
       </footer>
     );

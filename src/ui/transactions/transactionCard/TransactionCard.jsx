@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect,useSWR } from "react";
 import { Card, CardHeader, CardText, CardTitle } from "reactstrap";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -10,69 +10,89 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { MdEdit, MdDelete } from "react-icons/md";
 import "./TransactionCard.css";
+import AccountDataService from "../../../api/AccountDataService";
+import TransactionDataService from "../../../api/TransactionDataService";
+import AuthenticationService from "../../../components/authentication/AuthenticationService";
 
-const useStyles = makeStyles(theme => ({
+
+const useStyles = makeStyles((theme) => ({
   card: {
-    maxWidth: 345
+    maxWidth: 345,
   },
   media: {
     height: 0,
-    paddingTop: "56.25%"
+    paddingTop: "56.25%",
   },
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
     transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
+      duration: theme.transitions.duration.shortest,
+    }),
   },
   expandOpen: {
-    transform: "rotate(180deg)"
-  }
+    transform: "rotate(180deg)",
+  },
 }));
 
+const username = AuthenticationService.getLoggedInUserName();
+
+AccountDataService.retrieveAccount(username, useState.id).then((response) =>
+  useState({
+    accountName: response.data.accountName,
+  })
+);
+
+
+  TransactionDataService.retrieveTransaction(username, useState.id).then(
+    (response) =>
+      useState({
+        transactionDate: response.data.transactionDate,
+        transactionType: response.data.transactionType,
+        depositCategory: response.data.depositCategory,
+        withdrawalCategory: response.data.withdrawalCategory,
+        transactionAmount: response.data.transactionAmount,
+        notes: response.data.notes,
+      })
+  );
+    
+
 export default function TransactionCard(props) {
-  
   const classes = useStyles();
 
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const { transaction } = props;
+ const { account,transaction } = props;
 
-  // function on() {
-  //   document.getElementById("overlay").style.display = "block";
-  // }
+  const { data: accounts,transactions } = useSWR(
+    (url) => fetch(url).then((_) => _.json())
+  );
+  useEffect(() => {
+    console.log(accounts,transactions);
+  }, [accounts,transactions]);
+ 
+  function handleEdit(id) {
+    console.log("handle edit");
+    alert("you clicked edit");
+  }
 
-  // function off() {
-  //   document.getElementById("overlay").style.display = "none";
-  // }
-function handleEdit(transactionId) {
-  console.log("handle edit")
-  alert("you clicked edit");
-  // this.props.handleEdit(transactionId);
-}
-  // function handleChange() {
-  //   console.log("handle change")
-  // }
-  function handleDelete(transactionId) {
-    console.log("handle delete")
-    // this.props.handleDelete(transactionId);
+  function handleDelete(id) {
+    console.log("handle delete");
   }
 
   return (
     <>
-      {/* <div id="overlay" onClick={() => off()} /> */}
       <Card className={classes.card}>
-        <CardHeader tag="h3">{transaction.accountName}</CardHeader>
-        <CardTitle>{transaction.type}</CardTitle>
+        <CardHeader tag="h3">{account.accountName}</CardHeader>
+        <CardTitle>{transaction.transactionType}</CardTitle>
         <CardText>{transaction.transactionDate}</CardText>
-        <CardText>{transaction.category}</CardText>
+        <CardText>{transaction.depositCategory}</CardText>
+        <CardText>{transaction.withdrawalCategory}</CardText>
         <CardText>{transaction.amount}</CardText>
-
         <CardActions disableSpacing>
           <button
             className="edit-btn btn-icon text"
@@ -88,7 +108,7 @@ function handleEdit(transactionId) {
           <button
             className="clear-btn btn-icon delete-button"
             aria-label="delete button"
-            onClick={e => {
+            onClick={(e) => {
               if (
                 window.confirm(
                   "Are you sure you wish to delete this transaction?"
@@ -102,7 +122,7 @@ function handleEdit(transactionId) {
 
           <IconButton
             className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded
+              [classes.expandOpen]: expanded,
             })}
             onClick={handleExpandClick}
             aria-expanded={expanded}
@@ -121,4 +141,5 @@ function handleEdit(transactionId) {
       </Card>
     </>
   );
-}
+          }
+        

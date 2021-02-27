@@ -6,21 +6,21 @@ class TransactionDataService {
         return axios.get(`${JPA_API_URL}/users/${name}/transactions`);
     }
 
-    retrieveTransaction(name, transactionId) {
+    retrieveTransaction(name, id) {
         return axios.get(
-            `${JPA_API_URL}/users/${name}/transactions/${transactionId}`
+            `${JPA_API_URL}/users/${name}/transactions/${id}`
         );
     }
 
-    handleDelete(name, transactionId) {
+    handleDelete(name, id) {
         return axios.delete(
-            `${JPA_API_URL}/users/${name}/transactions/${transactionId}`
+            `${JPA_API_URL}/users/${name}/transactions/${id}`
         );
     }
 
-    handleEdit(name, transactionId, transaction) {
+    handleEdit(name, id, transaction) {
         return axios.put(
-            `${JPA_API_URL}/users/${name}/transactions/${transactionId}`,
+            `${JPA_API_URL}/users/${name}/transactions/${id}`,
             transaction
         );
     }

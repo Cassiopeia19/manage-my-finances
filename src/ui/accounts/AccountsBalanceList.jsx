@@ -68,7 +68,7 @@ class AccountsBalanceList extends Component {
     return (
       <>
         <Cube />
-        <div>
+        <div style={{textAlign: "center"}}>
           <h1>Accounts and their Current Balances</h1>
           {this.state.message && (
             <div class="alert alert-success">{this.state.message}</div>
@@ -99,15 +99,12 @@ class AccountsBalanceList extends Component {
                       />
                     </td>
                     <td>
-                      {moment.utc(account.asOfDate)
-                        .format("MMM-DD-YYYY")}
+                      {moment.utc(account.asOfDate).format("MMM-DD-YYYY")}
                     </td>
                     <td>
                       <button
                         className="btn btn-success"
-                        onClick={() =>
-                          this.updateAccountClicked(account.id)
-                        }
+                        onClick={() => this.updateAccountClicked(account.id)}
                       >
                         Update
                       </button>
@@ -115,9 +112,7 @@ class AccountsBalanceList extends Component {
                     <td>
                       <button
                         className="btn btn-warning"
-                        onClick={() =>
-                          this.deleteAccountClicked(account.id)
-                        }
+                        onClick={() => this.deleteAccountClicked(account.id)}
                       >
                         Delete
                       </button>

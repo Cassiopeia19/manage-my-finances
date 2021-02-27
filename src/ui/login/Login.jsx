@@ -1,155 +1,93 @@
-import React, { Component } from "react";
-import AuthenticationService from "../../components/authentication/AuthenticationService.js";
+import React, { useState } from "react";
+import AuthenticationService from "../../components/authentication/AuthenticationService";
 import { Icon } from "@iconify/react";
 import userCircle from "@iconify/icons-fa/user-circle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReloadPage from "../../components/ReloadPage.js";
 import { withRouter } from "react-router";
 import "./Login.css";
+import Axios from 'axios'
+import { useHistory } from "react-router-dom";
 
-// import {
-//   LinkButtons,
-//   forgotButton,
-// } from "./forgotPassword/components";
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
+function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginStatus, setLoginStatus] = useState("");
+  const history = useHistory();
 
-    this.state = {
-      username: "",
-      password: "",
-      hasLoginFailed: false,
-      showSuccessMessage: false
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.loginClicked = this.loginClicked.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
+  const login = () => {
+    console.log("login")
+    Axios.post("http://localhost:3000/login", {
+      username: username,
+      password: password,
+    }).then((response) => {
+      if (response.data.message) {
+        setLoginStatus(response.data.message)
+        console.log(response.data.message)
+      } else {
+        setLoginStatus(response.data[0].username)
+        AuthenticationService.registerSuccessfulLogin(
+          setUsername({ username }),
+          setPassword({ password })
+        );
+         history.push(`/welcome/${username}`);
+        console.log(response.data[0].username)
+      }
     });
-  }
-
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-  
-  loginClicked() {
-    //Tim,1234
-    // AuthenticationService
-    //     .executeBasicAuthenticationService(this.state.username, this.state.password)
-    //     .then(() => {
-    //         AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
-    //         this.props.history.push(`/welcome/${this.state.username}`)
-    //     }).catch( () =>{
-    //         this.setState({showSuccessMessage:false})
-    //         this.setState({hasLoginFailed:true})
-    //     })
-
-    //   AuthenticationService.executeJwtAuthenticationService(
-    //     this.state.username,
-    //     this.state.password
-    //   )
-    //     .then(response => {
-    //       AuthenticationService.registerSuccessfulLoginForJwt(
-    //         this.state.username,
-    //         response.data.token
-    //       );
-    //       this.props.history.push(`/welcome/${this.state.username}`);
-    //     })
-    //     .catch(() => {
-    //       this.setState({ showSuccessMessage: false });
-    //       this.setState({ hasLoginFailed: true });
-    //     });
-    // }
-
-    if (this.state.username === "Tim" && this.state.password === "1234") {
-      AuthenticationService.registerSuccessfulLogin(
-        this.state.username,
-        this.state.password
-      );
-      this.props.history.push(`/welcome/${this.state.username}`);
-      //this.setState({showSuccessMessage:true})
-      //this.setState({hasLoginFailed:false})
-    } else {
-      this.setState({ showSuccessMessage: false });
-      this.setState({ hasLoginFailed: true });
-    }
-  }
-
-  resetForm = () => {
-    this.setState({ username: "" });
-    this.setState({ password: "" });
   };
 
-  onKeyPress = e => {
-    if (e.which === 13) {
-      this.loginClicked();
-    }
-  };
-
-  render() {
-    return (
-      <>
-        <div className="login">
-          <div className="card1">
-            <h1>Sign-in</h1>
-            <div className="container">
-              {this.state.hasLoginFailed && (
-                <div className="alert alert-danger">Invalid Credentials</div>
-              )}
-              {this.state.showSuccessMessage && <div>Login Sucessful</div>}
-              <div>
-                <Icon icon={userCircle} style={{ float: "left" }} />
-                <input
-                  type="text"
-                  name="username"
-                  placeholder="username"
-                  value={this.state.username}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <br></br>
-              <div>
-                <FontAwesomeIcon icon="key" style={{ float: "left" }} />
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                  onKeyPress={this.onKeyPress}
-                />
-              </div>
-              <br></br>
-              <div>
-                <button className="btn btn-success" onClick={this.loginClicked}>
-                  Login
-                </button>
-                <button
-                  className="btn btn-warning"
-                  onClick={
-                    this.resetForm.bind(this) &&
-                    withRouter &&
-                    ReloadPage.refresh
-                  }
-                >
-                  Reset
-                </button>
-                <br></br>
-              {/* <LinkButtons
-                buttonStyle={forgotButton}
-                buttonText="Forgot Password?"
-                link="/forgotPassword"
-              /> */}
-              </div>
+  return (
+    <>
+      <div className="login">
+        <div className="card1">
+          <h1>
+            <center>Sign-in</center>
+          </h1>
+          <center>
+            <div>
+              <Icon icon={userCircle} style={{ float: "left" }} />
+              <input
+                type="text"
+                name="username"
+                placeholder="username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
             </div>
-          </div>
+            <div>
+              <FontAwesomeIcon icon="key" style={{ float: "left" }} />
+              <input
+                type="text"
+                name="password"
+                placeholder="password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+            <br></br>
+            <div>
+              <button className="btn btn-success" onClick={login}>
+                Login
+              </button>
+              <button
+                className="btn btn-warning"
+                onClick={withRouter && ReloadPage.refresh}
+              >
+                Reset
+              </button>
+              <br></br>
+            </div>
+          </center>
         </div>
-      </>
-    );
-  }
+        <h1 style={{ backgroundColor: "#ffa07a" }}>
+          <center>{loginStatus}</center>
+        </h1>
+      </div>
+    </>
+  );
 }
+
 export default withRouter(Login);
