@@ -16,7 +16,9 @@ import Reports from "../../ui/reports/Reports.jsx";
 import Login from "../../ui/login/Login.jsx";
 import BudgetCalculator from '../../ui/budgetCalculator/BudgetCalculator';
 import ReportPDF from '../../ui/reports/components/ReportPDF/ReportPDF';
-import AddNewUser from '../../ui/addNewUser/AddNewUser'
+import UsersHome from '../../ui/users/usersHome/UsersHome'
+import AddNewUser from '../../ui/users/addNewUser/AddNewUser'; 
+import UsersList from '../../ui/users/UsersList'
 
 class Routes extends Component {
   constructor(props) {
@@ -33,7 +35,9 @@ class Routes extends Component {
               <Route path="/login" component={Login} />
 
               <AuthenticatedRoute path="/welcome/:name" component={Welcome} />
-              <AuthenticatedRoute path="/register" component={AddNewUser} />
+              <AuthenticatedRoute path="/users" component={UsersHome} />
+              <AuthenticatedRoute path="/add-user" component={AddNewUser} />
+              <AuthenticatedRoute path="/users-list" component={UsersList} />
               <AuthenticatedRoute
                 path="/accounts/:accountId"
                 component={Accounts}

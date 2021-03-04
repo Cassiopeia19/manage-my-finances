@@ -4,14 +4,17 @@ import { CardColumns } from "reactstrap";
 import TransactionDataService from "../../../api/TransactionDataService";
 
 function TransactionsList() {
-  const [transactions, setData] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+  const [username, setUsername] = useState([]);
+
   useEffect(() => {
-    TransactionDataService.retrieveAllTransactions("Tim").then((result) =>
-      setData(result)
-    );
-  }, [transactions]);
+ TransactionDataService.retrieveAllTransactions(username).then((transactions) =>
+   setTransactions(transactions)
+ );
+  }, [username,transactions]);  
 
   return (
+
     <CardColumns style={{ padding: "20px" }}>
       {transactions.map((transaction) => (
         <TransactionCard transaction={transaction} />

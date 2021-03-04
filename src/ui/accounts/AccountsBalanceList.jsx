@@ -8,7 +8,6 @@ import Cube from "./Cube.jsx";
 
 class AccountsBalanceList extends Component {
   constructor(props) {
-    console.log("constructor");
     super(props);
     this.state = {
       accounts: [],
@@ -21,18 +20,13 @@ class AccountsBalanceList extends Component {
   }
 
   componentWillUnmount() {
-    console.log("componentWillUnmount");
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("shouldComponentUpdate");
-    console.log(nextProps);
-    console.log(nextState);
     return true;
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
     this.refreshAccounts();
     console.log(this.state);
   }
@@ -59,12 +53,11 @@ class AccountsBalanceList extends Component {
   }
 
   updateAccountClicked(id) {
-    console.log("update " + id);
-    this.props.history.push(`/accounts/${id}`);
+     this.props.history.push(`/accounts/${id}`);
+      console.log("update " + id);
   }
 
   render() {
-    console.log("render");
     return (
       <>
         <Cube />

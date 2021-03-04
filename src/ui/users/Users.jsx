@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import moment from "moment";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import AccountDataService from "../../api/AccountDataService.js";
+import UserDataService from "../../api/UserDataService.js";
 import AuthenticationService from "../../components/authentication/AuthenticationService.js";
 
-class Accounts extends Component {
+class Users extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: this.props.match.params.id,
-      accountName: "",
-      deposits: "",
-      asOfDate: moment.utc(new Date()).format("YYYY-MM-DD")
+      username: "",
+      password: "",
+      email: "",
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.validate = this.validate.bind(this);
@@ -23,12 +23,12 @@ class Accounts extends Component {
     }
     let username = AuthenticationService.getLoggedInUserName();
     console.log("username: " + username)
-    AccountDataService.retrieveAccount(username, this.state.id).then(
+    UserDataService.retrieveUser(username, this.state.id).then(
       (response) =>
         this.setState({
-          accountName: response.data.accountName,
-          deposits: response.data.deposits,
-          asOfDate: moment.utc(response.data.asOfDate).format("YYYY-MM-DD"),
+          username: response.data.username,
+          password: response.data.password,
+          email: response.data.email,
         })
     );
   }
@@ -36,18 +36,18 @@ class Accounts extends Component {
   validate(values) {
     let errors = {};
 
-    if (!values.accountName) {
-      errors.accountName = "Enter an account name";
-    } else if (values.accountName.length < 3) {
-      errors.accountName = "Account name must be at least 3 characters";
+    if (!values.username) {
+      errors.username = "Enter a username";
+    } else if (values.username.length < 3) {
+      errors.username = "Username must be at least 3 characters";
     }
 
-    if (!values.deposits) {
-      errors.deposits = "Enter a balance";
+    if (!values.password) {
+      errors.password = "Enter a password";
     }
 
-    if (!moment(values.asOfDate).isValid()) {
-      errors.asOfDate = "Select a date";
+    if (!values.email) {
+      errors.email = "Enter an email address";
     }
 
     return errors;
@@ -55,37 +55,38 @@ class Accounts extends Component {
 
   onSubmit(values) {
     let username = AuthenticationService.getLoggedInUserName();
-   
-    let account = {
-      id: this.state.id,
-      accountName: values.accountName,
-      deposits: values.deposits,
-      asOfDate: values.asOfDate,
-    };
-    console.log(values)
 
-    if (this.state.id === -1) {
-      AccountDataService.createAccount(username, account).then(() =>
-        this.props.history.push("/accounts")
-      );
-    } else {
-      AccountDataService.updateAccount(
+    let user = {
+      id: this.state.id,
+      username: values.username,
+      password: values.password,
+      email: values.email,
+    };
+
+    //    if (this.state.id === -1) {
+    //   UserDataService.createUser(username, user).then(() =>
+    //     this.props.history.push("/users")
+    //   );
+    // } else {
+      UserDataService.updateUser(
         username,
         this.state.id,
-        account
-      ).then(() => this.props.history.push("/accounts"));
+        user
+      ).then(() => this.props.history.push("/users"));
+       console.log("values: " + values);
     }
-    console.log("values: " + values);
-  }
+   
+ // }
 
   render() {
-    let { accountName, deposits, asOfDate } = this.state;
+    let { username, password, email } = this.state;
+
     return (
       <div>
-        <h1>Account Updates/Additions</h1>
+        <h1>User Updates</h1>
         <div className="container">
           <Formik
-            initialValues={{ accountName, deposits, asOfDate }}
+            initialValues={{ username, password, email }}
             onSubmit={this.onSubmit}
             validateOnChange={false}
             validateOnBlur={false}
@@ -95,40 +96,40 @@ class Accounts extends Component {
             {(props) => (
               <Form>
                 <ErrorMessage
-                  name="accountName"
+                  name="username"
                   component="div"
                   className="alert alert-danger"
                 />
                 <ErrorMessage
-                  name="balance"
+                  name="password"
                   component="div"
                   className="alert alert-danger"
                 />
                 <ErrorMessage
-                  name="asOfDate"
+                  name="email"
                   component="div"
                   className="alert alert-danger"
                 />
 
                 <fieldset className="form-group">
-                  <label>Account Name</label>
+                  <label>Username</label>
                   <Field
                     className="form-control"
                     type="text"
-                    name="accountName"
+                    name="username"
                   />
                 </fieldset>
                 <fieldset className="form-group">
-                  <label>Balance</label>
+                  <label>Password</label>
                   <Field
                     className="form-control"
-                    type="number"
-                    name="deposits"
+                    type="text"
+                    name="password"
                   />
                 </fieldset>
                 <fieldset className="form-group">
-                  <label>As of</label>
-                  <Field className="form-control" type="date" name="asOfDate"/>
+                  <label>Email Address</label>
+                  <Field className="form-control" type="email" name="email" />
                 </fieldset>
                 <button className="btn btn-success" type="submit">
                   Save
@@ -142,4 +143,4 @@ class Accounts extends Component {
   }
 }
 
-export default Accounts;
+export default Users;

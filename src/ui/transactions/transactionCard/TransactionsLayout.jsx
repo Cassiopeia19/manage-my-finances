@@ -6,7 +6,7 @@ import "./TransactionCard.css";
 export default function TransactionsLayout() {
   return (
     <>
-      <ToggleButtons />
+      <center><ToggleButtons /></center>
       <TransactionsList />
     </>
   );

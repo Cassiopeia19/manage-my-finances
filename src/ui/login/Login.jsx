@@ -16,7 +16,7 @@ function Login() {
   const [loginStatus, setLoginStatus] = useState("");
   const history = useHistory();
 
-  const login = () => {
+  const loginClicked = () => {
     console.log("login")
     Axios.post("http://localhost:3000/login", {
       username: username,
@@ -28,15 +28,14 @@ function Login() {
       } else {
         setLoginStatus(response.data[0].username)
         AuthenticationService.registerSuccessfulLogin(
-          setUsername({ username }),
-          setPassword({ password })
+          username,
+          password
         );
          history.push(`/welcome/${username}`);
         console.log(response.data[0].username)
       }
     });
   };
-
   return (
     <>
       <div className="login">
@@ -69,7 +68,7 @@ function Login() {
             </div>
             <br></br>
             <div>
-              <button className="btn btn-success" onClick={login}>
+              <button className="btn btn-success" onClick={loginClicked}>
                 Login
               </button>
               <button

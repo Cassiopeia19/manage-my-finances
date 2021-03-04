@@ -4,7 +4,7 @@ import TransactionsFormContainer from "./containers/TransactionsFormContainer";
 
 const styles= {
   fontFamily: "sans-serif",
-  textAlign: "center"
+  textalign: "center"
 };
 
 class AddTransaction extends Component {
