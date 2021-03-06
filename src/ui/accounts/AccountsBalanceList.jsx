@@ -64,7 +64,7 @@ class AccountsBalanceList extends Component {
         <div style={{textAlign: "center"}}>
           <h1>Accounts and their Current Balances</h1>
           {this.state.message && (
-            <div class="alert alert-success">{this.state.message}</div>
+            <div className="alert alert-success">{this.state.message}</div>
           )}
           <div className="container">
             <table className="table table-bordered table-hover">

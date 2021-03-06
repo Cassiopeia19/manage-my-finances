@@ -63,20 +63,19 @@ class Users extends Component {
       email: values.email,
     };
 
-    //    if (this.state.id === -1) {
-    //   UserDataService.createUser(username, user).then(() =>
-    //     this.props.history.push("/users")
-    //   );
-    // } else {
+       if (this.state.id === -1) {
+      UserDataService.createUser(username, user).then(() =>
+        this.props.history.push("/users")
+      );
+    } else {
       UserDataService.updateUser(
         username,
         this.state.id,
         user
       ).then(() => this.props.history.push("/users"));
-       console.log("values: " + values);
     }
-   
- // }
+     console.log("values: " + values);""  
+  }
 
   render() {
     let { username, password, email } = this.state;

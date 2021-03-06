@@ -7,6 +7,7 @@ function AddNewUser()  {
     const [usernameRegister,setUsernameRegister] = useState('')
     const [passwordRegister,setPasswordRegister] = useState('')
     const [emailRegister,setEmailRegister] = useState('')
+    const [message, setMessage] = useState('')
 
     const register = () => {
         Axios.post('http://localhost:3000/register', {
@@ -16,11 +17,18 @@ function AddNewUser()  {
         }).then((response) => {
             console.log(response);
         });
+        setMessage({
+          message: `The new user has been successfully added!`,
+        });
     };
  
     return (
       <div className="base-container">
         {/* ref={this.props.containerRef} above*/}
+        {message.message && (
+            <div className="alert alert-success">{message.message}</div>
+          )}
+        <br />
         <div className="header">Add new user</div>
         <div className="content">
           <div className="form">
@@ -59,7 +67,7 @@ function AddNewUser()  {
             </div>
           </div>
         </div>
-        <button type="button" className="btn" onClick={register}>
+        <button type="button" className="btn btn-success" onClick={register}>
           Save
         </button>
       </div>

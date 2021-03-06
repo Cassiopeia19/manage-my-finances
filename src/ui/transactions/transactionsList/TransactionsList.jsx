@@ -8,13 +8,12 @@ function TransactionsList() {
   const [username, setUsername] = useState([]);
 
   useEffect(() => {
- TransactionDataService.retrieveAllTransactions(username).then((transactions) =>
-   setTransactions(transactions)
- );
-  }, [username,transactions]);  
+    TransactionDataService.retrieveAllTransactions(username).then(
+      (transactions) => setTransactions(transactions)
+    );
+  }, [username, transactions]);  
 
   return (
-
     <CardColumns style={{ padding: "20px" }}>
       {transactions.map((transaction) => (
         <TransactionCard transaction={transaction} />
