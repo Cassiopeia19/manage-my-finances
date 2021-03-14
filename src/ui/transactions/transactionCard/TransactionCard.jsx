@@ -53,7 +53,6 @@ const username = AuthenticationService.getLoggedInUserName();
     
 
 export default function TransactionCard(props) {
-  const [message, setMessage] = useState(null);
   const [expanded, setExpanded] = useState(false);
   const classes = useStyles();
 
@@ -73,6 +72,10 @@ export default function TransactionCard(props) {
   useEffect(() => {
     console.log(transactions);
   }, [transactions]);
+
+   const refreshTransactions = () => {
+    window.location.reload();
+  }
  
   function handleEdit(id) {
     console.log("handle edit");
@@ -81,19 +84,14 @@ export default function TransactionCard(props) {
 
   function handleDelete(id) {
    let username = AuthenticationService.getLoggedInUserName();
-   TransactionDataService.handleDelete(username, id).then((response) => {
-     setMessage({
-       message: `Deletion of transaction ${id} was successful`,
-     });
+   TransactionDataService.deleteTransaction(username, transaction.id).then((response) => {
+     refreshTransactions()
    });
-    console.log(`handle delete ${id}`);
+    console.log("handle delete " + transaction.id);
   }
 
   return (
     <>
-      {message && (
-        <div className="alert alert-success">{message}</div>
-      )}
       <Card className={classes.card}>
         <center>
           <CardHeader tag="h3">{transaction.accountName}</CardHeader>

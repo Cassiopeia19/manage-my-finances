@@ -18,7 +18,7 @@ function TransactionsList() {
   return (
     <CardColumns style={{ padding: "20px" }}>
       {transactions.map((transaction) => (
-        <TransactionCard transaction={transaction} />
+        <TransactionCard transaction={transaction} key={transaction.id}/>
       ))}
     </CardColumns>
   );

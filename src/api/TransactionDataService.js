@@ -12,7 +12,7 @@ class TransactionDataService {
         );
     }
 
-    handleDelete(name, id) {
+    deleteTransaction(name, id) {
         return axios.delete(
             `${JPA_API_URL}/users/${name}/transactions/${id}`
         );
