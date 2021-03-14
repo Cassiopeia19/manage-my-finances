@@ -22,14 +22,12 @@ class Users extends Component {
       return;
     }
     let username = AuthenticationService.getLoggedInUserName();
-    console.log("username: " + username)
-    UserDataService.retrieveUser(username, this.state.id).then(
-      (response) =>
-        this.setState({
-          username: response.data.username,
-          password: response.data.password,
-          email: response.data.email,
-        })
+    UserDataService.retrieveUser(username, this.state.id).then((response) =>
+      this.setState({
+        username: response.data.username,
+        password: response.data.password,
+        email: response.data.email,
+      })
     );
   }
 
@@ -62,24 +60,22 @@ class Users extends Component {
       password: values.password,
       email: values.email,
     };
+    console.log(values);
 
-       if (this.state.id === -1) {
+    if (this.state.id === -1) {
       UserDataService.createUser(username, user).then(() =>
         this.props.history.push("/users")
       );
     } else {
-      UserDataService.updateUser(
-        username,
-        this.state.id,
-        user
-      ).then(() => this.props.history.push("/users"));
+      UserDataService.updateUser(username, this.state.id, user).then(() =>
+        this.props.history.push("/users")
+      );
     }
-     console.log("values: " + values);""  
+    console.log("values: " + values);
   }
 
   render() {
     let { username, password, email } = this.state;
-
     return (
       <div>
         <h1>User Updates</h1>

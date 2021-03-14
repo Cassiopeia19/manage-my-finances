@@ -20,9 +20,13 @@ class AccountsBalanceList extends Component {
   }
 
   componentWillUnmount() {
+     console.log("componentWillUnmount");
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    console.log("shouldComponentUpdate");
+    console.log(nextProps);
+    console.log(nextState);
     return true;
   }
 
@@ -61,7 +65,7 @@ class AccountsBalanceList extends Component {
     return (
       <>
         <Cube />
-        <div style={{textAlign: "center"}}>
+        <div style={{ textAlign: "center" }}>
           <h1>Accounts and their Current Balances</h1>
           {this.state.message && (
             <div className="alert alert-success">{this.state.message}</div>
@@ -73,7 +77,7 @@ class AccountsBalanceList extends Component {
                   <th>Account Name</th>
                   <th>Balance</th>
                   <th>As of</th>
-                  <th>Update</th>
+                  {/* <th>Update</th> */}
                   <th>Delete</th>
                 </tr>
               </thead>
@@ -94,14 +98,14 @@ class AccountsBalanceList extends Component {
                     <td>
                       {moment.utc(account.asOfDate).format("MMM-DD-YYYY")}
                     </td>
-                    <td>
+                    {/* <td>
                       <button
                         className="btn btn-success"
                         onClick={() => this.updateAccountClicked(account.id)}
                       >
                         Update
                       </button>
-                    </td>
+                    </td> */}
                     <td>
                       <button
                         className="btn btn-warning"

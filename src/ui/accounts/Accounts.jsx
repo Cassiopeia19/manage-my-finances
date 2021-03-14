@@ -11,7 +11,7 @@ class Accounts extends Component {
       id: this.props.match.params.id,
       accountName: "",
       deposits: "",
-      asOfDate: moment.utc(new Date()).format("YYYY-MM-DD")
+      asOfDate: moment.utc(new Date()).format("YYYY-MM-DD"),
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.validate = this.validate.bind(this);
@@ -22,7 +22,7 @@ class Accounts extends Component {
       return;
     }
     let username = AuthenticationService.getLoggedInUserName();
-    console.log("username: " + username)
+
     AccountDataService.retrieveAccount(username, this.state.id).then(
       (response) =>
         this.setState({
@@ -65,7 +65,7 @@ class Accounts extends Component {
     console.log(values)
 
     if (this.state.id === -1) {
-      AccountDataService.createAccount(username, account).then(() =>
+      AccountDataService.createAccount(username, this.state.id,account).then(() =>
         this.props.history.push("/accounts")
       );
     } else {
@@ -82,7 +82,7 @@ class Accounts extends Component {
     let { accountName, deposits, asOfDate } = this.state;
     return (
       <div>
-        <h1>Account Updates/Additions</h1>
+        <h1>New Account</h1>
         <div className="container">
           <Formik
             initialValues={{ accountName, deposits, asOfDate }}
@@ -128,7 +128,7 @@ class Accounts extends Component {
                 </fieldset>
                 <fieldset className="form-group">
                   <label>As of</label>
-                  <Field className="form-control" type="date" name="asOfDate"/>
+                  <Field className="form-control" type="date" name="asOfDate" />
                 </fieldset>
                 <button className="btn btn-success" type="submit">
                   Save

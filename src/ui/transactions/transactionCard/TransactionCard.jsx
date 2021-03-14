@@ -1,5 +1,6 @@
-import React, { useState,useEffect,useSWR } from "react";
-import { Card, CardHeader, CardText, CardTitle } from "reactstrap";
+import React, { useState,useEffect } from "react";
+import useSWR from "swr";
+import { Card, CardHeader, CardText, } from "reactstrap";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import CardContent from "@material-ui/core/CardContent";
@@ -9,18 +10,18 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { MdEdit, MdDelete } from "react-icons/md";
-import "./TransactionCard.css";
-import AccountDataService from "../../../api/AccountDataService";
+import  "./TransactionCard.css";
 import TransactionDataService from "../../../api/TransactionDataService";
 import AuthenticationService from "../../../components/authentication/AuthenticationService";
-
+import moment from 'moment'
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 345,
   },
   media: {
-    height: 0,
+    height: '5px',
     paddingTop: "56.25%",
   },
   expand: {
@@ -37,16 +38,10 @@ const useStyles = makeStyles((theme) => ({
 
 const username = AuthenticationService.getLoggedInUserName();
 
-AccountDataService.retrieveAccount(username, useState.id).then((response) =>
-  useState({
-    accountName: response.data.accountName,
-  })
-);
-
-
   TransactionDataService.retrieveTransaction(username, useState.id).then(
     (response) =>
       useState({
+        accountName: response.data.accountName,
         transactionDate: response.data.transactionDate,
         transactionType: response.data.transactionType,
         depositCategory: response.data.depositCategory,
@@ -58,22 +53,26 @@ AccountDataService.retrieveAccount(username, useState.id).then((response) =>
     
 
 export default function TransactionCard(props) {
-  const classes = useStyles();
-
+  const [message, setMessage] = useState(null);
   const [expanded, setExpanded] = useState(false);
+  const classes = useStyles();
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
- const { account,transaction } = props;
+  const { transaction } = props; 
+ 
+  const getTransactions = (url) => fetch(url).then((_) => _.json());
 
-  const { data: accounts,transactions } = useSWR(
-    (url) => fetch(url).then((_) => _.json())
+  const { data: transactions } = useSWR(
+    `http://localhost:8080/jpa/users/${username}/transactions`,
+    getTransactions
   );
+
   useEffect(() => {
-    console.log(accounts,transactions);
-  }, [accounts,transactions]);
+    console.log(transactions);
+  }, [transactions]);
  
   function handleEdit(id) {
     console.log("handle edit");
@@ -81,18 +80,31 @@ export default function TransactionCard(props) {
   }
 
   function handleDelete(id) {
-    console.log("handle delete");
+   let username = AuthenticationService.getLoggedInUserName();
+   TransactionDataService.handleDelete(username, id).then((response) => {
+     setMessage({
+       message: `Deletion of transaction ${id} was successful`,
+     });
+   });
+    console.log(`handle delete ${id}`);
   }
 
   return (
     <>
+      {message && (
+        <div className="alert alert-success">{message}</div>
+      )}
       <Card className={classes.card}>
-        <CardHeader tag="h3">{account.accountName}</CardHeader>
-        <CardTitle>{transaction.transactionType}</CardTitle>
-        <CardText>{transaction.transactionDate}</CardText>
-        <CardText>{transaction.depositCategory}</CardText>
-        <CardText>{transaction.withdrawalCategory}</CardText>
-        <CardText>{transaction.amount}</CardText>
+        <center>
+          <CardHeader tag="h3">{transaction.accountName}</CardHeader>
+          <CardText>{transaction.transactionType}</CardText>
+          <CardText>
+            {moment.utc(transaction.transactionDate).format("MMM-DD-YYYY")}
+          </CardText>
+          <CardText>{transaction.depositCategory}</CardText>
+          <CardText>{transaction.withdrawalCategory}</CardText>
+          <CardText>{"$" + parseFloat(transaction.transactionAmount)}</CardText>
+        </center>
         <CardActions disableSpacing>
           <button
             className="edit-btn btn-icon text"

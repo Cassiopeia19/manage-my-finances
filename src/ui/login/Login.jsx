@@ -36,6 +36,13 @@ function Login() {
       }
     });
   };
+
+  const onKeyDownHandler = (e) => {
+    if (e.keyCode === 13) {
+      loginClicked();
+    }
+  };
+
   return (
     <>
       <div className="login">
@@ -64,6 +71,7 @@ function Login() {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
+                onKeyDown={onKeyDownHandler}
               />
             </div>
             <br></br>

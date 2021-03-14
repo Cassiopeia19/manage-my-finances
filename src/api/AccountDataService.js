@@ -1,5 +1,6 @@
 import axios from "axios";
-import { JPA_API_URL } from "../Constants";
+import { JPA_API_URL } from '../Constants'
+
 
 class AccountDataService {
   retrieveAllAccounts(name) {
