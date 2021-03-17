@@ -14,14 +14,20 @@ function TransactionsList() {
      username
    ).then((response) => setTransactions( response.data));
   }, []);
-   
+  //look  up filter syntax. objective filter the list of transactions by date based on the state of the filterLastThirtyDays value or prop 
+  // var now = new Date();
+  //  const filteredTransactions = transactions.filter( now.setDate(now.getDate() - 30));
+    
+ 
+
   return (
     <CardColumns style={{ padding: "20px" }}>
-      {transactions.map((transaction) => (
-        <TransactionCard transaction={transaction} key={transaction.id}/>
-      ))}
+      {transactions.map((transactions => (
+      <TransactionCard transaction={transactions} key={transactions.id} />
+      )))}
     </CardColumns>
   );
 }
+
 
 export default TransactionsList;

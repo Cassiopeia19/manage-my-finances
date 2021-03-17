@@ -1,11 +1,11 @@
 /* eslint-disable no-lone-blocks */
 
 import React, { Component } from "react";
-import TextArea from "../components/TextArea";
 import Select from "../components/Select";
 import Button from "../components/Button";
 import CurrencyInput from "react-currency-input";
 import { Form } from "react-bootstrap";
+import AuthenticationService from "../../../../components/authentication/AuthenticationService"
 
 const accountNameOptions = ["Ally", "BOA", "Cash", "RCU", "VCU"];
 const transactionTypeOptions = ["Deposit", "Withdrawal"];
@@ -53,55 +53,90 @@ const withdrawalCategoryOptions = [
 ];
 
 export default class TransactionsFormContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      transactions: [],
+    };
+    // this.handleTransactionAmountChange = this.handleTransactionAmountChange.bind(this);
+    // this.handleNotesChange = this.handleNotesChange.bind(this);
+  }
+
   state = {
-    amount: 0
+    transactionAmount: "",
+    notes: ""
   };
 
-  handleFormSubmit = event => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
-    //event.target.reset(); will reset the form upon submitting, but it wipes out most of the data within the object
+    alert('Your transaction has successfully been added');
     console.log("Submitting The Form...");
 
-    const transactionformData = Object.fromEntries(
-      [...event.target.elements].map(element => [
+    const transaction = Object.fromEntries(
+      [...event.target.elements].map((element) => [
         element["name"],
-        element["value"]
+        element["value"],
       ])
     );
-    console.log("Form Contents", { transactionformData });
+    console.log("Form Contents", transaction);
 
     //   ***** what do i need to do with the code below to have it post to the database?? *****
     // ******* also, the submitted form needs to update both the transactions list AND the accounts balance list ******
     // ******also, the submitted form needs to update the list of transactions within update/delete tab
-    fetch("https://example.com", {
+    let username = AuthenticationService.getLoggedInUserName();
+    fetch(`http://localhost:8080/jpa/users/${username}/transactions`, {
       method: "POST",
-      body: JSON.stringify(transactionformData),
+      body: JSON.stringify({
+        accountName: this.state.accountName,
+        transactionDate: this.state.transactionDate,
+        transactionType: this.state.transactionType,
+        depositCategory: this.state.depositCategory,
+        withdrawalCategory: this.state.withdrawalCategory,
+        transactionAmount: this.state.transactionAmount,
+        notes: this.state.notes,
+      }),
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    }).then(response => {
-      console.log("The remote resource has responded with", { response });
-      response.json().then(data => {
-        console.log("Successful" + data);
-      });
-    });
+        "Content-Type": "application/json",
+      },
+    })
+      .then((result) => result.text())
+      .then((data) => console.log(data));
   };
 
-  handleFormReset = event => {
-    this.setState({ amount: 0 });
+  handleFormReset = (e) => {
+    this.setState({ transactionAmount:"" });
   };
 
-  handleAmountChange = (event, maskedValue, floatValue) => {
-    this.setState({ amount: maskedValue });
+  handleTransactionDateChange = (event) => {
+    this.setState({ transactionDate: event.target.value });
   };
 
-  handleTransactionTypeChange = event => {
+  handleAccountNameChange = (event) => {
+    this.setState({ accountName: event.target.value });
+  };
+
+  handleTransactionTypeChange = (event) => {
     this.setState({ transactionType: event.target.value });
   };
 
+  handleDepositCategoryChange = (event) => {
+    this.setState({ depositCategory: event.target.value });
+  };
+
+  handleWithdrawalCategoryChange = (event) => {
+    this.setState({ withdrawalCategory: event.target.value });
+  };
+
+  handleTransactionAmountChange = (event, maskedValue, floatValue) => {
+    this.setState({ transactionAmount: maskedValue });
+  };
+
+  handleNotesChange = (event) => {
+    this.setState({ notes: event.target.value });
+  };
+
   render() {
-    console.log(this.state.transactionType);
     return (
       <form
         onSubmit={this.handleFormSubmit}
@@ -116,6 +151,7 @@ export default class TransactionsFormContainer extends Component {
             name="transactionDate"
             required
             placeholder="transactionDate"
+            onChange={this.handleTransactionDateChange}
           />
         </Form.Group>{" "}
         <Select
@@ -123,6 +159,7 @@ export default class TransactionsFormContainer extends Component {
           name={"accountName"}
           options={accountNameOptions}
           placeholder={"select an account"}
+          onChange={this.handleAccountNameChange}
         />{" "}
         {/*Transaction type*/}
         <Select
@@ -138,6 +175,7 @@ export default class TransactionsFormContainer extends Component {
             name={"depositCategory"}
             options={depositCategoryOptions}
             placeholder={"select deposit category"}
+            onChange={this.handleDepositCategoryChange}
           />
         ) : (
           <Select
@@ -145,50 +183,61 @@ export default class TransactionsFormContainer extends Component {
             name={"withdrawalCategory"}
             options={withdrawalCategoryOptions}
             placeholder={"select withdrawal category"}
+            onChange={this.handleWithdrawalCategoryChange}
           />
         )}
         {/*Transaction Amount*/}
+        <div>Amount</div>
         <label>
-        Amount  
-        <CurrencyInput
-          prefix="$ "
-          decimalSeparator="."
-          thousandSeparator=","
-          name={"transactionAmount"}
-          onChangeEvent={this.handleAmountChange}
-          value={this.state.amount}
-        />{" "}
+          <CurrencyInput
+            prefix="$ "
+            decimalSeparator="."
+            thousandSeparator=","
+            name={"transactionAmount"}
+            onChangeEvent={this.handleTransactionAmountChange}
+            value={this.state.transactionAmount}
+          />{" "}
         </label>
+        <br />
         {/* Notes */}
-        <TextArea
-          title={"Notes"}
+        <div>Notes</div>
+        <textarea
+          id="noter-text-area"
           rows={5}
           name={"notes"}
           placeholder={"enter any transaction notes here"}
-        />{" "}
-        {/*Submit */}
-        <Button
-          className="btn btn-success"
-          type="submit"
-          theme={"primary"}
-          title={"submit"}
-          style={{
-            margin: "10px 10px 10px 10px",
-            backgroundColor: "forestgreen",
-          }}           
-        />{" "}
-        {/* Clear the form */}
-        <Button
-          className="btn btn-warning"
-          type="reset"
-          theme={"secondary"}
-          title={"reset form"}
-          style={{
-            margin: "10px 10px 10px 10px",
-            backgroundColor: "#ffce42",
-            color: "black"
-          }}
-        />{" "}
+          value={this.state.notes}
+          onChange={this.handleNotesChange}
+          style={{ resize:"none",  webkitBoxSizing: "border-box",
+                mozBoxSizing: "border-box",
+                boxSizing: "border-box",width: "100%" }}
+        />
+        <br />
+        <center>
+          {/*Submit */}
+          <Button
+            className="btn btn-success"
+            type="submit"
+            theme={"primary"}
+            title={"submit"}
+            style={{
+              margin: "10px 10px 10px 10px",
+              backgroundColor: "forestgreen",
+            }}
+          />{" "}
+          {/* Clear the form */}
+          <Button
+            className="btn btn-warning"
+            type="reset"
+            theme={"secondary"}
+            title={"reset form"}
+            style={{
+              margin: "10px 10px 10px 10px",
+              backgroundColor: "#ffce42",
+              color: "black",
+            }}
+          />{" "}
+        </center>
       </form>
     );
   }

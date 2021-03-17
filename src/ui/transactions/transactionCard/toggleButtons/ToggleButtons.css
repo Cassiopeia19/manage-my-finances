@@ -1,11 +1,11 @@
 
 
-/* #current {
+#current {
 	background-color: forestgreen;
 	color: black;
 	font-size: 20px;
 	font-weight: bold;
-	border-radius: 25%;
+	/* border-radius: 25%;  */
 }
 
 #all {
@@ -13,11 +13,11 @@
 	color: white;
 	font-size: 20px;
 	font-weight: bold;
-	border-radius: 25%;
-} */
+	/* border-radius: 25%; */
+}
 
 
-.switch {
+ .switch {
   position: relative;
   display: inline-block;
   width: 175px;
@@ -44,7 +44,6 @@
   height: 50px;
   width:50px;
   left: 10px;
-  /* bottom: 4px; */
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
@@ -62,15 +61,15 @@ input:checked + .slider:before {
   -webkit-transform: translateX(100px);
   -ms-transform: translateX(100px);
   transform: translateX(100px);
-}
+} 
 
 /*------ ADDED CSS ---------*/
-.on
+ .on
 {
   display: none;
 }
 
-.on, .off
+.off, .on
 {
   color: white;
   position: absolute;
@@ -86,7 +85,7 @@ input:checked+ .slider .on
 {display: block;}
 
 input:checked + .slider .off
-{display: none;}
+{display: none;} 
 
 /*--------- END --------*/
 
@@ -96,4 +95,5 @@ input:checked + .slider .off
 }
 
 .slider.round:before {
-  border-radius: 50%;}
+  border-radius: 50%;} 
+

@@ -101,7 +101,7 @@ export default function TransactionCard(props) {
           </CardText>
           <CardText>{transaction.depositCategory}</CardText>
           <CardText>{transaction.withdrawalCategory}</CardText>
-          <CardText>{"$" + parseFloat(transaction.transactionAmount)}</CardText>
+          <CardText>{transaction.transactionAmount}</CardText>
         </center>
         <CardActions disableSpacing>
           <button
