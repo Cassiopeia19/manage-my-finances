@@ -58,8 +58,6 @@ export default class TransactionsFormContainer extends Component {
     this.state = {
       transactions: [],
     };
-    // this.handleTransactionAmountChange = this.handleTransactionAmountChange.bind(this);
-    // this.handleNotesChange = this.handleNotesChange.bind(this);
   }
 
   state = {
@@ -105,7 +103,7 @@ export default class TransactionsFormContainer extends Component {
   };
 
   handleFormReset = (e) => {
-    this.setState({ transactionAmount:"" });
+    this.setState({ transactionAmount:"",notes:"" });
   };
 
   handleTransactionDateChange = (event) => {
