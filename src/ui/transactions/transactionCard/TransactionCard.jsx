@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const username = AuthenticationService.getLoggedInUserName();
+const username = AuthenticationService.getLoggedInUsername();
 
   TransactionDataService.retrieveTransaction(username, useState.id).then(
     (response) =>

@@ -14,8 +14,7 @@ class AccountsBalanceList extends Component {
       message: null,
     };
     this.deleteAccountClicked = this.deleteAccountClicked.bind(this);
-    this.updateAccountClicked = this.updateAccountClicked.bind(this);
-    this.addAccountClicked = this.addAccountClicked.bind(this);
+    this.archiveAccountClicked = this.archiveAccountClicked.bind(this);
     this.refreshAccounts = this.refreshAccounts.bind(this);
   }
 
@@ -36,14 +35,14 @@ class AccountsBalanceList extends Component {
   }
 
   refreshAccounts() {
-    let username = AuthenticationService.getLoggedInUserName();
+    let username = AuthenticationService.getLoggedInUsername();
     AccountDataService.retrieveAllAccounts(username).then((response) => {
       this.setState({ accounts: response.data });
     });
   }
 
   deleteAccountClicked(id) {
-    let username = AuthenticationService.getLoggedInUserName();
+    let username = AuthenticationService.getLoggedInUsername();
     AccountDataService.deleteAccount(username, id).then((response) => {
       this.setState({
         message: `Deletion of account ${id} was successful`,
@@ -52,13 +51,9 @@ class AccountsBalanceList extends Component {
     });
   }
 
-  addAccountClicked() {
-    this.props.history.push(`/accounts/-1`);
-  }
-
-  updateAccountClicked(id) {
-     this.props.history.push(`/accounts/${id}`);
-      console.log("update " + id);
+  archiveAccountClicked(id) {
+     console.log("archive " + id);
+       this.props.history.push(`/accounts/${id}`);
   }
 
   render() {
@@ -77,7 +72,7 @@ class AccountsBalanceList extends Component {
                   <th>Account Name</th>
                   <th>Balance</th>
                   <th>As of</th>
-                  {/* <th>Update</th> */}
+                  <th>Archive</th>
                   <th>Delete</th>
                 </tr>
               </thead>
@@ -98,14 +93,14 @@ class AccountsBalanceList extends Component {
                     <td>
                       {moment.utc(account.asOfDate).format("MMM-DD-YYYY")}
                     </td>
-                    {/* <td>
+                    <td>
                       <button
-                        className="btn btn-success"
-                        onClick={() => this.updateAccountClicked(account.id)}
+                        className="btn btn-info"
+                        onClick={() => this.archiveAccountClicked(account.id)}
                       >
-                        Update
+                        Archive
                       </button>
-                    </td> */}
+                    </td>
                     <td>
                       <button
                         className="btn btn-warning"
@@ -118,14 +113,7 @@ class AccountsBalanceList extends Component {
                 ))}
               </tbody>
             </table>
-            <div className="row">
-              <button
-                className="btn btn-success"
-                onClick={this.addAccountClicked}
-              >
-                Add
-              </button>
-            </div>
+            <div className="row"></div>
             <br />
           </div>
         </div>

@@ -4,7 +4,7 @@ import { JPA_API_URL } from "../Constants";
 class UserDataService {
 
   retrieveAllUsers(name) {
-    return axios.get(`${JPA_API_URL}/users/${name}/users`);
+   return axios.get(`${JPA_API_URL}/users/${name}/users`);
   }
   
   retrieveUser(name, id) {
@@ -17,6 +17,9 @@ class UserDataService {
 
   updateUser(name, id, user) {
     return axios.put(`${JPA_API_URL}/users/${name}/users/${id}`, user);
+  }
+  createUser(name, user) {
+    return axios.post(`${JPA_API_URL}/users/${name}/users/`, user);
   }
 }
 

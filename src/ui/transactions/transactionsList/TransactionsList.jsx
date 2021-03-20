@@ -14,7 +14,7 @@ function TransactionsList(props) {
  var endDate2;  
  
  useEffect(() => {
-   let username = AuthenticationService.getLoggedInUserName();
+   let username = AuthenticationService.getLoggedInUsername();
    TransactionDataService.retrieveAllTransactions(
      username
    ).then((response) => setTransactions( response.data));

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AuthenticatedRoute from "../authentication/AuthenticatedRoute.jsx";
-import AccountsBalanceList from "../../ui/accounts/AccountsBalanceList.jsx";
+import AccountsHome from "../../ui/accounts/accountsHome/AccountsHome";
+import AccountsBalanceList from '../../ui/accounts/AccountsBalanceList'
+import AddNewAccount from '../../ui/accounts/addNewAccount/AddNewAccount'
 import Error from "../../containers/Error.jsx";
 import Header from "../../containers/header/Header";
 import Footer from "../../containers/Footer.jsx";
@@ -9,6 +11,7 @@ import Logout from "../../ui/Logout.jsx";
 import Welcome from "../../ui/welcome/Welcome";
 import Accounts from "../../ui/accounts/Accounts.jsx";
 import Carousel from "../../ui/vacations/Carousel"
+import Transaction from '../../ui/transactions/Transaction'
 import TransactionsHome from "../../ui/transactions/transactionsHome/TransactionsHome";
 import TransactionsList from "../../ui/transactions/transactionsList/TransactionsList.jsx";
 import AddTransaction from "../../ui/transactions/addTransaction/AddTransaction";
@@ -18,7 +21,9 @@ import BudgetCalculator from '../../ui/budgetCalculator/BudgetCalculator';
 import ReportPDF from '../../ui/reports/components/ReportPDF/ReportPDF';
 import UsersHome from '../../ui/users/usersHome/UsersHome'
 import AddNewUser from '../../ui/users/addNewUser/AddNewUser'; 
+import Users from '../../ui/users/Users'
 import UsersList from '../../ui/users/UsersList'
+import Archive from '../../ui/accounts/Archive'
 
 class Routes extends Component {
   constructor(props) {
@@ -35,7 +40,7 @@ class Routes extends Component {
               <Route path="/login" component={Login} />
 
               <AuthenticatedRoute path="/welcome/:name" component={Welcome} />
-              <AuthenticatedRoute path="/users" component={UsersHome} />
+              <AuthenticatedRoute path="/users-home" component={UsersHome} />
               <AuthenticatedRoute path="/add-user" component={AddNewUser} />
               <AuthenticatedRoute path="/users-list" component={UsersList} />
               <AuthenticatedRoute
@@ -43,8 +48,22 @@ class Routes extends Component {
                 component={Accounts}
               />
               <AuthenticatedRoute
-                path="/accounts"
+                path="/transaction/:transactionId"
+                component={Transaction}
+              />
+              <AuthenticatedRoute path="/users/:usersId" component={Users} />
+              <AuthenticatedRoute
+                path="/accounts-home"
+                component={AccountsHome}
+              />
+              <AuthenticatedRoute
+                path="/accounts-list"
                 component={AccountsBalanceList}
+              />
+              <AuthenticatedRoute path="archive" component={Archive} />
+              <AuthenticatedRoute
+                path="add-account"
+                component={AddNewAccount}
               />
               <AuthenticatedRoute
                 path="/budget-calculator"

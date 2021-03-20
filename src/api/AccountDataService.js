@@ -15,7 +15,7 @@ class AccountDataService {
     return axios.delete(`${JPA_API_URL}/users/${name}/accounts/${id}`);
   }
 
-  updateAccount(name, id, account) {
+   archiveAccount(name, id, account) {
     return axios.put(`${JPA_API_URL}/users/${name}/accounts/${id}`, account);
   }
 

@@ -21,7 +21,7 @@ class Accounts extends Component {
     if (this.state.id === -1) {
       return;
     }
-    let username = AuthenticationService.getLoggedInUserName();
+    let username = AuthenticationService.getLoggedInUsername();
 
     AccountDataService.retrieveAccount(username, this.state.id).then(
       (response) =>
@@ -54,7 +54,7 @@ class Accounts extends Component {
   }
 
   onSubmit(values) {
-    let username = AuthenticationService.getLoggedInUserName();
+    let username = AuthenticationService.getLoggedInUsername();
    
     let account = {
       id: this.state.id,
@@ -69,7 +69,7 @@ class Accounts extends Component {
         this.props.history.push("/accounts")
       );
     } else {
-      AccountDataService.updateAccount(
+      AccountDataService.archiveAccount(
         username,
         this.state.id,
         account

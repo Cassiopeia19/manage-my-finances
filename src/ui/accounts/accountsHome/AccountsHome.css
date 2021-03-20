@@ -1,0 +1,8 @@
+body {
+  font-weight: 900;
+  font-size: 36px;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: -1px;
+  padding: 0 0 2rem 2rem;
+  background-color: #fafafa !important;
+}

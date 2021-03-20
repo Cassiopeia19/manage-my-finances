@@ -7,10 +7,8 @@ class UsersHome extends Component {
     window.scrollTo(0, 0);
   }
   render() {
-    return (
-      // <div id="backgroundImage">
+    return (  
         <UsersTabsHeader />
-      // </div>
     );
   }
 }

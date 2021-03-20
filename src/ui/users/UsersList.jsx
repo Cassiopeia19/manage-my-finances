@@ -14,8 +14,7 @@ class UsersList extends Component {
     this.refreshUsers = this.refreshUsers.bind(this);
   }
 
-  componentWillUnmount() {
-  }
+  componentWillUnmount() {}
 
   shouldComponentUpdate(nextProps, nextState) {
     return true;
@@ -27,14 +26,14 @@ class UsersList extends Component {
   }
 
   refreshUsers() {
-    let username = AuthenticationService.getLoggedInUserName();
+    let username = AuthenticationService.getLoggedInUsername();
     UserDataService.retrieveAllUsers(username).then((response) => {
       this.setState({ users: response.data });
     });
   }
 
   deleteUserClicked(id) {
-    let username = AuthenticationService.getLoggedInUserName();
+    let username = AuthenticationService.getLoggedInUsername();
     UserDataService.deleteUser(username, id).then((response) => {
       this.setState({
         message: `Deletion of user ${id} was successful`,
@@ -45,13 +44,13 @@ class UsersList extends Component {
 
   updateUserClicked(id) {
     console.log("update " + id);
-    this.props.history.push(`/users/${id}`);
+    //this.props.history.push(`/users/${id}`);
   }
 
   render() {
     return (
       <>
-        <div style={{textAlign: "center"}}>
+        <div style={{ textAlign: "center" }}>
           <h1>Users</h1>
           {this.state.message && (
             <div className="alert alert-success">{this.state.message}</div>
@@ -63,6 +62,8 @@ class UsersList extends Component {
                   <th>Username</th>
                   <th>Password</th>
                   <th>Email Address</th>
+                  <th>Update</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -91,6 +92,7 @@ class UsersList extends Component {
                 ))}
               </tbody>
             </table>
+            <div className="row"></div>
             <br />
           </div>
         </div>

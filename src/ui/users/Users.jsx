@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import moment from "moment";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import UserDataService from "../../api/UserDataService.js";
 import AuthenticationService from "../../components/authentication/AuthenticationService.js";
@@ -21,7 +20,7 @@ class Users extends Component {
     if (this.state.id === -1) {
       return;
     }
-    let username = AuthenticationService.getLoggedInUserName();
+    let username = AuthenticationService.getLoggedInUsername();
     UserDataService.retrieveUser(username, this.state.id).then((response) =>
       this.setState({
         username: response.data.username,
@@ -52,7 +51,7 @@ class Users extends Component {
   }
 
   onSubmit(values) {
-    let username = AuthenticationService.getLoggedInUserName();
+    let username = AuthenticationService.getLoggedInUsername();
 
     let user = {
       id: this.state.id,

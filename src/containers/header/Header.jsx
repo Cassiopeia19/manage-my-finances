@@ -29,14 +29,14 @@ class Header extends Component {
           <ul className="navbar-nav">
             {isUserLoggedIn && (
               <li>
-                <Link className="nav-link" to="/users">
+                <Link className="nav-link" to="/users-home">
                   Users
                 </Link>
               </li>
             )}
             {isUserLoggedIn && (
               <li>
-                <Link className="nav-link" to="/accounts">
+                <Link className="nav-link" to="/accounts-home">
                   Accounts
                 </Link>
               </li>
