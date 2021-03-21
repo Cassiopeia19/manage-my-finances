@@ -11,8 +11,7 @@ function AddNewUser() {
   const [message, setMessage] = useState("");
   const [state,setState] = useState("");
   const register = () => {
-         let username = AuthenticationService.getLoggedInUsername();
-        Axios.post(`http://localhost:8080/jpa/users/${username}/users"`, {
+        Axios.post("http://localhost:3000/register", {
           username: usernameRegister,
           password: passwordRegister,
           email: emailRegister,

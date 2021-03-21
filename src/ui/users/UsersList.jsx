@@ -21,15 +21,31 @@ class UsersList extends Component {
   }
 
   componentDidMount() {
-    this.refreshUsers();
-    console.log(this.state);
+    return fetch("http://localhost:3000/users/")
+      .then((response) => {
+        return response.json(); //or remove brackets: then(response => response.json())
+      })
+      .then((users) => {
+        console.log("users: " + users);
+        this.setState({ users });
+      })
+      .then((err) => {
+        console.log(err);
+      });
   }
 
   refreshUsers() {
-    let username = AuthenticationService.getLoggedInUsername();
-    UserDataService.retrieveAllUsers(username).then((response) => {
-      this.setState({ users: response.data });
-    });
+    return fetch("http://localhost:3000/users/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((users) => {
+        console.log("users: " + users);
+        this.setState({ users });
+      })
+      .then((err) => {
+        console.log(err);
+      });
   }
 
   deleteUserClicked(id) {
@@ -44,7 +60,7 @@ class UsersList extends Component {
 
   updateUserClicked(id) {
     console.log("update " + id);
-    //this.props.history.push(`/users/${id}`);
+    this.props.history.push(`/users/${id}`);
   }
 
   render() {
@@ -55,6 +71,7 @@ class UsersList extends Component {
           {this.state.message && (
             <div className="alert alert-success">{this.state.message}</div>
           )}
+          {console.log("user is array: " + Array.isArray(this.state.users))}
           <div className="container">
             <table className="table table-bordered table-hover">
               <thead>
@@ -67,11 +84,12 @@ class UsersList extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.users.map((user) => (
+                {this.state.users && this.state.users.map((user) => (
                   <tr key={user.id}>
                     <td>{user.username}</td>
                     <td>{user.password}</td>
                     <td>{user.email}</td>
+
                     <td>
                       <button
                         className="btn btn-success"

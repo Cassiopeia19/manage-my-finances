@@ -6,3 +6,11 @@ body {
   padding: 0 0 2rem 2rem;
   background-color: #fafafa !important;
 }
+
+#backgroundImage2 {
+ background: url(../../../assets//images//users.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+ }
