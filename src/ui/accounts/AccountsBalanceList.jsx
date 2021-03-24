@@ -5,6 +5,7 @@ import AccountDataService from "../../api/AccountDataService";
 import AuthenticationService from "../../components/authentication/AuthenticationService.js";
 import "./Accounts.css";
 import Cube from "./Cube.jsx";
+import { withRouter } from "react-router-dom";
 
 class AccountsBalanceList extends Component {
   constructor(props) {
@@ -121,4 +122,4 @@ class AccountsBalanceList extends Component {
     );
   }
 }
-export default AccountsBalanceList;
+export default withRouter(AccountsBalanceList);

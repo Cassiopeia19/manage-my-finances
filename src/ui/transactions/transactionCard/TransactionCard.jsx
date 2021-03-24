@@ -15,6 +15,7 @@ import TransactionDataService from "../../../api/TransactionDataService";
 import AuthenticationService from "../../../components/authentication/AuthenticationService";
 import moment from 'moment'
 import "bootstrap/dist/css/bootstrap.min.css";
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -52,7 +53,7 @@ const username = AuthenticationService.getLoggedInUsername();
   );
     
 
-export default function TransactionCard(props) {
+function TransactionCard(props) {
   const [expanded, setExpanded] = useState(false);
   const classes = useStyles();
 
@@ -79,11 +80,12 @@ export default function TransactionCard(props) {
  
   function handleEdit(id) {
     console.log("handle edit");
-    alert("you clicked edit");
+    //alert("you clicked edit");
+    props.history.push(`/transactionsformcontainer/${id}`);
   }
 
   function handleDelete(id) {
-   let username = AuthenticationService.getLoggedInUserName();
+   let username = AuthenticationService.getLoggedInUsername();
    TransactionDataService.deleteTransaction(username, transaction.id).then((response) => {
      refreshTransactions()
    });
@@ -151,5 +153,6 @@ export default function TransactionCard(props) {
       </Card>
     </>
   );
-          }
+}
         
+export default withRouter(TransactionCard);

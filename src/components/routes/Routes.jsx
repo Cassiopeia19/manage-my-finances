@@ -24,6 +24,7 @@ import AddNewUser from '../../ui/users/addNewUser/AddNewUser';
 import Users from '../../ui/users/Users'
 import UsersList from '../../ui/users/UsersList'
 import Archive from '../../ui/accounts/Archive'
+import TransactionsFormContainer from '../../ui/transactions/addTransaction/containers/TransactionsFormContainer'
 
 class Routes extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class Routes extends Component {
           <>
             <Header />
             <Switch>
+              <Route path="/login"component={Login}/>
               <Route path="/" exact component={Login} />
               <Route path="/login" component={Login} />
 
@@ -48,8 +50,8 @@ class Routes extends Component {
                 component={Accounts}
               />
               <AuthenticatedRoute
-                path="/transaction/:transactionId"
-                component={Transaction}
+                path="/transactionsformcontainer/:transactionId"
+                component={TransactionsFormContainer}
               />
               <AuthenticatedRoute path="/users/:usersId" component={Users} />
               <AuthenticatedRoute

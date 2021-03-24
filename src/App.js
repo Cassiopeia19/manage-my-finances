@@ -5,6 +5,7 @@ import "./bootstrap.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import IdleTimerContainer from './components/IdleTimerContainer'
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
     return (
       <div>
         <Routes />
+        <IdleTimerContainer />
       </div>
     );
   }

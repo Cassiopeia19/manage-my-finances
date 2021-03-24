@@ -7,19 +7,22 @@ class Users extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.match.params.id,
-      username: "",
-      password: "",
-      email: "",
+      id: this.props.match.params.usersId,
+      username: '',
+      password: '',
+      email: '',
     };
+    console.log(this.props);
     this.onSubmit = this.onSubmit.bind(this);
     this.validate = this.validate.bind(this);
   }
 
-  componentDidMount() {
-    if (this.state.id === -1) {
+  componentDidMount() {  
+
+  if (this.state.id === -1) {
       return;
     }
+
     let username = AuthenticationService.getLoggedInUsername();
     UserDataService.retrieveUser(username, this.state.id).then((response) =>
       this.setState({
@@ -50,6 +53,11 @@ class Users extends Component {
     return errors;
   }
 
+  // routeChange = () =>{ 
+  //   let path = `/users-home`; 
+  //   this.props.history.push(path);
+  // }
+
   onSubmit(values) {
     let username = AuthenticationService.getLoggedInUsername();
 
@@ -67,14 +75,15 @@ class Users extends Component {
       );
     } else {
       UserDataService.updateUser(username, this.state.id, user).then(() =>
-        this.props.history.push("/users")
+        //props.history.push(`/users/${id}`);
+        this.props.history.push(`/users/${user.id}`)
       );
     }
     console.log("values: " + values);
   }
 
   render() {
-    let { username, password, email } = this.state;
+   let { username, password, email } = this.state;
     return (
       <div>
         <h1>User Updates</h1>
@@ -107,25 +116,20 @@ class Users extends Component {
 
                 <fieldset className="form-group">
                   <label>Username</label>
-                  <Field
-                    className="form-control"
-                    type="text"
-                    name="username"
-                  />
+                  <Field className="form-control" type="text" name="username" />
                 </fieldset>
                 <fieldset className="form-group">
                   <label>Password</label>
-                  <Field
-                    className="form-control"
-                    type="text"
-                    name="password"
-                  />
+                  <Field className="form-control" type="text" name="password" />
                 </fieldset>
                 <fieldset className="form-group">
                   <label>Email Address</label>
                   <Field className="form-control" type="email" name="email" />
                 </fieldset>
-                <button className="btn btn-success" type="submit">
+                <button
+                  className="btn btn-success"
+                  type="submit"
+                >
                   Save
                 </button>
               </Form>

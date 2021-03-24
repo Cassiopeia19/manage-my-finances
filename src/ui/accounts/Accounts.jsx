@@ -82,7 +82,7 @@ class Accounts extends Component {
     let { accountName, deposits, asOfDate } = this.state;
     return (
       <div>
-        <h1>New Account</h1>
+        <h1>Account to Archive</h1>
         <div className="container">
           <Formik
             initialValues={{ accountName, deposits, asOfDate }}

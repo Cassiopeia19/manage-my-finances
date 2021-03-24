@@ -8,9 +8,9 @@ class UsersHome extends Component {
   }
   render() {
     return (
-     <div id="backgroundImage2">
+    //  <div id="backgroundImage2">
         <UsersTabsHeader />
-      </div>
+      // </div>
     );
   }
 }

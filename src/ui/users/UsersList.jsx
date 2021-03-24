@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import UserDataService from "../../api/UserDataService";
 import AuthenticationService from "../../components/authentication/AuthenticationService.js";
+import {withRouter} from 'react-router-dom'
 
 class UsersList extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class UsersList extends Component {
       .then((users) => {
         console.log("users: " + users);
         this.setState({ users });
+        console.log(users)
       })
       .then((err) => {
         console.log(err);
@@ -35,17 +37,7 @@ class UsersList extends Component {
   }
 
   refreshUsers() {
-    return fetch("http://localhost:3000/users/")
-      .then((response) => {
-        return response.json();
-      })
-      .then((users) => {
-        console.log("users: " + users);
-        this.setState({ users });
-      })
-      .then((err) => {
-        console.log(err);
-      });
+   window.location.reload(false);
   }
 
   deleteUserClicked(id) {
@@ -59,8 +51,7 @@ class UsersList extends Component {
   }
 
   updateUserClicked(id) {
-    console.log("update " + id);
-    this.props.history.push(`/users/${id}`);
+     this.props.history.push(`/users/${id}`);
   }
 
   render() {
@@ -84,30 +75,31 @@ class UsersList extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.users && this.state.users.map((user) => (
-                  <tr key={user.id}>
-                    <td>{user.username}</td>
-                    <td>{user.password}</td>
-                    <td>{user.email}</td>
+                {this.state.users &&
+                  this.state.users.map((user) => (
+                    <tr key={user.id}>
+                      <td>{user.username}</td>
+                      <td>{user.password}</td>
+                      <td>{user.email}</td>
 
-                    <td>
-                      <button
-                        className="btn btn-success"
-                        onClick={() => this.updateUserClicked(user.id)}
-                      >
-                        Update
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-warning"
-                        onClick={() => this.deleteUserClicked(user.id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                      <td>
+                        <button
+                          className="btn btn-success"
+                          onClick={() => this.updateUserClicked(user.id)}
+                        >
+                          Update
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-warning"
+                          onClick={() => this.deleteUserClicked(user.id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
             <div className="row"></div>
@@ -118,4 +110,4 @@ class UsersList extends Component {
     );
   }
 }
-export default UsersList;
+export default withRouter(UsersList);

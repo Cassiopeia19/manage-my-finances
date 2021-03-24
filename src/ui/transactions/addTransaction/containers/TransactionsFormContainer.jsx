@@ -81,7 +81,7 @@ export default class TransactionsFormContainer extends Component {
     //   ***** what do i need to do with the code below to have it post to the database?? *****
     // ******* also, the submitted form needs to update both the transactions list AND the accounts balance list ******
     // ******also, the submitted form needs to update the list of transactions within update/delete tab
-    let username = AuthenticationService.getLoggedInUserName();
+    let username = AuthenticationService.getLoggedInUsername();
     fetch(`http://localhost:8080/jpa/users/${username}/transactions`, {
       method: "POST",
       body: JSON.stringify({

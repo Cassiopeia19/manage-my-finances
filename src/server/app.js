@@ -54,6 +54,16 @@ app.get('/users', (req, res) => {
   });
 });
 
+app.get('/users/:id', (req,res) => {
+  db.query("SELECT * FROM user WHERE id=?",[req.params.id],function (error, results, fields) {
+	  if (error) throw error;
+	  res.end(JSON.stringify(results));
+  //db.query("SELECT * FROM user WHERE id='$id'",(err, results) => {
+    // if(err) throw err;
+    // res.json(results);
+  });
+});
+
 
 app.listen(3000, () => {
     console.log("running server");
