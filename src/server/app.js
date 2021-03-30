@@ -54,16 +54,23 @@ app.get('/users', (req, res) => {
   });
 });
 
-app.get('/users/:id', (req,res) => {
-  db.query("SELECT * FROM user WHERE id=?",[req.params.id],function (error, results, fields) {
-	  if (error) throw error;
-	  res.end(JSON.stringify(results));
-  //db.query("SELECT * FROM user WHERE id='$id'",(err, results) => {
-    // if(err) throw err;
-    // res.json(results);
-  });
-});
+app.get('/users/id', (req,res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    const email = req.body.email;
 
+ db.query( 
+     "SELECT * FROM user WHERE id=?",
+    [username,password,email],
+    (err,result) => {
+        if(err) {
+           res.send({err: err})
+        } 
+        if (result.length > 0) {
+            res.send(result)
+        }
+    });
+  })
 
 app.listen(3000, () => {
     console.log("running server");

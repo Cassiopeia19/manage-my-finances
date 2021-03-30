@@ -15,14 +15,14 @@ import TransactionDataService from "../../../api/TransactionDataService";
 import AuthenticationService from "../../../components/authentication/AuthenticationService";
 import moment from 'moment'
 import "bootstrap/dist/css/bootstrap.min.css";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 345,
   },
   media: {
-    height: '5px',
+    height: "5px",
     paddingTop: "56.25%",
   },
   expand: {
@@ -39,19 +39,18 @@ const useStyles = makeStyles((theme) => ({
 
 const username = AuthenticationService.getLoggedInUsername();
 
-  TransactionDataService.retrieveTransaction(username, useState.id).then(
-    (response) =>
-      useState({
-        accountName: response.data.accountName,
-        transactionDate: response.data.transactionDate,
-        transactionType: response.data.transactionType,
-        depositCategory: response.data.depositCategory,
-        withdrawalCategory: response.data.withdrawalCategory,
-        transactionAmount: response.data.transactionAmount,
-        notes: response.data.notes,
-      })
-  );
-    
+TransactionDataService.retrieveTransaction(username, useState.id).then(
+  (response) =>
+    useState({
+      accountName: response.data.accountName,
+      transactionDate: response.data.transactionDate,
+      transactionType: response.data.transactionType,
+      depositCategory: response.data.depositCategory,
+      withdrawalCategory: response.data.withdrawalCategory,
+      transactionAmount: response.data.transactionAmount,
+      notes: response.data.notes,
+    })
+);
 
 function TransactionCard(props) {
   const [expanded, setExpanded] = useState(false);
@@ -61,8 +60,8 @@ function TransactionCard(props) {
     setExpanded(!expanded);
   };
 
-  const { transaction } = props; 
- 
+  const { transaction } = props;
+
   const getTransactions = (url) => fetch(url).then((_) => _.json());
 
   const { data: transactions } = useSWR(
@@ -70,25 +69,28 @@ function TransactionCard(props) {
     getTransactions
   );
 
+  const history = useHistory();
+
   useEffect(() => {
     console.log(transactions);
   }, [transactions]);
 
-   const refreshTransactions = () => {
+  const refreshTransactions = () => {
     window.location.reload();
-  }
- 
+  };
+
   function handleEdit(id) {
-    console.log("handle edit");
-    //alert("you clicked edit");
-    props.history.push(`/transactionsformcontainer/${id}`);
+     props.history.push(`/update-transaction/${id}`);
+    //history.push(`/update-transaction/${id}`);
   }
 
   function handleDelete(id) {
-   let username = AuthenticationService.getLoggedInUsername();
-   TransactionDataService.deleteTransaction(username, transaction.id).then((response) => {
-     refreshTransactions()
-   });
+    let username = AuthenticationService.getLoggedInUsername();
+    TransactionDataService.deleteTransaction(username, transaction.id).then(
+      (response) => {
+        refreshTransactions();
+      }
+    );
     console.log("handle delete " + transaction.id);
   }
 
@@ -110,7 +112,7 @@ function TransactionCard(props) {
             className="edit-btn btn-icon text"
             aria-label="edit button"
             onClick={() => {
-              handleEdit();
+              handleEdit(transaction.id);
               // on();
             }}
           >
@@ -154,5 +156,5 @@ function TransactionCard(props) {
     </>
   );
 }
-        
+
 export default withRouter(TransactionCard);

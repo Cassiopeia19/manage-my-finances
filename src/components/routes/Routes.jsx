@@ -15,6 +15,7 @@ import Transaction from '../../ui/transactions/Transaction'
 import TransactionsHome from "../../ui/transactions/transactionsHome/TransactionsHome";
 import TransactionsList from "../../ui/transactions/transactionsList/TransactionsList.jsx";
 import AddTransaction from "../../ui/transactions/addTransaction/AddTransaction";
+import UpdateTransaction from "../../ui/transactions/transactionCard/UpdateTransaction"
 import Reports from "../../ui/reports/Reports.jsx";
 import Login from "../../ui/login/Login.jsx";
 import BudgetCalculator from '../../ui/budgetCalculator/BudgetCalculator';
@@ -27,9 +28,9 @@ import Archive from '../../ui/accounts/Archive'
 import TransactionsFormContainer from '../../ui/transactions/addTransaction/containers/TransactionsFormContainer'
 
 class Routes extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
   render() {
     return (
       <div>
@@ -37,7 +38,6 @@ class Routes extends Component {
           <>
             <Header />
             <Switch>
-              <Route path="/login"component={Login}/>
               <Route path="/" exact component={Login} />
               <Route path="/login" component={Login} />
 
@@ -53,6 +53,9 @@ class Routes extends Component {
                 path="/transactionsformcontainer/:transactionId"
                 component={TransactionsFormContainer}
               />
+              <AuthenticatedRoute
+                path="/update-transaction/:transactionId" component={UpdateTransaction}
+                />
               <AuthenticatedRoute path="/users/:usersId" component={Users} />
               <AuthenticatedRoute
                 path="/accounts-home"
@@ -83,6 +86,10 @@ class Routes extends Component {
                 path="/add-transaction"
                 component={AddTransaction}
               />
+              <AuthenticatedRoute
+                path="update-transaction"
+                component={UpdateTransaction}
+                />
               <AuthenticatedRoute path="/reports" component={Reports} />
               <AuthenticatedRoute path="/report pdf" component={ReportPDF} />
               <AuthenticatedRoute path="/vacations" component={Carousel} />

@@ -8,7 +8,7 @@ class TransactionDataService {
 
     retrieveTransaction(name, id) {
         return axios.get(
-            `${JPA_API_URL}/users/${name}/transactions/${id}`,
+            `${JPA_API_URL}/users/${name}/transactions/${id}`
         );
     }
 

@@ -8,18 +8,17 @@ class Users extends Component {
     super(props);
     this.state = {
       id: this.props.match.params.usersId,
-      username: '',
-      password: '',
-      email: '',
+      username: "",
+      password: "",
+      email: "",
     };
     console.log(this.props);
     this.onSubmit = this.onSubmit.bind(this);
     this.validate = this.validate.bind(this);
   }
 
-  componentDidMount() {  
-
-  if (this.state.id === -1) {
+  componentDidMount() {
+    if (this.state.id === -1) {
       return;
     }
 
@@ -53,14 +52,7 @@ class Users extends Component {
     return errors;
   }
 
-  // routeChange = () =>{ 
-  //   let path = `/users-home`; 
-  //   this.props.history.push(path);
-  // }
-
   onSubmit(values) {
-    let username = AuthenticationService.getLoggedInUsername();
-
     let user = {
       id: this.state.id,
       username: values.username,
@@ -69,21 +61,16 @@ class Users extends Component {
     };
     console.log(values);
 
-    if (this.state.id === -1) {
-      UserDataService.createUser(username, user).then(() =>
-        this.props.history.push("/users")
-      );
-    } else {
-      UserDataService.updateUser(username, this.state.id, user).then(() =>
-        //props.history.push(`/users/${id}`);
+      UserDataService.updateUser(this.state.id, user).then(() =>
         this.props.history.push(`/users/${user.id}`)
-      );
-    }
-    console.log("values: " + values);
+      )
+      console.log("values: " + values);
+  if (!alert("Your update(s) were successfull"))
+    document.location = "/users-home";
   }
 
   render() {
-   let { username, password, email } = this.state;
+    let { username, password, email } = this.state;
     return (
       <div>
         <h1>User Updates</h1>
@@ -126,10 +113,7 @@ class Users extends Component {
                   <label>Email Address</label>
                   <Field className="form-control" type="email" name="email" />
                 </fieldset>
-                <button
-                  className="btn btn-success"
-                  type="submit"
-                >
+                <button className="btn btn-success" type="submit">
                   Save
                 </button>
               </Form>

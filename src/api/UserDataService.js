@@ -15,12 +15,12 @@ class UserDataService {
     return axios.delete(`${JPA_API_URL}/users/${name}/users/${id}`);
   }
 
-  updateUser(name, id, user) {
-    return axios.put(`${JPA_API_URL}/users/${name}/users/${id}`, user);
+  updateUser(id, user) {
+    return axios.put(`${JPA_API_URL}/users/users/${id}`, user);
   }
-  createUser(name, user) {
-    return axios.post(`${JPA_API_URL}/users/${name}/users/`, user);
-  }
+  // createUser(name, user) {
+  //   return axios.post(`${JPA_API_URL}/users/${name}/users/`, user);
+  // }
 }
 
 export default new UserDataService();
