@@ -85,6 +85,7 @@ function Login() {
               >
                 Reset
               </button>
+              <button className="btn btn-info">Forgot Password</button>
               <br></br>
             </div>
           </center>

@@ -69,8 +69,6 @@ function TransactionCard(props) {
     getTransactions
   );
 
-  const history = useHistory();
-
   useEffect(() => {
     console.log(transactions);
   }, [transactions]);
@@ -81,7 +79,7 @@ function TransactionCard(props) {
 
   function handleEdit(id) {
      props.history.push(`/update-transaction/${id}`);
-    //history.push(`/update-transaction/${id}`);
+     console.log(props)
   }
 
   function handleDelete(id) {

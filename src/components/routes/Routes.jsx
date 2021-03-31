@@ -11,7 +11,6 @@ import Logout from "../../ui/Logout.jsx";
 import Welcome from "../../ui/welcome/Welcome";
 import Accounts from "../../ui/accounts/Accounts.jsx";
 import Carousel from "../../ui/vacations/Carousel"
-import Transaction from '../../ui/transactions/Transaction'
 import TransactionsHome from "../../ui/transactions/transactionsHome/TransactionsHome";
 import TransactionsList from "../../ui/transactions/transactionsList/TransactionsList.jsx";
 import AddTransaction from "../../ui/transactions/addTransaction/AddTransaction";

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./AddNewUser.scss";
 import Axios from "axios";
-import AuthenticationService from '../../../components/authentication/AuthenticationService'
 import Button from "../../transactions/addTransaction/components/Button";
 
 function AddNewUser() {

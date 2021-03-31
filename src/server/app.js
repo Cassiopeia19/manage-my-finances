@@ -54,24 +54,6 @@ app.get('/users', (req, res) => {
   });
 });
 
-app.get('/users/id', (req,res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    const email = req.body.email;
-
- db.query( 
-     "SELECT * FROM user WHERE id=?",
-    [username,password,email],
-    (err,result) => {
-        if(err) {
-           res.send({err: err})
-        } 
-        if (result.length > 0) {
-            res.send(result)
-        }
-    });
-  })
-
 app.listen(3000, () => {
     console.log("running server");
 });

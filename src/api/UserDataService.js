@@ -18,9 +18,6 @@ class UserDataService {
   updateUser(id, user) {
     return axios.put(`${JPA_API_URL}/users/users/${id}`, user);
   }
-  // createUser(name, user) {
-  //   return axios.post(`${JPA_API_URL}/users/${name}/users/`, user);
-  // }
 }
 
 export default new UserDataService();

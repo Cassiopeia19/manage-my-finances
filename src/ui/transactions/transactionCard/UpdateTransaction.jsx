@@ -8,6 +8,7 @@ import { Form } from "react-bootstrap";
 import AuthenticationService from "../../../components/authentication/AuthenticationService";
 import TransactionDataService from '../../../api/TransactionDataService'
 import { Formik } from "formik";
+import moment from 'moment'
 
 const accountNameOptions = ["Ally", "BOA", "Cash", "RCU", "VCU"];
 const transactionTypeOptions = ["Deposit", "Withdrawal"];
@@ -66,15 +67,11 @@ class UpdateTransaction extends Component {
       withdrawalCategory: "",
       transactionAmount: "",
       notes: "",
+      postId: null,
     };
     console.log(this.props);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
-
-  state = {
-    transactionAmount: "",
-    notes: "",
-  };
 
   componentDidMount() {
     let username = AuthenticationService.getLoggedInUsername();
@@ -92,35 +89,30 @@ class UpdateTransaction extends Component {
     );
   }
 
-  routeChange = () => {
-    let path = `/transactions-home`;
-    this.props.history.push(path);
-  };
+  handleFormSubmit = (values) => {
+    console.log("Submitting The Form...");
+    console.log(values)
 
-  onSubmit(values) {
+
+
     let username = AuthenticationService.getLoggedInUsername();
-
-    let transaction = {
-      id: this.state.id,
-      transactionDate: values.transactionDate,
-      accountName: values.accountName,
-      transactionType: values.transactionType,
-      depositCategory: values.depositCategory,
-      withdrawalCategory: values.withdrawalCategory,
-      transactionAmount: values.transactionAmount,
-      notes: values.notes,
-    };
-    console.log(values);
-
-    TransactionDataService.updateTransaction(
-      username,
-      this.state.id,
-      transaction
-    ).then(() => this.props.history.push(`/transactions/${transaction.id}`));
-  }
-
-  handleFormReset = (e) => {
-    this.setState({ transactionAmount: "", notes: "" });
+    let id = this.state.id;
+    fetch(`http://localhost:8080/jpa/users/${username}/transactions/${id}`,{
+      method: "PUT",
+      body: JSON.stringify({
+       ...values,
+       id
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Cookie: "token=9aedd9b4ba3aa8f",
+      },
+    })
+      .then((result) => result.text())
+      .then((data) => console.log(data));
+    if (!alert("Your update(s) were successfull"))
+      document.location = "/transactions-home";
   };
 
   handleTransactionDateChange = (event) => {
@@ -172,114 +164,108 @@ class UpdateTransaction extends Component {
           transactionAmount,
           notes,
         }}
-        onSubmit={this.onSubmit && this.routeChange}
-        onReset={this.handleFormReset}
+        onSubmit={(values, actions) => {
+          this.handleFormSubmit(values);
+            actions.setSubmitting(false);
+        }}
         enableReinitialize={true}
       >
-        <form
-          className="container-fluid p-5 my-3 border bg-dark text-white"
-          style={{ textalign: "left", fontSize: "22px" }}
-        >
-          <Form.Group controlid="transactionDate">
-            <Form.Label>Transaction Date</Form.Label>
-            <Form.Control
-              type="date"
-              name="transactionDate"
-              required
-              placeholder="transactionDate"
-              onChange={this.handleTransactionDateChange}
-              value={this.state.transactionDate || transactionDate}
-            />
-          </Form.Group>{" "}
-          <Select
-            title={"Account"}
-            name={"accountName"}
-            options={accountNameOptions}
-            placeholder={"select an account"}
-            onChange={this.handleAccountNameChange}
-          />{" "}
-          {/*Transaction type*/}
-          <Select
-            title={"Type"}
-            name={"transactionType"}
-            options={transactionTypeOptions}
-            placeholder={"select type of transaction"}
-            onChange={this.handleTransactionTypeChange}
-          />{" "}
-          {this.state.transactionType === "Deposit" ? (
+        {(props) => (
+          <form onSubmit={props.handleSubmit}
+            className="container-fluid p-5 my-3 border bg-dark text-white"
+            style={{ textalign: "left", fontSize: "22px" }}>
+            <Form.Group controlid="transactionDate">
+              <Form.Label>Transaction Date</Form.Label>
+              <Form.Control
+                type="date"
+                name="transactionDate"
+                required
+                onChange={this.handleTransactionDateChange}
+                value={moment(this.state.transactionDate).format("YYYY-MM-DD")}
+              />
+            </Form.Group>{" "}
             <Select
-              title={"Deposit Category"}
-              name={"depositCategory"}
-              options={depositCategoryOptions}
-              placeholder={"select deposit category"}
-              onChange={this.handleDepositCategoryChange}
-            />
-          ) : (
+              title={"Account"}
+              name={"accountName"}
+              options={accountNameOptions}
+              placeholder={"select an account"}
+              onChange={this.handleAccountNameChange}
+              value={this.state.accountName}
+            />{" "}
+            {/*Transaction type*/}
             <Select
-              title={"Withdrawal Category"}
-              name={"withdrawalCategory"}
-              options={withdrawalCategoryOptions}
-              placeholder={"select withdrawal category"}
-              onChange={this.handleWithdrawalCategoryChange}
+              title={"Type"}
+              name={"transactionType"}
+              options={transactionTypeOptions}
+              placeholder={"select type of transaction"}
+              onChange={this.handleTransactionTypeChange}
+              value={this.state.transactionType}
+            />{" "}
+            {this.state.transactionType === "Deposit" ? (
+              <Select
+                title={"Deposit Category"}
+                name={"depositCategory"}
+                options={depositCategoryOptions}
+                placeholder={"select deposit category"}
+                onChange={this.handleDepositCategoryChange}
+                value={this.state.depositCategory}
+              />
+            ) : (
+              <Select
+                title={"Withdrawal Category"}
+                name={"withdrawalCategory"}
+                options={withdrawalCategoryOptions}
+                placeholder={"select withdrawal category"}
+                onChange={this.handleWithdrawalCategoryChange}
+                value={this.state.withdrawalCategory}
+              />
+            )}
+            {/*Transaction Amount*/}
+            <div>Amount</div>
+            <label>
+              <CurrencyInput
+                prefix="$ "
+                decimalSeparator="."
+                thousandSeparator=","
+                name={"transactionAmount"}
+                onChangeEvent={this.handleTransactionAmountChange}
+                value={this.state.transactionAmount}
+              />{" "}
+            </label>
+            <br />
+            {/* Notes */}
+            <div>Notes</div>
+            <textarea
+              id="noter-text-area"
+              rows={5}
+              name={"notes"}
+              placeholder={"enter any transaction notes here"}
+              value={this.state.notes}
+              onChange={this.handleNotesChange}
+              style={{
+                resize: "none",
+                webkitBoxSizing: "border-box",
+                mozBoxSizing: "border-box",
+                boxSizing: "border-box",
+                width: "100%",
+              }}
             />
-          )}
-          {/*Transaction Amount*/}
-          <div>Amount</div>
-          <label>
-            <CurrencyInput
-              prefix="$ "
-              decimalSeparator="."
-              thousandSeparator=","
-              name={"transactionAmount"}
-              onChangeEvent={this.handleTransactionAmountChange}
-              value={this.state.transactionAmount}
-            />{" "}
-          </label>
-          <br />
-          {/* Notes */}
-          <div>Notes</div>
-          <textarea
-            id="noter-text-area"
-            rows={5}
-            name={"notes"}
-            placeholder={"enter any transaction notes here"}
-            value={this.state.notes}
-            onChange={this.handleNotesChange}
-            style={{
-              resize: "none",
-              webkitBoxSizing: "border-box",
-              mozBoxSizing: "border-box",
-              boxSizing: "border-box",
-              width: "100%",
-            }}
-          />
-          <br />
-          <center>
-            {/*Submit */}
-            <Button
-              className="btn btn-success"
-              type="submit"
-              theme={"primary"}
-              title={"submit"}
-              style={{
-                margin: "10px 10px 10px 10px",
-                backgroundColor: "forestgreen",
-              }}
-            />{" "}
-            {/* Clear the form */}
-            <Button
-              className="btn btn-warning"
-              type="reset"
-              theme={"secondary"}
-              title={"reset form"}
-              style={{
-                margin: "10px 10px 10px 10px",
-                backgroundColor: "#ffce42",
-                color: "black",
-              }}
-            />{" "}
-          </center>
-        </form>
+            <br />
+            <center>
+              {/*Submit */}
+              <Button
+                className="btn btn-success"
+                type="submit"
+                theme={"primary"}
+                title={"submit"}
+                style={{
+                  margin: "10px 10px 10px 10px",
+                  backgroundColor: "forestgreen",
+                }}
+              />{" "}
+            </center>
+          </form>
+        )}
       </Formik>
     );
   }

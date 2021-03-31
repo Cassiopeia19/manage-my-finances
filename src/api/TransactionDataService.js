@@ -18,7 +18,7 @@ class TransactionDataService {
         );
     }
 
-    handleEdit(name, id, transaction) {
+    updateTransaction(name, id, transaction) {
         return axios.put(
             `${JPA_API_URL}/users/${name}/transactions/${id}`,
             transaction
