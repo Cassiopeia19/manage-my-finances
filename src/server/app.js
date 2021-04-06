@@ -8,11 +8,11 @@ app.use(express.json());
 app.use(cors());
 
 const db = mysql.createConnection({
-    user: "root",
-    host: "localhost",
-    password: "Caval!er4me<)",
-    database: "manage_my_finances_db",
-    insecureAuth : true,
+    user: process.env.USER,
+    host: process.env.HOST,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+    insecureAuth : process.env.INSECUREAUTH,
 });
 
 app.post('/register',(req,res) => {
