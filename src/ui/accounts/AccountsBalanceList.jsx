@@ -6,21 +6,27 @@ import AuthenticationService from "../../components/authentication/Authenticatio
 import "./Accounts.css";
 import Cube from "./Cube.jsx";
 import { withRouter } from "react-router-dom";
+import TransactionDataService from '../../api/TransactionDataService'
 
 class AccountsBalanceList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      accounts: [],
+      accounts: [{
+        accountName: ''}, {
+          transactions: [
+            {accountName: '',transactionType: '',transactionAmount: ''}
+          ]
+        }
+      ],
       message: null,
     };
-    this.deleteAccountClicked = this.deleteAccountClicked.bind(this);
-    this.archiveAccountClicked = this.archiveAccountClicked.bind(this);
     this.refreshAccounts = this.refreshAccounts.bind(this);
+    console.log(this.state.accounts)
   }
 
   componentWillUnmount() {
-     console.log("componentWillUnmount");
+    console.log("componentWillUnmount");
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -38,26 +44,13 @@ class AccountsBalanceList extends Component {
   refreshAccounts() {
     let username = AuthenticationService.getLoggedInUsername();
     AccountDataService.retrieveAllAccounts(username).then((response) => {
-      this.setState({ accounts: response.data });
-    });
+      this.setState({ accounts: response.data }); })
+      TransactionDataService.retrieveAllTransactions(username).then((response) => {
+        this.setState({ transaction: response.data});
+      })
   }
 
-  deleteAccountClicked(id) {
-    let username = AuthenticationService.getLoggedInUsername();
-    AccountDataService.deleteAccount(username, id).then((response) => {
-      this.setState({
-        message: `Deletion of account ${id} was successful`,
-      });
-      this.refreshAccounts();
-    });
-  }
-
-  archiveAccountClicked(id) {
-     console.log("archive " + id);
-       this.props.history.push(`/accounts/${id}`);
-  }
-
-  render() {
+  render() {      
     return (
       <>
         <Cube />
@@ -73,42 +66,47 @@ class AccountsBalanceList extends Component {
                   <th>Account Name</th>
                   <th>Balance</th>
                   <th>As of</th>
-                  <th>Archive</th>
-                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
-                {this.state.accounts.map((account) => (
-                  <tr key={account.id}>
-                    <td>{account.accountName}</td>
+                {this.state.accounts.map((account, transaction) => (
+                  <tr key={account.id && transaction.id}>
+                    {/* {transaction.accountName === account.accountName ? ( */}
+                      <td>{account.accountName}</td>
+                    {/* ) : (
+                      <td>not working</td>
+                    )} */}
                     <td>
-                      <CurrencyFormat
-                        value={Math.abs(
-                          account.deposits - account.withdrawals
-                        ).toFixed(2)}
-                        displayType={"text"}
-                        thousandSeparator={true}
-                        prefix={"$"}
-                      />
+                      {transaction.transactionType === "deposit"
+                        ? account.deposits ===
+                            parseFloat(transaction.transactionAmount) && 
+                            <td>
+                              <CurrencyFormat
+                                value={Math.abs(
+                                  account.deposits - account.withdrawals
+                                ).toFixed(2)}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={"$"}
+                              />{" "}
+                            </td> && console.log("balance: " + account.deposits - account.withdrawals)
+                          
+                        : account.withdrawals ===
+                            parseFloat(transaction.transactionAmount) && 
+                            <td>
+                              <CurrencyFormat
+                                value={Math.abs(
+                                  account.deposits - account.withdrawals
+                                ).toFixed(2)}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={"$"}
+                              />{" "}
+                            </td>
+                          }
                     </td>
                     <td>
                       {moment.utc(account.asOfDate).format("MMM-DD-YYYY")}
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-info"
-                        onClick={() => this.archiveAccountClicked(account.id)}
-                      >
-                        Archive
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-warning"
-                        onClick={() => this.deleteAccountClicked(account.id)}
-                      >
-                        Delete
-                      </button>
                     </td>
                   </tr>
                 ))}

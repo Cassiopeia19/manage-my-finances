@@ -55,19 +55,21 @@ class Accounts extends Component {
 
   onSubmit(values) {
     let username = AuthenticationService.getLoggedInUsername();
-   
+
     let account = {
       id: this.state.id,
       accountName: values.accountName,
       deposits: values.deposits,
       asOfDate: values.asOfDate,
     };
-    console.log(values)
+    console.log(values);
 
     if (this.state.id === -1) {
-      AccountDataService.createAccount(username, this.state.id,account).then(() =>
-        this.props.history.push("/accounts")
-      );
+      AccountDataService.createAccount(
+        username,
+        this.state.id,
+        account
+      ).then(() => this.props.history.push("/accounts"));
     } else {
       AccountDataService.archiveAccount(
         username,

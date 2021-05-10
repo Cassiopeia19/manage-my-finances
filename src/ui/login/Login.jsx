@@ -9,7 +9,6 @@ import "./Login.css";
 import Axios from 'axios'
 import { useHistory } from "react-router-dom";
 
-
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -85,7 +84,7 @@ function Login() {
               >
                 Reset
               </button>
-              <button className="btn btn-info">Forgot Password</button>
+              <a href="/forgot-password" className="btn btn-info">Forgot Password?</a>
               <br></br>
             </div>
           </center>
