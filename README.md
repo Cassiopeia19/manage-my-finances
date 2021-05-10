@@ -25,9 +25,9 @@ was cited directly from their website:  https://start.spring.io/.
 3) A **budget calculator** that will assist the user in budgeting his expenses.
 4) A **transactions** section that will allow the user to:
    a. enter a new transaction
-   b. toggle recent transactions (past 30 days) or all transactions {in progress}
-   c. click on a transaction card to view the notes & have access to updating or deleting the transaction {in progress}
-5) **API** to handle the account data services {transactions & reports services in progress}
+   b. toggle recent transactions (past 30 days) or all transactions
+   c. click on a transaction card to view the notes & have access to updating or deleting the transaction
+5) **API** to handle the account data services, transactions & reports services {in progress}
 6) **Authentication** for the login, where other tabs besides 'login' are not available.  Even if someone were to know what the url for a certain tab, they would be directed to the login.
 7) A **reports form** that allows the user to choose what he would like to have included within the report, which will produce a report with the option to print. {in progress}
 
@@ -67,7 +67,7 @@ Java (backend) was initialized via Spring Initializer with Spring Boot snapshot.
 
 4) H2 Database. . .the description of which states, "Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes, as well as browser-based console application".
 
-This app currently reads/writes to a mySQL database (recently converted from h2).
+This app currently reads/writes to a mySQL database (converted from h2).
 
 
 
