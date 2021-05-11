@@ -46,7 +46,7 @@
     "jquery": "^3.6.0",
     "latest-version": "^5.1.0",
     "lodash.throttle": "^4.1.1",
-    "mathjs": "^6.6.5",
+    "mathjs": "^7.5.1",
     "mdbreact": "^4.27.0",
     "modules": "^0.4.0",
     "moment": "^2.29.1",
