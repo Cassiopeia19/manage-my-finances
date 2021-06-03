@@ -2,14 +2,22 @@
 
 import React, { Component } from "react";
 import Select from "../components/Select";
+import Select2 from "../components/Select2"
 import Button from "../components/Button";
 import CurrencyInput from "react-currency-input";
 import { Form } from "react-bootstrap";
 import AuthenticationService from "../../../../components/authentication/AuthenticationService"
 
-const accountNameOptions = ["Ally", "BOA", "Cash", "RCU", "VCU"];
+const accountNameOptions = [
+  { value: 1001, text: "Ally" },
+  { value: 1002, text: "BOA" },
+  { value: 1003, text: "Cash" },
+  { value: 1004, text: "RCU" },
+  { value: 1005, text: "VCU" },
+];
 const transactionTypeOptions = ["Deposit", "Withdrawal"];
 const depositCategoryOptions = [
+  "opening balance",
   "interest earned",
   "Janice",
   "Jennie",
@@ -61,7 +69,7 @@ export default class TransactionsFormContainer extends Component {
   }
 
   state = {
-    transactionAmount: "",
+    transactionAmount: 0,
     notes: ""
   };
 
@@ -78,14 +86,13 @@ export default class TransactionsFormContainer extends Component {
     );
     console.log("Form Contents", transaction);
 
-    //   ***** what do i need to do with the code below to have it post to the database?? *****
-    // ******* also, the submitted form needs to update both the transactions list AND the accounts balance list ******
-    // ******also, the submitted form needs to update the list of transactions within update/delete tab
+    // ******* the submitted form needs to update the accounts balance list ******
+  
     let username = AuthenticationService.getLoggedInUsername();
     fetch(`http://localhost:8080/jpa/users/${username}/transactions`, {
       method: "POST",
       body: JSON.stringify({
-        accountName: this.state.accountName,
+        accountId: this.state.accountId,
         transactionDate: this.state.transactionDate,
         transactionType: this.state.transactionType,
         depositCategory: this.state.depositCategory,
@@ -103,7 +110,7 @@ export default class TransactionsFormContainer extends Component {
   };
 
   handleFormReset = (e) => {
-    this.setState({ transactionAmount:"",notes:"" });
+    this.setState({ transactionAmount:0,notes:"" });
   };
 
   handleTransactionDateChange = (event) => {
@@ -111,7 +118,7 @@ export default class TransactionsFormContainer extends Component {
   };
 
   handleAccountNameChange = (event) => {
-    this.setState({ accountName: event.target.value });
+    this.setState({ accountId: event.target.value });
   };
 
   handleTransactionTypeChange = (event) => {
@@ -127,7 +134,7 @@ export default class TransactionsFormContainer extends Component {
   };
 
   handleTransactionAmountChange = (event, maskedValue, floatValue) => {
-    this.setState({ transactionAmount: maskedValue });
+    this.setState({ transactionAmount: floatValue });
   };
 
   handleNotesChange = (event) => {
@@ -152,9 +159,9 @@ export default class TransactionsFormContainer extends Component {
             onChange={this.handleTransactionDateChange}
           />
         </Form.Group>{" "}
-        <Select
+        <Select2
           title={"Account"}
-          name={"accountName"}
+          name={"accountId"}
           options={accountNameOptions}
           placeholder={"select an account"}
           onChange={this.handleAccountNameChange}
@@ -188,9 +195,9 @@ export default class TransactionsFormContainer extends Component {
         <div>Amount</div>
         <label>
           <CurrencyInput
-            prefix="$ "
-            decimalSeparator="."
-            thousandSeparator=","
+            // prefix="$ "
+            // decimalSeparator="."
+            // thousandSeparator=","
             name={"transactionAmount"}
             onChangeEvent={this.handleTransactionAmountChange}
             value={this.state.transactionAmount}
@@ -206,9 +213,13 @@ export default class TransactionsFormContainer extends Component {
           placeholder={"enter any transaction notes here"}
           value={this.state.notes}
           onChange={this.handleNotesChange}
-          style={{ resize:"none",  webkitBoxSizing: "border-box",
-                mozBoxSizing: "border-box",
-                boxSizing: "border-box",width: "100%" }}
+          style={{
+            resize: "none",
+            webkitBoxSizing: "border-box",
+            mozBoxSizing: "border-box",
+            boxSizing: "border-box",
+            width: "100%",
+          }}
         />
         <br />
         <center>

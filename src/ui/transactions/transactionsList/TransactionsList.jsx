@@ -62,8 +62,6 @@ function TransactionsList(props) {
             ))}
           </CardColumns>
         );
-      }
+  }
 }
-
-
-export default TransactionsList;
+ export default TransactionsList;

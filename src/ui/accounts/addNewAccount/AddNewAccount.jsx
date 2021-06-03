@@ -6,7 +6,8 @@ import Button from "../../transactions/addTransaction/components/Button";
 
 function AddNewAccount() {
   const [accountNameRegister, setAccountNameRegister] = useState("");
-  const [depositsRegister, setDepositsRegister] = useState("");
+  const [transactionAmountRegister, setTransactionAmountRegister] =
+    useState("");
   const [asOfDateRegister, setAsOfDateRegister] = useState("");
   const [message, setMessage] = useState("");
   const [state,setState] = useState("");
@@ -15,7 +16,7 @@ function AddNewAccount() {
     let username = AuthenticationService.getLoggedInUsername();
     Axios.post(`http://localhost:8080/jpa/users/${username}/accounts`, {
       accountName: accountNameRegister,
-      deposits: depositsRegister,
+      transactionAmount: transactionAmountRegister,
       asOfDate: asOfDateRegister,
     }).then((response) => {
       console.log(response);
@@ -26,7 +27,7 @@ function AddNewAccount() {
   };
 
   const handleFormReset = (e) => {
-    setState({ username: "", password: "", email: "" });
+    setState({ accountName: "", transactionAmount: "", asOfDate: "" });
   };
 
   return (
@@ -52,13 +53,13 @@ function AddNewAccount() {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="deposits">Balance</label>
+              <label htmlFor="transactionAmount">Balance</label>
               <input
                 type="number"
-                name="deposits"
+                name="transactionAmount"
                 placeholder="balance"
                 onChange={(e) => {
-                  setDepositsRegister(e.target.value);
+                  setTransactionAmountRegister(e.target.value);
                 }}
               />
             </div>

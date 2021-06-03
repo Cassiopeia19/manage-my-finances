@@ -16,6 +16,7 @@ import AuthenticationService from "../../../components/authentication/Authentica
 import moment from 'moment'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { withRouter, useHistory } from "react-router-dom";
+import NumberFormat from "react-number-format";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -78,8 +79,8 @@ function TransactionCard(props) {
   };
 
   function handleEdit(id) {
-     props.history.push(`/update-transaction/${id}`);
-     console.log(props)
+    props.history.push(`/update-transaction/${id}`);
+    console.log(props);
   }
 
   function handleDelete(id) {
@@ -96,14 +97,23 @@ function TransactionCard(props) {
     <>
       <Card className={classes.card}>
         <center>
-          <CardHeader tag="h3">{transaction.accountName}</CardHeader>
+          <CardHeader tag="h3">{transaction.account.accountName}</CardHeader>
           <CardText>{transaction.transactionType}</CardText>
           <CardText>
             {moment.utc(transaction.transactionDate).format("MMM-DD-YYYY")}
           </CardText>
           <CardText>{transaction.depositCategory}</CardText>
           <CardText>{transaction.withdrawalCategory}</CardText>
-          <CardText>{transaction.transactionAmount}</CardText>
+          <CardText>
+            <NumberFormat
+              value={transaction.transactionAmount}
+              displayType={"text"}
+              thousandSeparator={true}
+              decimalScale={2}
+              fixedDecimalScale={true}
+              prefix={"$"}
+            />{" "}
+          </CardText>
         </center>
         <CardActions disableSpacing>
           <button

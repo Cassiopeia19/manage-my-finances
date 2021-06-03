@@ -19,6 +19,13 @@ class AccountDataService {
     return axios.put(`${JPA_API_URL}/users/${name}/accounts/${id}`, account);
   }
 
+   updateAccount(name, id, account) {
+        return axios.put(
+            `${JPA_API_URL}/users/${name}/accounts/${id}`,
+            account
+        );
+    }
+
   createAccount(name, account) {
     return axios.post(`${JPA_API_URL}/users/${name}/accounts/`, account);
   }

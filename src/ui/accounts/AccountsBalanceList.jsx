@@ -6,19 +6,23 @@ import AuthenticationService from "../../components/authentication/Authenticatio
 import "./Accounts.css";
 import Cube from "./Cube.jsx";
 import { withRouter } from "react-router-dom";
-import TransactionDataService from '../../api/TransactionDataService'
+import TransactionDataService from '../../api/TransactionDataService';
+import axios from 'axios'
+
 
 class AccountsBalanceList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      accounts: [{
-        accountName: ''}, {
-          transactions: [
-            {accountName: '',transactionType: '',transactionAmount: ''}
-          ]
-        }
-      ],
+      accounts: [],
+      transactions: [],
+      // accounts: [{
+      //   accountName: ''}, {
+      //     transactions: [
+      //       {transactionType: '',transactionAmount: 0}
+      //     ]
+      //   }
+      // ],
       message: null,
     };
     this.refreshAccounts = this.refreshAccounts.bind(this);
@@ -42,15 +46,49 @@ class AccountsBalanceList extends Component {
   }
 
   refreshAccounts() {
+    console.log(this.state)
     let username = AuthenticationService.getLoggedInUsername();
     AccountDataService.retrieveAllAccounts(username).then((response) => {
       this.setState({ accounts: response.data }); })
       TransactionDataService.retrieveAllTransactions(username).then((response) => {
-        this.setState({ transaction: response.data});
+        this.setState({ transactions: response.data});
       })
+      console.log(this.state)
   }
 
-  render() {      
+  render() { 
+      const accounts = this.state.accounts;
+
+      const allTransactions = this.state.transactions;
+
+      const accountsWithBalances = accounts.map((account) => {
+        let totalDepositsForAccount = 0;
+        let totalWithdrawalsForAccount = 0;
+        const transactionsForAccount = allTransactions.filter(
+          (transaction) => transaction.account.id === account.id
+        );
+       
+        transactionsForAccount.forEach((transaction) => {
+          if (transaction.transactionType === "deposit") {
+            totalDepositsForAccount += transaction.transactionAmount;
+          }
+          if (transaction.transactionType === "withdrawal") {
+            totalWithdrawalsForAccount += transaction.transactionAmount;
+          }
+        });
+        console.log(
+          "totalDepositsForAccount: " + JSON.stringify(totalDepositsForAccount)
+        );
+        const accountBalance =
+          totalDepositsForAccount - totalWithdrawalsForAccount;
+          account.balance = accountBalance;
+          return account;
+      });
+
+      console.log(
+        "accountsWithBalances: " + JSON.stringify(accountsWithBalances)
+      );
+
     return (
       <>
         <Cube />
@@ -69,45 +107,24 @@ class AccountsBalanceList extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.accounts.map((account, transaction) => (
-                  <tr key={account.id && transaction.id}>
-                    {/* {transaction.accountName === account.accountName ? ( */}
-                      <td>{account.accountName}</td>
-                    {/* ) : (
-                      <td>not working</td>
-                    )} */}
+                {this.state.accounts.map((account) => (
+                  <tr key={account.id}>
+                    <td>{account.accountName}</td>
                     <td>
-                      {transaction.transactionType === "deposit"
-                        ? account.deposits ===
-                            parseFloat(transaction.transactionAmount) && 
-                            <td>
-                              <CurrencyFormat
-                                value={Math.abs(
-                                  account.deposits - account.withdrawals
-                                ).toFixed(2)}
-                                displayType={"text"}
-                                thousandSeparator={true}
-                                prefix={"$"}
-                              />{" "}
-                            </td> && console.log("balance: " + account.deposits - account.withdrawals)
-                          
-                        : account.withdrawals ===
-                            parseFloat(transaction.transactionAmount) && 
-                            <td>
-                              <CurrencyFormat
-                                value={Math.abs(
-                                  account.deposits - account.withdrawals
-                                ).toFixed(2)}
-                                displayType={"text"}
-                                thousandSeparator={true}
-                                prefix={"$"}
-                              />{" "}
-                            </td>
-                          }
+                      <CurrencyFormat
+                        value={
+                        //Math.abs(account.balance).toFixed(2)
+                      Math.abs(account.balance).toFixed(2) * Math.sign(account.balance)
+                        }
+                        style={{
+                          color: account.balance < 0 ? "red" : "black",
+                        }}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                        prefix={"$" || "-"}
+                      />{" "}
                     </td>
-                    <td>
-                      {moment.utc(account.asOfDate).format("MMM-DD-YYYY")}
-                    </td>
+                    <td>{moment(account.asOfDate).format("MMM-DD-YYYY")}</td>
                   </tr>
                 ))}
               </tbody>
@@ -120,4 +137,6 @@ class AccountsBalanceList extends Component {
     );
   }
 }
+
+
 export default withRouter(AccountsBalanceList);
