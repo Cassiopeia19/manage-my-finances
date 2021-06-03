@@ -17,6 +17,9 @@ public class Account {
 	private double deposits;
 	private double withdrawals;
 	private Date asOfDate;
+	
+	@OneToMany(mappedBy="account", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    	private List<Transaction> transactions = new ArrayList<>();
 
 	protected Account() {
 		
