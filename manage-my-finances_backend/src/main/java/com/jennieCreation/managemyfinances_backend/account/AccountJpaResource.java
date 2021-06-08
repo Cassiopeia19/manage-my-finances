@@ -35,39 +35,26 @@ public class AccountJpaResource {
 		return accountJpaRepository.findById(id).get();
 	}
 
-	// DELETE /users/{username}/accounts/{id}
 	@DeleteMapping("/jpa/users/{username}/accounts/{id}")
 	public ResponseEntity<Void> deleteAccount(@PathVariable String username, @PathVariable long id) {
-
 		accountJpaRepository.deleteById(id);
-
-			return ResponseEntity.noContent().build();
+		return ResponseEntity.noContent().build();
 	}
-	
-	//Edit/Update an account
-		//PUT /users/{username}/accounts/{id}
-		@PutMapping("/jpa/users/{username}/accounts/{id}")
-		public ResponseEntity<Account> updateAccount(
-				@PathVariable String username,
-				@PathVariable long id, @RequestBody Account account){
-			
-			account.setUsername(username);
-			
-			Account accountUpdated = accountJpaRepository.save(account);
-			
-			return new ResponseEntity<Account>(account, HttpStatus.OK);
-		}
-			
-	@PostMapping("/jpa/users/{username}/accounts")
-	public ResponseEntity<Void> createAccount(
-			@PathVariable String username, @RequestBody Account account){
-		
+
+	@PutMapping("/jpa/users/{username}/accounts/{id}")
+	public ResponseEntity<Account> updateAccount(@PathVariable String username, @PathVariable long id,
+			@RequestBody Account account) {
 		account.setUsername(username);
-		
+		Account accountUpdated = accountJpaRepository.save(account);
+		return new ResponseEntity<Account>(account, HttpStatus.OK);
+	}
+
+	@PostMapping("/jpa/users/{username}/accounts")
+	public ResponseEntity<Void> createAccount(@PathVariable String username, @RequestBody Account account) {
+		account.setUsername(username);
 		Account createdAccount = accountJpaRepository.save(account);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(createdAccount.getId()).toUri();
-		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdAccount.getId())
+				.toUri();
 		return ResponseEntity.created(uri).build();
-	}	
+	}
 }
