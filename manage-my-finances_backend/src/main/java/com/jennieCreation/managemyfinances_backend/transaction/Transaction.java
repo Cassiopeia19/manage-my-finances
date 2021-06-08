@@ -1,11 +1,20 @@
 package com.jennieCreation.managemyfinances_backend.transaction;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.jennieCreation.managemyfinances_backend.account.Account;
+
 @Entity
+@Table(name = "transaction")
 public class Transaction {
     
     @Id
@@ -19,12 +28,11 @@ public class Transaction {
     private double transactionAmount;
     private String notes;
     
-    @ManyToOne 
+    @ManyToOne
     @JoinColumn(name="account_id")
     private Account account;
     
     protected Transaction() {
-        
     }
     
     public Transaction(String username, Date transactionDate, String transactionType, String depositCategory,
