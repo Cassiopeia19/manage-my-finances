@@ -25,7 +25,7 @@ import Users from '../../ui/users/Users'
 import UsersList from '../../ui/users/UsersList'
 import Archive from '../../ui/accounts/Archive'
 import TransactionsFormContainer from '../../ui/transactions/addTransaction/containers/TransactionsFormContainer'
-import ForgotPassword from '../../ui/forgotPassword/ForgotPassword'
+import ForgotPassword from '../../ui/forgotPassword/containers/ForgotPassword'
 
 class Routes extends Component {
   // constructor(props) {

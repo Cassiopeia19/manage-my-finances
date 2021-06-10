@@ -15,14 +15,15 @@ const accountNameOptions = [
   { value: 1004, text: "RCU" },
   { value: 1005, text: "VCU" },
 ];
-const transactionTypeOptions = ["Deposit", "Withdrawal"];
+const transactionTypeOptions = ["deposit", "withdrawal"];
 const depositCategoryOptions = [
   "opening balance",
   "interest earned",
   "Janice",
   "Jennie",
   "payroll",
-  "rewards"
+  "rewards",
+  "misc"
 ];
 
 const withdrawalCategoryOptions = [
@@ -70,12 +71,12 @@ export default class TransactionsFormContainer extends Component {
 
   state = {
     transactionAmount: 0,
-    notes: ""
+    notes: "",
   };
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    alert('Your transaction has successfully been added');
+    alert("Your transaction has successfully been added");
     console.log("Submitting The Form...");
 
     const transaction = Object.fromEntries(
@@ -87,18 +88,25 @@ export default class TransactionsFormContainer extends Component {
     console.log("Form Contents", transaction);
 
     // ******* the submitted form needs to update the accounts balance list ******
-  
+
     let username = AuthenticationService.getLoggedInUsername();
+    
     fetch(`http://localhost:8080/jpa/users/${username}/transactions`, {
       method: "POST",
       body: JSON.stringify({
-        accountId: this.state.accountId,
+        username: this.state.username,
         transactionDate: this.state.transactionDate,
         transactionType: this.state.transactionType,
         depositCategory: this.state.depositCategory,
         withdrawalCategory: this.state.withdrawalCategory,
         transactionAmount: this.state.transactionAmount,
         notes: this.state.notes,
+        account: ({
+          id: this.state.accountId,
+          username: this.state.username,
+          accountName: this.state.accountName,
+          asOfDate: this.state.asOfDate
+        })
       }),
       headers: {
         Accept: "application/json",
@@ -110,7 +118,7 @@ export default class TransactionsFormContainer extends Component {
   };
 
   handleFormReset = (e) => {
-    this.setState({ transactionAmount:0,notes:"" });
+    this.setState({ transactionAmount: 0, notes: "" });
   };
 
   handleTransactionDateChange = (event) => {
@@ -174,7 +182,7 @@ export default class TransactionsFormContainer extends Component {
           placeholder={"select type of transaction"}
           onChange={this.handleTransactionTypeChange}
         />{" "}
-        {this.state.transactionType === "Deposit" ? (
+        {this.state.transactionType === "deposit" ? (
           <Select
             title={"Deposit Category"}
             name={"depositCategory"}
