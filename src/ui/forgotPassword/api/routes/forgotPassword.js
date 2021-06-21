@@ -68,7 +68,7 @@ module.exports = (app) => {
         });
 
         const mailOptions = {
-          from: 'mySqlDemoEmail@gmail.com',
+          from: 'cassiopeia5571@gmail.com',
           to: `${user.email}`,
           subject: 'Link To Reset Password',
           text:

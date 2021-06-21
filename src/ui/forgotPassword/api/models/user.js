@@ -7,10 +7,6 @@
  *     properties:
  *       id:
  *         type: integer
- *       first_name:
- *         type: string
- *       last_name:
- *         type: integer
  *       email:
  *         type: string
  *       username:
@@ -35,8 +31,7 @@ module.exports = (sequelize, type) => sequelize.define('user', {
       primaryKey: true,
       autoIncrement: true,
     },
-    first_name: type.STRING,
-    last_name: type.STRING,
+    
     email: {
       type: type.STRING,
       allowNull: false,

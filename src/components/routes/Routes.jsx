@@ -18,7 +18,6 @@ import UpdateTransaction from "../../ui/transactions/transactionCard/UpdateTrans
 import Reports from "../../ui/reports/Reports.jsx";
 import Login from "../../ui/login/Login.jsx";
 import BudgetCalculator from '../../ui/budgetCalculator/BudgetCalculator';
-import ReportPDF from '../../ui/reports/components/ReportPDF/ReportPDF';
 import UsersHome from '../../ui/users/usersHome/UsersHome'
 import AddNewUser from '../../ui/users/addNewUser/AddNewUser'; 
 import Users from '../../ui/users/Users'
@@ -91,7 +90,6 @@ class Routes extends Component {
                 component={UpdateTransaction}
                 />
               <AuthenticatedRoute path="/reports" component={Reports} />
-              <AuthenticatedRoute path="/report pdf" component={ReportPDF} />
               <AuthenticatedRoute path="/vacations" component={Carousel} />
               <AuthenticatedRoute path="/logout" component={Logout} />
               <Route component={Error} />

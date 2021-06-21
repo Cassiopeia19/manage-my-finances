@@ -163,7 +163,7 @@ export default class TransactionsFormContainer extends Component {
             type="date"
             name="transactionDate"
             required
-            placeholder="transactionDate"
+            // placeholder="transactionDate"
             onChange={this.handleTransactionDateChange}
           />
         </Form.Group>{" "}

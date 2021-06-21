@@ -9,7 +9,7 @@ import helmet from 'helmet';
 
 const app = express();
 
-const API_PORT = process.env.API_PORT || 3000;
+const API_PORT = process.env.API_PORT || 3001;
 
 const swaggerDefinition = {
   info: {
@@ -45,7 +45,7 @@ require('./config/passport');
 
 const whitelist = [
   'http://localhost:3031',
-  'http://localhost:3000',
+  'http://localhost:3001',
   'http://localhost:3003',
 ];
 const corsOptions = {
@@ -67,15 +67,11 @@ app.use(logger('dev'));
 app.use(helmet());
 app.use(passport.initialize());
 
-require('./routes/loginUser')(app);
-require('./routes/registerUser')(app);
 require('./routes/forgotPassword')(app);
 require('./routes/resetPassword')(app);
 require('./routes/updatePassword')(app);
 require('./routes/updatePasswordViaEmail')(app);
 require('./routes/findUsers')(app);
-require('./routes/deleteUser')(app);
-require('./routes/updateUser')(app);
 
 // eslint-disable-next-line no-console
 app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));
