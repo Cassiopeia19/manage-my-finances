@@ -60,7 +60,7 @@ class HomeCheckbox extends Component {
 
   createCheckbox = option => (
     <Checkbox
-      name="Accounts[]"
+      name="Home[]"
       label={option}
       value={option}
       isSelected={this.state.checkboxes[option]}

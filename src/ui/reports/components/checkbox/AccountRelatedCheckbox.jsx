@@ -51,7 +51,7 @@ class AccountRelatedCheckbox extends Component {
 
   createCheckbox = option => (
     <Checkbox
-      name="Accounts[]"
+      name="Account-related[]"
       label={option}
       value={option}
       isSelected={this.state.checkboxes[option]}

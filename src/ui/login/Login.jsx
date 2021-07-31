@@ -84,7 +84,7 @@ function Login() {
               >
                 Reset
               </button>
-              <a href="/forgot-password" className="btn btn-info">Forgot Password?</a>
+              {/* <a href="/forgot-password" className="btn btn-info">Forgot Password?</a> */}
               <br></br>
             </div>
           </center>

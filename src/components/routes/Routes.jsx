@@ -24,7 +24,7 @@ import Users from '../../ui/users/Users'
 import UsersList from '../../ui/users/UsersList'
 import Archive from '../../ui/accounts/Archive'
 import TransactionsFormContainer from '../../ui/transactions/addTransaction/containers/TransactionsFormContainer'
-import ForgotPassword from '../../ui/forgotPassword/containers/ForgotPassword'
+// import ForgotPassword from '../../ui/forgotPassword/ForgotPassword'
 
 class Routes extends Component {
   // constructor(props) {
@@ -39,7 +39,7 @@ class Routes extends Component {
             <Switch>
               <Route path="/" exact component={Login} />
               <Route path="/login" component={Login} />
-              <Route path="/forgot-password" component={ForgotPassword} />
+              {/* <Route path ="/forgot-password" component={ForgotPassword} /> */}
               <AuthenticatedRoute path="/welcome/:name" component={Welcome} />
               <AuthenticatedRoute path="/users-home" component={UsersHome} />
               <AuthenticatedRoute path="/add-user" component={AddNewUser} />

@@ -58,7 +58,7 @@ class MiscCheckbox extends Component {
 
   createCheckbox = option => (
     <Checkbox
-      name="Accounts[]"
+      name="Misc[]"
       label={option}
       value={option}
       isSelected={this.state.checkboxes[option]}

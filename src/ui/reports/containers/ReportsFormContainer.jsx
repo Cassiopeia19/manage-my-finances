@@ -13,7 +13,6 @@ import Misc from "../components/checkbox/MiscCheckbox";
 import AccountRelated from "../components/checkbox/AccountRelatedCheckbox";
 import moment from "moment";
 import FormSerialize from "form-serialize";
-import "jspdf-autotable";
 import AuthenticationService from "../../../components/authentication/AuthenticationService";
 
 export default class ReportsFormContainer extends Component {
@@ -67,8 +66,9 @@ export default class ReportsFormContainer extends Component {
     //  )
     //    .then((response) => response.json())
     //    .then((data) => console.log(data));
-     const formData = FormSerialize(event.target, { hash: true });
-     console.log("Form Contents", { formData });   
+
+    const formData = FormSerialize(event.target, { hash: true });
+    console.log("Form Contents", { formData });
   };
 
   render() {

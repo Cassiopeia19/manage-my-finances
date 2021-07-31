@@ -57,7 +57,7 @@ class UtilitiesCheckbox extends Component {
 
   createCheckbox = option => (
     <Checkbox
-      name="Accounts[]"
+      name="Utilities[]"
       label={option}
       value={option}
       isSelected={this.state.checkboxes[option]}

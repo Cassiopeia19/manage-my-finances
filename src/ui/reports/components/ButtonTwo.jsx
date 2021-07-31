@@ -22,9 +22,9 @@ const ButtonTwo = (props) => {
     getAllTransactions();
   }, []);
 
-  // const reportCarInsurance = transactions.filter(
-  //   (transaction) => transaction.withdrawalCategory === "car insurance"
-  // );
+//   const reportCarInsurance = transactions.filter(
+//     (transaction) => transaction.withdrawalCategory === "car insurance"
+//   );
   // const reportCarMaintenance = transactions.filter(
   //   (transaction) => transaction.withdrawalCategory === "car maintenance"
   // );
