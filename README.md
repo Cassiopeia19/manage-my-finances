@@ -33,7 +33,7 @@ was cited directly from their website:  https://start.spring.io/.
 
 
 ### NODE backend runs on localhost: 3000
-This backend was created just for the add a user functionality.
+This backend was created just for the add a user functionality.  The node command in terminal is:  node src/server/app.js
 
 ### JAVA backend runs on localhost: 8080
 **The backend makes use of the following:**
