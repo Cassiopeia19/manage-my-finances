@@ -53,6 +53,7 @@
     "mdbreact": "^4.27.0",
     "modules": "^0.4.0",
     "moment": "^2.29.1",
+    "moment-range": "^4.0.2",
     "mysql": "^2.18.1",
     "node": "^12.21.0",
     "node-java": "^1.0.1",

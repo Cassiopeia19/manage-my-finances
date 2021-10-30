@@ -13,7 +13,6 @@ import Misc from "../components/checkbox/MiscCheckbox";
 import AccountRelated from "../components/checkbox/AccountRelatedCheckbox";
 import moment from "moment";
 import FormSerialize from "form-serialize";
-import AuthenticationService from "../../../components/authentication/AuthenticationService";
 
 export default class ReportsFormContainer extends Component {
   state = {
@@ -23,7 +22,7 @@ export default class ReportsFormContainer extends Component {
     reportTimeframe: null,
     transactions: [],
   };
-   
+
   populateEndingDate = () => {
     let endDate = null;
 
@@ -135,6 +134,8 @@ export default class ReportsFormContainer extends Component {
               type="submit"
               theme={"primary"}
               title={"run report"}
+              beginningDate={this.state.beginningDate}
+              endDate={this.state.endDate}
             />{" "}
             {/* Clear the form */}
             <Button

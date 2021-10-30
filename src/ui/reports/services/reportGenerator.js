@@ -29,7 +29,7 @@ const generatePDF = (transactions) => {
       head: [
         [
           {
-            content: "CAR",
+            content: "REPORT",
             colSpan: 3,
             styles: { halign: "center", fillColor: [22, 160, 133] },
           },
@@ -43,27 +43,27 @@ const generatePDF = (transactions) => {
        body: rows,
        foot: totalAmount,
   });
-   doc.addPage()
-   doc.autoTable({
-      theme: "grid",
-      startY: 35,
-      head: [
-        [
-          {
-            content: "FAMILY",
-            colSpan: 3,
-            styles: { halign: "center", fillColor: [22, 160, 133] },
-          },
-        ],
-        [
-          "Transaction Date",
-          "Category",
-          "Amount",
-        ],
-      ],
-       body: rows,
-       foot: totalAmount,
-  });
+  //  doc.addPage()
+  //  doc.autoTable({
+  //     theme: "grid",
+  //     startY: 35,
+  //     head: [
+  //       [
+  //         {
+  //           content: "FAMILY",
+  //           colSpan: 3,
+  //           styles: { halign: "center", fillColor: [22, 160, 133] },
+  //         },
+  //       ],
+  //       [
+  //         "Transaction Date",
+  //         "Category",
+  //         "Amount",
+  //       ],
+  //     ],
+  //      body: rows,
+  //      foot: totalAmount,
+  // });
 
   const pageCount = doc.internal.getNumberOfPages();
 

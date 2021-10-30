@@ -2,6 +2,8 @@ import React,{useEffect,useState} from "react";
 import generatePDF from "../services/reportGenerator"
 import AuthenticationService from '../../../components/authentication/AuthenticationService'
 import axios from 'axios'
+import Moment from 'moment'
+import  { extendMoment } from 'moment-range'
 
 const ButtonTwo = (props) => {
   const [transactions, setTransactions] = useState([]);
@@ -21,42 +23,6 @@ const ButtonTwo = (props) => {
     };
     getAllTransactions();
   }, []);
-
-//   const reportCarInsurance = transactions.filter(
-//     (transaction) => transaction.withdrawalCategory === "car insurance"
-//   );
-  // const reportCarMaintenance = transactions.filter(
-  //   (transaction) => transaction.withdrawalCategory === "car maintenance"
-  // );
-  // const reportCarParts = transactions.filter(
-  //   (transaction) => transaction.withdrawalCategory === "car parts"
-  // );
-  // const reportCarPayment = transactions.filter(
-  //   (transaction) => transaction.withdrawalCategory === "car payment"
-  // );
-  // const reportCarRepairs = transactions.filter(
-  //   (transaction) => transaction.withdrawalCategory === "car repairs"
-  // );
-  // const reportCarWashes = transactions.filter(
-  //   (transaction) => transaction.withdrawalCategory === "car washes"
-  // );
-  // const reportGasoline = transactions.filter(
-  //   (transaction) => transaction.withdrawalCategory === "gasoline"
-  // );
-  // const reportPPTaxes = transactions.filter(
-  //   (transaction) => transaction.withdrawalCategory === "personal property taxes"
-  // );
-
-  // const tableData = [
-  //   ...reportCarInsurance,
-  //   ...reportCarMaintenance,
-  //   ...reportCarParts,
-  //   ...reportCarPayment,
-  //   ...reportCarRepairs,
-  //   ...reportCarWashes,
-  //   ...reportGasoline,
-  //   ...reportPPTaxes,
-  // ];
 
   const carCategories = [
     "car insurance",
@@ -120,31 +86,39 @@ const ButtonTwo = (props) => {
     miscCategories.includes(transaction.withdrawalCategory)
   );
 
-   const homeTransactions = transactions.filter((transaction) =>
-     homeCategories.includes(transaction.withdrawalCategory)
-   );
+  const homeTransactions = transactions.filter((transaction) =>
+    homeCategories.includes(transaction.withdrawalCategory)
+  );
 
-    const utilitesTransactions = transactions.filter((transaction) =>
-      utilitiesCategories.includes(transaction.withdrawalCategory)
-    );
+  const utilitesTransactions = transactions.filter((transaction) =>
+    utilitiesCategories.includes(transaction.withdrawalCategory)
+  );
 
-   const reportAccountInterestEarned = transactions.filter(
-        (transaction) => transaction.depositCategory === "interest earned"
-    );
+  const tableData = [
+    ...carTransactions,
+    ...familyTransactions,
+    ...miscTransactions,
+    ...homeTransactions,
+    ...utilitesTransactions,
+  ];
 
-   const reportAccountRewards = transactions.filter(
-     (transaction) => transaction.depositCategory === "rewards"
-   );
+  const reportAccountInterestEarned = transactions.filter(
+    (transaction) => transaction.depositCategory === "interest earned"
+  );
 
-   const reportAccountBankFees = transactions.filter(
-     (transaction) => transaction.withdrawalCategory === "bank fees"
-   );
+  const reportAccountRewards = transactions.filter(
+    (transaction) => transaction.depositCategory === "rewards"
+  );
 
-   const accountRelated = [
-     ...reportAccountInterestEarned,
-     ...reportAccountRewards,
-     ...reportAccountBankFees,
-   ];
+  const reportAccountBankFees = transactions.filter(
+    (transaction) => transaction.withdrawalCategory === "bank fees"
+  );
+
+  const accountRelated = [
+    ...reportAccountInterestEarned,
+    ...reportAccountRewards,
+    ...reportAccountBankFees,
+  ];
 
   const accountsTransactions = transactions.filter((transaction) =>
     accountsCategories.includes(transaction.depositCategory)
@@ -154,20 +128,54 @@ const ButtonTwo = (props) => {
     accountsCategories.includes(transaction.withdrawalCategory)
   );
 
-  return (
-    <button
-      style={{
-        margin: "10px 10px 10px 10px",
-        backgroundColor: "forestgreen",
-      }}
-      className={
-        props.type === "primary" ? "btn btn-primary" : "btn btn-secondary"
-      }
-      onClick={() => generatePDF(carTransactions)}
-    >
-      {props.title}
-    </button>
-  );
-};
+  const moment = extendMoment(Moment);
+
+  var startDate = new Date(props.beginningDate),
+    endingDate = new Date(props.endDate),
+    date = new Date(transactions.transactionDate),
+    range = moment().range(startDate, endingDate);
+  console.log(range.contains(date));
+  range.contains(date);
+
+  const filteredTransactions = tableData.filter((transaction) => {
+    return range.contains(moment(transaction.transactionDate));
+  });
+  
+
+  // return filteredTransactions.map(
+  //   ({
+  //     transactionId,
+  //     transactionDate,
+  //     withdrawalCategory,
+  //     transactionAmount,
+  //   }) => (
+  //     (
+  //       <div key={transactionId}>
+  //         <p>transaction date: {transactionDate}</p>
+  //         <p>withdrawal category : {withdrawalCategory}</p>
+  //         <p>transaction amount: {transactionAmount}</p>
+  //       </div>
+  //     ),
+  //     console.log("transactionDate: " + transactionDate),
+  //     console.log("withdrawalCategory: " + withdrawalCategory),
+  //     console.log("transactionAmount: " + transactionAmount)
+  //   )
+  // );
+
+    return (
+      <button
+        style={{
+          margin: "10px 10px 10px 10px",
+          backgroundColor: "forestgreen",
+        }}
+        className={
+          props.type === "primary" ? "btn btn-primary" : "btn btn-secondary"
+        }
+        onClick={() => generatePDF(filteredTransactions)}
+      >
+        {props.title}
+      </button>
+    );
+}
 
 export default ButtonTwo;
