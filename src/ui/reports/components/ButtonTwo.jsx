@@ -1,9 +1,9 @@
-import React,{useEffect,useState} from "react";
-import generatePDF from "../services/reportGenerator"
-import AuthenticationService from '../../../components/authentication/AuthenticationService'
-import axios from 'axios'
-import Moment from 'moment'
-import  { extendMoment } from 'moment-range'
+import React, { useEffect, useState } from "react";
+import generatePDF from "../services/reportGenerator";
+import AuthenticationService from "../../../components/authentication/AuthenticationService";
+import axios from "axios";
+import Moment from "moment";
+import { extendMoment } from "moment-range";
 
 const ButtonTwo = (props) => {
   const [transactions, setTransactions] = useState([]);
@@ -81,6 +81,9 @@ const ButtonTwo = (props) => {
   const familyTransactions = transactions.filter((transaction) =>
     familyCategories.includes(transaction.withdrawalCategory)
   );
+  const familyTransactions2 = transactions.filter((transaction) => 
+    familyCategories.includes(transaction.depositCategory)
+    );
 
   const miscTransactions = transactions.filter((transaction) =>
     miscCategories.includes(transaction.withdrawalCategory)
@@ -94,30 +97,22 @@ const ButtonTwo = (props) => {
     utilitiesCategories.includes(transaction.withdrawalCategory)
   );
 
-  const tableData = [
-    ...carTransactions,
-    ...familyTransactions,
-    ...miscTransactions,
-    ...homeTransactions,
-    ...utilitesTransactions,
-  ];
-
-  const reportAccountInterestEarned = transactions.filter(
+  const accountInterestEarned = transactions.filter(
     (transaction) => transaction.depositCategory === "interest earned"
   );
 
-  const reportAccountRewards = transactions.filter(
+  const accountRewards = transactions.filter(
     (transaction) => transaction.depositCategory === "rewards"
   );
 
-  const reportAccountBankFees = transactions.filter(
+  const accountBankFees = transactions.filter(
     (transaction) => transaction.withdrawalCategory === "bank fees"
   );
 
   const accountRelated = [
-    ...reportAccountInterestEarned,
-    ...reportAccountRewards,
-    ...reportAccountBankFees,
+    ...accountInterestEarned,
+    ...accountRewards,
+    ...accountBankFees,
   ];
 
   const accountsTransactions = transactions.filter((transaction) =>
@@ -128,39 +123,34 @@ const ButtonTwo = (props) => {
     accountsCategories.includes(transaction.withdrawalCategory)
   );
 
+
+  const tableData = [
+    ...carTransactions,
+    ...familyTransactions,
+    ...miscTransactions,
+    ...homeTransactions,
+    ...utilitesTransactions,
+    ...familyTransactions2,
+    ...accountInterestEarned,
+    ...accountRewards
+  ];
+
+  //const tableData2 = [...familyTransactions2, ...accountInterestEarned, ...accountRewards]; 
+
   const moment = extendMoment(Moment);
 
   var startDate = new Date(props.beginningDate),
     endingDate = new Date(props.endDate),
-    date = new Date(transactions.transactionDate),
     range = moment().range(startDate, endingDate);
-  console.log(range.contains(date));
-  range.contains(date);
 
-  const filteredTransactions = tableData.filter((transaction) => {
-    return range.contains(moment(transaction.transactionDate));
-  });
-  
-
-  // return filteredTransactions.map(
-  //   ({
-  //     transactionId,
-  //     transactionDate,
-  //     withdrawalCategory,
-  //     transactionAmount,
-  //   }) => (
-  //     (
-  //       <div key={transactionId}>
-  //         <p>transaction date: {transactionDate}</p>
-  //         <p>withdrawal category : {withdrawalCategory}</p>
-  //         <p>transaction amount: {transactionAmount}</p>
-  //       </div>
-  //     ),
-  //     console.log("transactionDate: " + transactionDate),
-  //     console.log("withdrawalCategory: " + withdrawalCategory),
-  //     console.log("transactionAmount: " + transactionAmount)
-  //   )
-  // );
+   const filteredTransactions = tableData.filter((transaction) => { 
+    if (transaction.transactionType == props.transactionTypeChoice) {
+      console.log("reportType = " + props.transactionTypeChoice);
+      return range.contains(moment(transaction.transactionDate));
+      //  } else if (transaction.transactionType === "withdrawal") {
+      //      return false;
+    }
+   });
 
     return (
       <button
@@ -176,6 +166,6 @@ const ButtonTwo = (props) => {
         {props.title}
       </button>
     );
-}
+};
 
 export default ButtonTwo;

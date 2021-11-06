@@ -51,7 +51,6 @@ const useStyles = makeStyles({
   }
 });
 
-// Inspired by blueprintjs
 function StyledRadio(props: RadioProps) {
   const classes = useStyles();
 
@@ -67,7 +66,7 @@ function StyledRadio(props: RadioProps) {
   );
 }
 
-export default function CustomizedRadios() {
+export default function CustomizedRadios(props:any) {
   return (
     <FormControl component="fieldset">
       <FormLabel
@@ -80,6 +79,7 @@ export default function CustomizedRadios() {
        // defaultValue="deposits"
         aria-label="reportType"
         name="customized-radios"
+        {...props}
       >
         <FormControlLabel
           value="deposits"

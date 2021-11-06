@@ -20,20 +20,19 @@ export default class ReportsFormContainer extends Component {
     beginningDate: moment(),
     endDate: moment(),
     reportTimeframe: null,
-    transactions: [],
+    //  transactions: [],
+    reportType: null,
+    transactionTypeChoice: null,
   };
 
   populateEndingDate = () => {
     let endDate = null;
 
     if (this.state.reportTimeframe === "monthly") {
-      console.log("first if comparison");
-
       endDate = moment(this.state.beginningDate).add(1, "months");
     } else {
       endDate = moment(this.state.beginningDate).add(1, "years");
     }
-    console.log(endDate);
     this.setState({ endDate });
     return endDate;
   };
@@ -50,6 +49,24 @@ export default class ReportsFormContainer extends Component {
     );
   };
 
+  handleReportTypeChange = (event) => {
+    this.setState({ reportType: event.target.value }, () => {
+      this.matchReportType();
+    });
+  };
+
+  matchReportType = () => {
+    let transactionTypeChoice = null;
+
+    if (this.state.reportType === "deposits") {
+      transactionTypeChoice = "deposit"
+    } else {
+      transactionTypeChoice = "withdrawal"
+    }
+    this.setState({ transactionTypeChoice });
+    return transactionTypeChoice;
+  };
+
   handleFormReset = () => {
     this.form.reset();
   };
@@ -58,13 +75,6 @@ export default class ReportsFormContainer extends Component {
     event.preventDefault();
     //event.target.reset(); will reset the form upon submitting, but it wipes out most of the data within the object
     console.log("Submitting The Form...");
-
-    //  let username = AuthenticationService.getLoggedInUsername();
-    //  var transactions = fetch(
-    //    `http://localhost:8080/jpa/users/${username}/transactions`
-    //  )
-    //    .then((response) => response.json())
-    //    .then((data) => console.log(data));
 
     const formData = FormSerialize(event.target, { hash: true });
     console.log("Form Contents", { formData });
@@ -124,7 +134,7 @@ export default class ReportsFormContainer extends Component {
               padding: "20px 10px",
             }}
           >
-            <ReportType />
+            <ReportType onChange={this.handleReportTypeChange} />
             <AccountCheckbox />
             <AccountRelated />
             <HomeCheckbox />
@@ -136,6 +146,7 @@ export default class ReportsFormContainer extends Component {
               title={"run report"}
               beginningDate={this.state.beginningDate}
               endDate={this.state.endDate}
+              transactionTypeChoice={this.state.transactionTypeChoice}
             />{" "}
             {/* Clear the form */}
             <Button

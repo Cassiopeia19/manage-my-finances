@@ -13,15 +13,27 @@ const generatePDF = (transactions) => {
     [{content: `Total = $ ${total}       `, colSpan: 3,
       styles: { fillColor: [239, 154, 154], halign: "right" }
     }]]
-    
+
   transactions.forEach((transaction) => {
-    const carData = [
+    const deposits = [
+      format(new Date(transaction.transactionDate), "MMM-dd-yyyy"),
+      transaction.depositCategory,
+      "$ " + transaction.transactionAmount
+    ];
+   
+     const withdrawals = [
       format(new Date(transaction.transactionDate), "MMM-dd-yyyy"),
       transaction.withdrawalCategory,
       "$ " + transaction.transactionAmount
     ];
-    rows.push(carData);
-  });
+
+     if(transaction.transactionType === "deposit") {
+      rows.push(deposits);
+    }
+    else if(transaction.transactionType === "withdrawal") {
+      rows.push(withdrawals);
+    }
+ });
   
   doc.autoTable({
       theme: "grid",
