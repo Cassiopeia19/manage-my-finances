@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
-import ButtonTwo from "../components/ButtonTwo";
 import { Form } from "react-bootstrap";
 import ReportType from "../components/radioButton/ReportType";
 import ReportTimeframe from "../components/radioButton/ReportTimeframe";
@@ -17,9 +16,9 @@ import axios from 'axios'
 import Moment from "moment";
 import { extendMoment } from "moment-range";
 import generatePDF from "../services/reportGenerator";
+//import { useForm } from "react-hook-form";
 
 export default function ReportsFormContainer () {
-  //const [amount,setAmount] = useState(0);
   const [beginningDate, setBeginningDate] = useState(Moment());
   const [endDate, setEndDate] = useState(Moment());
   const [reportTimeframe, setReportTimeframe] = useState(null);
@@ -27,6 +26,8 @@ export default function ReportsFormContainer () {
   const [transactionTypeChoice, setTransactionTypeChoice] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [filteredChoices, setFilteredChoices] = useState([]);
+ // const { reset } = useForm();
+
 
   useEffect(() => {
     const getAllTransactions = async () => {
@@ -35,7 +36,6 @@ export default function ReportsFormContainer () {
         const response = await axios.get(
           `http://localhost:8080/jpa/users/${username}/transactions`
         );
-        // console.log({ response });
         setTransactions(response.data);
       } catch (err) {
         console.log("error");
@@ -66,6 +66,8 @@ export default function ReportsFormContainer () {
     setTransactionTypeChoice(transactionTypeChoice);
   }, [reportType, transactionTypeChoice]);
 
+  
+  
   const handleBeginningDateChange = (event) => {
     setBeginningDate(event.target.value);
   };
@@ -121,12 +123,14 @@ export default function ReportsFormContainer () {
    return true;
  });
 
-  const handleFormReset = () => {};
+ const handleFormReset = () => {
+   //reset({});
+ };  
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
     generatePDF(filteredTransactions);
-
+    //reset({});
     //event.target.reset(); will reset the form upon submitting, but it wipes out most of the data within the object
     //console.log("Submitting The Form...");
 
@@ -158,7 +162,9 @@ export default function ReportsFormContainer () {
             padding: "20px 10px",
           }}
         >
-          <ReportTimeframe onChange={handleReportTimeframeChange} />
+          <ReportTimeframe
+            onChange={handleReportTimeframeChange}
+          />
           {/* is it because of 'controlid' that the begDate field is mandatory prior to reset form?  */}
           <Form.Group controlid="begDate">
             <Form.Label>Beginning</Form.Label>

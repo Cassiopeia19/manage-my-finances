@@ -24,14 +24,16 @@ class CarCheckbox extends Component {
   };
 
   selectAllCheckboxes = (isSelected) => {
-    Object.keys(this.state.checkboxes).forEach((checkbox) => {
-      this.setState((prevState) => ({
-        checkboxes: {
-          ...prevState.checkboxes,
-          [checkbox]: isSelected,
-        },
-      }));
-    });
+    this.setState((prevState) => ({
+      ...prevState,
+      checkboxes: Object.fromEntries(
+        Object.keys(prevState.checkboxes).map((key) => [key, isSelected]),
+      ),
+    }),
+     () => {
+        this.props.onChange && this.props.onChange(this.state.checkboxes);
+      }
+    );
   };
 
   selectAll = () => this.selectAllCheckboxes(true);
@@ -52,15 +54,15 @@ class CarCheckbox extends Component {
     );
   };
 
-  handleFormSubmit = (formSubmitEvent) => {
-    formSubmitEvent.preventDefault();
+  // handleFormSubmit = (formSubmitEvent) => {
+  //   formSubmitEvent.preventDefault();
 
-    Object.keys(this.state.checkboxes)
-      .filter((checkbox) => this.state.checkboxes[checkbox])
-      .forEach((checkbox) => {
-        console.log(checkbox, "is selected.");
-      });
-  };
+  //   Object.keys(this.state.checkboxes)
+  //     .filter((checkbox) => this.state.checkboxes[checkbox])
+  //     .forEach((checkbox) => {
+  //       console.log(checkbox, "is selected.");
+  //     });
+  // };
 
   createCheckbox = (option) => (
     <Checkbox
