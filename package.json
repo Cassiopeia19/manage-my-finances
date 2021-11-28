@@ -23,7 +23,7 @@
     "ably": "^1.2.9",
     "animated-scroll-to": "^2.2.0",
     "antd": "^3.26.20",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "babel-polyfill": "^6.26.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
