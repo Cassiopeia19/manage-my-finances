@@ -81,9 +81,9 @@ const ButtonTwo = (props) => {
   const familyTransactions = transactions.filter((transaction) =>
     familyCategories.includes(transaction.withdrawalCategory)
   );
-  const familyTransactions2 = transactions.filter((transaction) => 
+  const familyTransactions2 = transactions.filter((transaction) =>
     familyCategories.includes(transaction.depositCategory)
-    );
+  );
 
   const miscTransactions = transactions.filter((transaction) =>
     miscCategories.includes(transaction.withdrawalCategory)
@@ -123,7 +123,6 @@ const ButtonTwo = (props) => {
     accountsCategories.includes(transaction.withdrawalCategory)
   );
 
-
   const tableData = [
     ...carTransactions,
     ...familyTransactions,
@@ -132,10 +131,8 @@ const ButtonTwo = (props) => {
     ...utilitesTransactions,
     ...familyTransactions2,
     ...accountInterestEarned,
-    ...accountRewards
+    ...accountRewards,
   ];
-
-  //const tableData2 = [...familyTransactions2, ...accountInterestEarned, ...accountRewards]; 
 
   const moment = extendMoment(Moment);
 
@@ -143,29 +140,28 @@ const ButtonTwo = (props) => {
     endingDate = new Date(props.endDate),
     range = moment().range(startDate, endingDate);
 
-   const filteredTransactions = tableData.filter((transaction) => { 
+  const filteredTransactions = tableData.filter((transaction) => {
     if (transaction.transactionType == props.transactionTypeChoice) {
       console.log("reportType = " + props.transactionTypeChoice);
-      return range.contains(moment(transaction.transactionDate));
-      //  } else if (transaction.transactionType === "withdrawal") {
-      //      return false;
+      return range.contains(moment(transaction.transactionDate))
     }
-   });
+  });
+   console.log({ filteredTransactions }); 
 
-    return (
-      <button
-        style={{
-          margin: "10px 10px 10px 10px",
-          backgroundColor: "forestgreen",
-        }}
-        className={
-          props.type === "primary" ? "btn btn-primary" : "btn btn-secondary"
-        }
-        onClick={() => generatePDF(filteredTransactions)}
-      >
-        {props.title}
-      </button>
-    );
+  return (
+    <button
+      style={{
+        margin: "10px 10px 10px 10px",
+        backgroundColor: "forestgreen",
+      }}
+      className={
+        props.type === "primary" ? "btn btn-primary" : "btn btn-secondary"
+      }
+       onClick={() => generatePDF(filteredTransactions)}
+    >
+      {props.title}
+    </button>
+  );
 };
 
 export default ButtonTwo;

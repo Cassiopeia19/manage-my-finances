@@ -17,19 +17,19 @@ class CarCheckbox extends Component {
     checkboxes: OPTIONS.reduce(
       (options, option) => ({
         ...options,
-        [option]: false
+        [option]: false,
       }),
       {}
-    )
+    ),
   };
 
-  selectAllCheckboxes = isSelected => {
-    Object.keys(this.state.checkboxes).forEach(checkbox => {
-      this.setState(prevState => ({
+  selectAllCheckboxes = (isSelected) => {
+    Object.keys(this.state.checkboxes).forEach((checkbox) => {
+      this.setState((prevState) => ({
         checkboxes: {
           ...prevState.checkboxes,
-          [checkbox]: isSelected
-        }
+          [checkbox]: isSelected,
+        },
       }));
     });
   };
@@ -38,34 +38,37 @@ class CarCheckbox extends Component {
 
   deselectAll = () => this.selectAllCheckboxes(false);
 
-  handleCheckboxChange = option => {
-    // const { name } = changeEvent.target;
-
-    this.setState(prevState => ({
-      checkboxes: {
-        ...prevState.checkboxes,
-        [option]: !prevState.checkboxes[option]
+  handleCheckboxChange = (option) => {
+    this.setState(
+      (prevState) => ({
+        checkboxes: {
+          ...prevState.checkboxes,
+          [option]: !prevState.checkboxes[option],
+        },
+      }),
+      () => {
+        this.props.onChange && this.props.onChange(this.state.checkboxes);
       }
-    }));
+    );
   };
-  handleFormSubmit = formSubmitEvent => {
+
+  handleFormSubmit = (formSubmitEvent) => {
     formSubmitEvent.preventDefault();
 
     Object.keys(this.state.checkboxes)
-      .filter(checkbox => this.state.checkboxes[checkbox])
-      .forEach(checkbox => {
+      .filter((checkbox) => this.state.checkboxes[checkbox])
+      .forEach((checkbox) => {
         console.log(checkbox, "is selected.");
       });
   };
 
-  createCheckbox = option => (
+  createCheckbox = (option) => (
     <Checkbox
-      name="Car[]"
+      name="Family[]"
       label={option}
       value={option}
       isSelected={this.state.checkboxes[option]}
       onCheckboxChange={() => this.handleCheckboxChange(option)}
-      //onCheckboxChange={this.handleCheckboxChange}
       key={option}
     />
   );
@@ -79,7 +82,6 @@ class CarCheckbox extends Component {
           <div className="col-sm-12">
             <h2>Car</h2>
             {this.createCheckboxes()}
-
             <div className="form-group mt-2">
               <button
                 type="button"
@@ -102,5 +104,4 @@ class CarCheckbox extends Component {
     );
   }
 }
-
 export default CarCheckbox;
