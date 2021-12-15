@@ -82,7 +82,11 @@ export default function CustomizedRadios(props: any) {
           control={<StyledRadio />}
           label="Monthly"
         />
-        <FormControlLabel value="annual" control={<StyledRadio />} label="Annual" />
+        <FormControlLabel 
+        value="annual" 
+        control={<StyledRadio />} 
+        label="Annual" 
+        />
       </RadioGroup>
     </FormControl>
   );

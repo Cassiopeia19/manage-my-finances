@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import Button from "../components/Button";
 import { Form } from "react-bootstrap";
 import ReportType from "../components/radioButton/ReportType";
@@ -10,24 +10,20 @@ import HomeCheckbox from "../components/checkbox/HomeCheckbox";
 import UtilitiesCheckbox from "../components/checkbox/UtilitiesCheckbox";
 import Misc from "../components/checkbox/MiscCheckbox";
 import AccountRelated from "../components/checkbox/AccountRelatedCheckbox";
-import FormSerialize from "form-serialize";
-import AuthenticationService from '../../../components/authentication/AuthenticationService'
-import axios from 'axios'
+//import FormSerialize from "form-serialize";
+import AuthenticationService from "../../../components/authentication/AuthenticationService";
+import axios from "axios";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
 import generatePDF from "../services/reportGenerator";
-//import { useForm } from "react-hook-form";
+import { ACTIONS, initialState, reducer } from "../components/reducer"
 
-export default function ReportsFormContainer () {
-  const [beginningDate, setBeginningDate] = useState(Moment());
-  const [endDate, setEndDate] = useState(Moment());
-  const [reportTimeframe, setReportTimeframe] = useState(null);
-  const [reportType, setReportType] = useState(null);
+export default function ReportsFormContainer() {
+ 
   const [transactionTypeChoice, setTransactionTypeChoice] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [filteredChoices, setFilteredChoices] = useState([]);
- // const { reset } = useForm();
-
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const getAllTransactions = async () => {
@@ -44,41 +40,16 @@ export default function ReportsFormContainer () {
     getAllTransactions();
   }, []);
 
-  useEffect(() => {
-    let endDate = null;
+   useEffect(() => {
+     let transactionTypeChoice = null;
 
-    if (reportTimeframe === "monthly") {
-      endDate = Moment(beginningDate).add(1, "months");
-    } else {
-      endDate = Moment(beginningDate).add(1, "years");
-    }
-    setEndDate(endDate);
-  }, [beginningDate, reportTimeframe]);
-
-  useEffect(() => {
-    let transactionTypeChoice = null;
-
-    if (reportType === "deposits") {
-      transactionTypeChoice = "deposit";
-    } else {
-      transactionTypeChoice = "withdrawal";
-    }
-    setTransactionTypeChoice(transactionTypeChoice);
-  }, [reportType, transactionTypeChoice]);
-
-  
-  
-  const handleBeginningDateChange = (event) => {
-    setBeginningDate(event.target.value);
-  };
-
-  const handleReportTimeframeChange = (event) => {
-    setReportTimeframe(event.target.value);
-  };
-
-  const handleReportTypeChange = (event) => {
-    setReportType(event.target.value);
-  };
+     if (state.reportType === "deposits") {
+       transactionTypeChoice = "deposit";
+     } else {
+       transactionTypeChoice = "withdrawal";
+     }
+     setTransactionTypeChoice(transactionTypeChoice);
+   }, [state.reportType, transactionTypeChoice]);
 
   const addToReport = (checkboxes) => {
     //Array.isArray(checkboxes);
@@ -92,22 +63,22 @@ export default function ReportsFormContainer () {
     }
     setFilteredChoices(checkedBoxes);
   };
-  console.log({filteredChoices});
+  console.log({ filteredChoices });
 
   const moment = extendMoment(Moment);
 
-  var startDate = new Date(beginningDate),
-    endingDate = new Date(endDate),
-    range = moment().range(startDate, endingDate);
+  var startDate = new Date(state.beginningDate),
+      endingDate = new Date(state.endDate),
+      range = moment().range(startDate, endingDate);
 
- var filteredTransactions = transactions.filter((transaction) => {
-   if (transaction.transactionType != transactionTypeChoice) {
-     return false;
-   }
+  var filteredTransactions = transactions.filter((transaction) => {
+    if (transaction.transactionType != transactionTypeChoice) {
+      return false;
+    }
 
-   if (range.contains(moment(transaction.transactionDate)) === false) {
-     return false;
-   }
+    if (range.contains(moment(transaction.transactionDate)) === false) {
+      return false;
+    }
 
     const isDepositCategory = filteredChoices.includes(
       transaction.depositCategory
@@ -120,29 +91,19 @@ export default function ReportsFormContainer () {
     if (!isDepositCategory && !isWithdrawalCategory) {
       return false;
     }
-   return true;
- });
-
- const handleFormReset = () => {
-   //reset({});
- };  
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    generatePDF(filteredTransactions);
-    //reset({});
-    //event.target.reset(); will reset the form upon submitting, but it wipes out most of the data within the object
-    //console.log("Submitting The Form...");
-
-    const formData = FormSerialize(event.target, { hash: true });
-    console.log("Form Contents", { formData });
-  };
+    return true;
+  });
 
   return (
     <>
       <form
-        onSubmit={handleFormSubmit}
-        onReset={handleFormReset}
+        onSubmit={(event) => {
+          // const formData = FormSerialize(event.target, { hash: true });
+          // console.log("Form Contents", { formData });
+          console.log(filteredTransactions);
+          event.preventDefault();
+          generatePDF(filteredTransactions);
+        }}
         className="container-fluid p-5 my-3 border bg-dark text-white"
         style={{
           textAlign: "left",
@@ -163,23 +124,33 @@ export default function ReportsFormContainer () {
           }}
         >
           <ReportTimeframe
-            onChange={handleReportTimeframeChange}
+            onChange={(e) =>
+              dispatch({
+                type: ACTIONS.SET_REPORT_TIMEFRAME,
+                payload: e.target.value,
+              })
+            }
+            value={state.reportTimeframe}
           />
-          {/* is it because of 'controlid' that the begDate field is mandatory prior to reset form?  */}
           <Form.Group controlid="begDate">
             <Form.Label>Beginning</Form.Label>
             <Form.Control
               type="date"
               name="begDate"
               required
-              onChange={handleBeginningDateChange}
+              onChange={(e) =>
+                dispatch({
+                  type: ACTIONS.SET_BEGINNING_DATE,
+                  payload: e.target.value,
+                })
+              }
             />
             <Form.Label>Ending</Form.Label>
             <Form.Control
               type="date"
               name="endDate"
               disabled
-              value={endDate.format("YYYY-MM-DD")}
+              value={state.endDate}
             />
           </Form.Group>{" "}
           <CarCheckbox
@@ -203,7 +174,15 @@ export default function ReportsFormContainer () {
             padding: "20px 10px",
           }}
         >
-          <ReportType onChange={handleReportTypeChange} />
+          <ReportType
+            onChange={(e) =>
+              dispatch({
+                type: ACTIONS.SET_REPORT_TYPE,
+                payload: e.target.value,
+              })
+            }
+            value={state.reportType}
+          />
           <AccountCheckbox />
           <AccountRelated />
           <HomeCheckbox
@@ -219,8 +198,6 @@ export default function ReportsFormContainer () {
             type="submit"
             theme={"primary"}
             title={"run report"}
-            beginningDate={beginningDate}
-            endDate={endDate}
             transactionTypeChoice={transactionTypeChoice}
             filteredChoices={filteredChoices}
             style={{
@@ -229,20 +206,24 @@ export default function ReportsFormContainer () {
             }}
           />{" "}
           {/* Clear the form */}
-          <Button
+          <button
             className="btn btn-warning"
             type="reset"
-            theme={"secondary"}
-            title={"reset form"}
             style={{
               margin: "10px 10px 10px 10px",
               backgroundColor: "#ffce42",
               color: "black",
             }}
-          />{" "}
+            onClick={() =>
+              dispatch({
+                type: ACTIONS.RESET_FORM,
+              })
+            }
+          >
+            reset form
+          </button>
         </div>
       </form>
     </>
   );
 }
-

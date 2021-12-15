@@ -8,48 +8,45 @@ class AccountRelatedCheckbox extends Component {
     checkboxes: OPTIONS.reduce(
       (options, option) => ({
         ...options,
-        [option]: false
+        [option]: false,
       }),
       {}
-    )
+    ),
   };
 
-  selectAllCheckboxes = isSelected => {
-    Object.keys(this.state.checkboxes).forEach(checkbox => {
-      this.setState(prevState => ({
-        checkboxes: {
-          ...prevState.checkboxes,
-          [checkbox]: isSelected
-        }
-      }));
-    });
+  selectAllCheckboxes = (isSelected) => {
+    this.setState(
+      (prevState) => ({
+        ...prevState,
+        checkboxes: Object.fromEntries(
+          Object.keys(prevState.checkboxes).map((key) => [key, isSelected])
+        ),
+      }),
+      () => {
+        this.props.onChange && this.props.onChange(this.state.checkboxes);
+      }
+    );
   };
 
   selectAll = () => this.selectAllCheckboxes(true);
 
   deselectAll = () => this.selectAllCheckboxes(false);
 
-  handleCheckboxChange = option => {
-    // const { name } = changeEvent.target;
-
-    this.setState(prevState => ({
-      checkboxes: {
-        ...prevState.checkboxes,
-        [option]: !prevState.checkboxes[option]
+  handleCheckboxChange = (option) => {
+    this.setState(
+      (prevState) => ({
+        checkboxes: {
+          ...prevState.checkboxes,
+          [option]: !prevState.checkboxes[option],
+        },
+      }),
+      () => {
+        this.props.onChange && this.props.onChange(this.state.checkboxes);
       }
-    }));
-  };
-  handleFormSubmit = formSubmitEvent => {
-    formSubmitEvent.preventDefault();
-
-    Object.keys(this.state.checkboxes)
-      .filter(checkbox => this.state.checkboxes[checkbox])
-      .forEach(checkbox => {
-        console.log(checkbox, "is selected.");
-      });
+    );
   };
 
-  createCheckbox = option => (
+  createCheckbox = (option) => (
     <Checkbox
       name="Account-related[]"
       label={option}

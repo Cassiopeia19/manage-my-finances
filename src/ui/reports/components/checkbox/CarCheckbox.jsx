@@ -54,16 +54,6 @@ class CarCheckbox extends Component {
     );
   };
 
-  // handleFormSubmit = (formSubmitEvent) => {
-  //   formSubmitEvent.preventDefault();
-
-  //   Object.keys(this.state.checkboxes)
-  //     .filter((checkbox) => this.state.checkboxes[checkbox])
-  //     .forEach((checkbox) => {
-  //       console.log(checkbox, "is selected.");
-  //     });
-  // };
-
   createCheckbox = (option) => (
     <Checkbox
       name="Family[]"
