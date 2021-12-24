@@ -70,6 +70,7 @@ export default function ReportsFormContainer() {
   var startDate = new Date(state.beginningDate),
       endingDate = new Date(state.endDate),
       range = moment().range(startDate, endingDate);
+      console.log("startDate: " + startDate + " endingDate: " + endingDate)
 
   var filteredTransactions = transactions.filter((transaction) => {
     if (transaction.transactionType != transactionTypeChoice) {
@@ -183,8 +184,14 @@ export default function ReportsFormContainer() {
             }
             value={state.reportType}
           />
-          <AccountCheckbox />
-          <AccountRelated />
+          <AccountCheckbox
+            onChange={addToReport}
+            filteredChoices={filteredChoices}
+          />
+          <AccountRelated
+            onChange={addToReport}
+            filteredChoices={filteredChoices}
+          />
           <HomeCheckbox
             onChange={addToReport}
             filteredChoices={filteredChoices}
