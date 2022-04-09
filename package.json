@@ -52,7 +52,7 @@
     "mathjs": "^7.5.1",
     "mdbreact": "^4.27.0",
     "modules": "^0.4.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "moment-range": "^4.0.2",
     "mysql": "^2.18.1",
     "node": "^12.21.0",
